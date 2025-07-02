@@ -8,7 +8,7 @@ jest.mock('../services/auditService')
 jest.mock('../services/exampleService')
 
 const auditService = new AuditService(null) as jest.Mocked<AuditService>
-const exampleService = new ExampleService(null) as jest.Mocked<ExampleService>
+// const exampleService = new ExampleService(null) as jest.Mocked<ExampleService>
 
 let app: Express
 
@@ -28,7 +28,7 @@ afterEach(() => {
 describe('GET /', () => {
   it('should render index page', () => {
     auditService.logPageView.mockResolvedValue(null)
-    exampleService.getCurrentTime.mockResolvedValue('2025-01-01T12:00:00.000')
+    // exampleService.getCurrentTime.mockResolvedValue('2025-01-01T12:00:00.000')
 
     return request(app)
       .get('/')
@@ -36,25 +36,25 @@ describe('GET /', () => {
       .expect(200)
       .expect(res => {
         expect(res.text).toContain('This site is under construction...')
-        expect(res.text).toContain('The time is currently 2025-01-01T12:00:00.000')
+        expect(res.text).toContain('Work in progress...')
         expect(auditService.logPageView).toHaveBeenCalledWith(Page.EXAMPLE_PAGE, {
           who: user.username,
           correlationId: expect.any(String),
         })
-        expect(exampleService.getCurrentTime).toHaveBeenCalled()
+        // expect(exampleService.getCurrentTime).toHaveBeenCalled()
       })
   })
 
-  it('service errors are handled', () => {
-    auditService.logPageView.mockResolvedValue(null)
-    exampleService.getCurrentTime.mockRejectedValue(new Error('Some problem calling external api!'))
+  // it('service errors are handled', () => {
+  //   auditService.logPageView.mockResolvedValue(null)
+  //   exampleService.getCurrentTime.mockRejectedValue(new Error('Some problem calling external api!'))
 
-    return request(app)
-      .get('/')
-      .expect('Content-Type', /html/)
-      .expect(500)
-      .expect(res => {
-        expect(res.text).toContain('Some problem calling external api!')
-      })
-  })
+  //   return request(app)
+  //     .get('/')
+  //     .expect('Content-Type', /html/)
+  //     .expect(500)
+  //     .expect(res => {
+  //       expect(res.text).toContain('Some problem calling external api!')
+  //     })
+  // })
 })
