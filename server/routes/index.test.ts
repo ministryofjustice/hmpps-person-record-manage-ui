@@ -16,7 +16,6 @@ beforeEach(() => {
   app = appWithAllRoutes({
     services: {
       auditService,
-      exampleService,
     },
     userSupplier: () => user,
   })
