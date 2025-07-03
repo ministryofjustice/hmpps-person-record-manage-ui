@@ -4,6 +4,7 @@
 generic-service:
   ingress:
     host: manage-person-record.hmpps.service.justice.gov.uk
+    tlsSecretName: hmpps-person-record-cert-secret
 
   env:
     INGRESS_URL: "https://manage-person-record.hmpps.service.justice.gov.uk"
