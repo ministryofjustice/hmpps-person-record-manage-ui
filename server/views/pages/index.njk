@@ -5,8 +5,27 @@
 
 {% block content %}
 
-  <h1>This site is under construction...</h1>
-  <p>Please check back later when there is content to view.</p>
-  <p>Work in progress...</p>
+  <h1>Search</h1>
+
+  {%- from "moj/components/search/macro.njk" import mojSearch -%}
+
+  {{ mojSearch({
+    action: "#",
+    method: "post",
+    input: {
+      id: "search",
+      name: "search"
+    },
+    label: {
+      text: "Enter a reference number",
+      classes: "govuk-!-font-weight-bold"
+    },
+    hint: {
+      text: "You can search by a CPR UUID"
+    },
+    button: {
+      text: "Search"
+    }
+  }) }}
 
 {% endblock %}
