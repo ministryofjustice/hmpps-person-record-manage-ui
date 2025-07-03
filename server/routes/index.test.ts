@@ -33,6 +33,8 @@ describe('GET /', () => {
       .expect('Content-Type', /html/)
       .expect(200)
       .expect(res => {
+        expect(res.text).toContain('Enter a reference number')
+        expect(res.text).toContain('You can search by a CPR UUID')
         expect(auditService.logPageView).toHaveBeenCalledWith(Page.EXAMPLE_PAGE, {
           who: user.username,
           correlationId: expect.any(String),
