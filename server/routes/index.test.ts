@@ -4,7 +4,7 @@ import { appWithAllRoutes, user } from './testutils/appSetup'
 import AuditService, { Page } from '../services/auditService'
 
 jest.mock('../services/auditService')
-jest.mock('../services/exampleService')
+// jest.mock('../services/exampleService')
 
 const auditService = new AuditService(null) as jest.Mocked<AuditService>
 // const exampleService = new ExampleService(null) as jest.Mocked<ExampleService>
@@ -15,7 +15,6 @@ beforeEach(() => {
   app = appWithAllRoutes({
     services: {
       auditService,
-      // exampleService,
     },
     userSupplier: () => user,
   })
