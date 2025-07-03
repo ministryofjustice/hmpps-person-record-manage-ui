@@ -6,7 +6,7 @@ import AuthManageDetailsPage from '../pages/authManageDetails'
 context('Sign In', () => {
   beforeEach(() => {
     cy.task('reset')
-    cy.task('stubSignIn')
+    cy.task('stubSignIn', { roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
     // cy.task('stubExampleTime')
   })
 
