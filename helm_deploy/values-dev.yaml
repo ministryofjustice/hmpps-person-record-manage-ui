@@ -4,10 +4,10 @@
 generic-service:
 
   ingress:
-    host: hmpps-person-record-manage-ui-dev.hmpps.service.justice.gov.uk
+    host: manage-person-record-dev.hmpps.service.justice.gov.uk
 
   env:
-    INGRESS_URL: "http://localhost:3000"
+    INGRESS_URL: "https://manage-person-record-dev.hmpps.service.justice.gov.uk"
     HMPPS_AUTH_URL: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth"
     TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
     EXAMPLE_API_URL: 'https://template-kotlin-dev.hmpps.service.justice.gov.uk'
