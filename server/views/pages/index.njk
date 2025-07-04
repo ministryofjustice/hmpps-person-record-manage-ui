@@ -5,9 +5,10 @@
 
 {% block content %}
 
-  <h1>Search</h1>
-
   {%- from "moj/components/search/macro.njk" import mojSearch -%}
+  {%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+  <h1>Search</h1>
 
   {{ mojSearch({
     action: "#",
@@ -27,5 +28,9 @@
       text: "Search"
     }
   }) }}
+
+  <div class="moj-scrollable-pane">
+    {{ govukTable(needAttentionTableData) }}
+  </div>
 
 {% endblock %}
