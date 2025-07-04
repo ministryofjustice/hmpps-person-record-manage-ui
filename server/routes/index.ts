@@ -29,7 +29,7 @@ export default function routes({ auditService }: Services): Router {
       rows: [[{ text: 'Test' }, { text: 'Test' }]],
     }
     await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
-    return res.render('pages/index', tableData)
+    return res.render('pages/index', { tableData })
   })
 
   return router
