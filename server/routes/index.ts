@@ -9,26 +9,6 @@ import {
   NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2,
 } from '../domain/constants/indexPage'
 
-type Table = {
-  caption: string
-  head: Heading[]
-  rows: Row[]
-}
-
-type Heading = {
-  text: string
-}
-
-type Row = Array<TextItem | HtmlItem>
-
-type TextItem = {
-  text: string
-}
-
-type HtmlItem = {
-  html: string
-}
-
 export default function routes({ auditService }: Services): Router {
   const router = Router()
 

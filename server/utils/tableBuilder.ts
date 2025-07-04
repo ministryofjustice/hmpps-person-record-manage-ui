@@ -1,21 +1,21 @@
 // types need moving to somewhere sensible
-type Table = {
+export type Table = {
   caption: string
   head: Heading[]
   rows: Row[]
 }
 
-type Heading = {
+export type Heading = {
   text: string
 }
 
-type Row = Array<TextItem | HtmlItem>
+export type Row = Array<TextItem | HtmlItem>
 
-type TextItem = {
+export type TextItem = {
   text: string
 }
 
-type HtmlItem = {
+export type HtmlItem = {
   html: string
 }
 
