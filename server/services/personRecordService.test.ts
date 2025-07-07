@@ -3,7 +3,7 @@ import PersonRecordService from './personRecordService'
 
 jest.mock('../data/personRecordApiClient')
 
-describe('PrisonRecordService', () => {
+describe('PersonRecordService', () => {
   const personRecordApiClient = new PersonRecordApiClient(null) as jest.Mocked<PersonRecordApiClient>
   let personRecordService: PersonRecordService
 
