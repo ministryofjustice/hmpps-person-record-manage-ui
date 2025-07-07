@@ -1,6 +1,5 @@
 // types need moving to somewhere sensible
 export type Table = {
-  caption: string
   head: Heading[]
   rows: Row[]
 }
@@ -29,8 +28,7 @@ export const Row = (...items: (TextItem | HtmlItem)[]): Row => items
 
 export const Heading = (text: string): Heading => ({ text })
 
-export const Table = (structure: { caption: string; head: Heading[]; rows: Row[] }): Table => ({
-  caption: structure.caption,
+export const Table = (structure: { head: Heading[]; rows: Row[] }): Table => ({
   head: structure.head,
   rows: structure.rows,
 })
