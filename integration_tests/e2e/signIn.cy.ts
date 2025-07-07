@@ -67,7 +67,7 @@ context('Sign In', () => {
     Page.verifyOnPage(AuthSignInPage)
 
     cy.task('stubVerifyToken', true)
-    cy.task('stubSignIn', { name: 'bobby brown', roles: ['PERSON_RECORD_MANAGE_ADMIN'] })
+    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
 
     cy.signIn()
 
