@@ -5,7 +5,7 @@ import logger from '../../logger'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
-    super('Persoen Record API', config.apis.personRecordApi, logger, authenticationClient)
+    super('Person Record API', config.apis.personRecordApi, logger, authenticationClient)
   }
 
   /**
