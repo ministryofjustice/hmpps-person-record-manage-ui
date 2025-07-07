@@ -10,7 +10,7 @@ export const services = () => {
     applicationInfo,
     auditService: new AuditService(hmppsAuditClient),
     // exampleService: new ExampleService(exampleApiClient),
-    personRecordService: new PrisonRecordService(personRecordApiClient),
+    personRecordService: new PersonRecordService(personRecordApiClient),
   }
 }
 
