@@ -9,7 +9,7 @@ import {
 } from '../domain/constants/indexPage'
 import { PageItem, PageLink, Pagination } from '../utils/paginationBuilder'
 
-export interface IndexTemplate {
+interface IndexTemplateValues {
   needAttentionTableData: Table
   needAttentionPagination: Pagination
 }
@@ -36,7 +36,7 @@ export default function routes({ auditService }: Services): Router {
         }),
       ],
     })
-    const templateValues: IndexTemplate = {
+    const templateValues: IndexTemplateValues = {
       needAttentionTableData,
       needAttentionPagination,
     }
