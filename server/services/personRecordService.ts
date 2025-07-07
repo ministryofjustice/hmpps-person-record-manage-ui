@@ -1,6 +1,6 @@
 import PersonRecordApiClient from '../data/personRecordApiClient'
 
-export default class PrisonRecordService {
+export default class PersonRecordService {
   constructor(private readonly personRecordApiClient: PersonRecordApiClient) {}
 
   getCurrentTime() {
