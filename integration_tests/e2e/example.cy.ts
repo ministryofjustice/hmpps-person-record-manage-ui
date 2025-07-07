@@ -1,7 +1,7 @@
 context('Example feature', () => {
   beforeEach(() => {
     cy.task('reset')
-    cy.task('stubSignIn', { roles: ['PERSON_RECORD_MANAGE_ADMIN'] })
+    cy.task('stubSignIn', { roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
   })
 
   // it('Time from exampleApi is visible on page', () => {
