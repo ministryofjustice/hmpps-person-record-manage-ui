@@ -3,7 +3,7 @@ import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients
 import PersonRecordApiClient from './personRecordApiClient'
 import config from '../config'
 
-const user = { token: 'userToken', username: 'jbloggs' } as Express.User
+const token = { access_token: 'userToken', expires_in: 300 }
 
 describe('PersonRecordApiClient', () => {
   let fakePersonRecordApiClient: nock.Scope
@@ -29,10 +29,10 @@ describe('PersonRecordApiClient', () => {
       const response = {}
       fakePersonRecordApiClient
         .get('/admin/clusters')
-        .matchHeader('authorization', `Bearer ${user.token}`)
+        .matchHeader('authorization', `Bearer ${token.access_token}`)
         .reply(200, response)
 
-      const output = await personRecordApiClient.getClusters(user.token)
+      const output = await personRecordApiClient.getClusters(token.access_token)
       expect(output).toEqual(response)
     })
   })
