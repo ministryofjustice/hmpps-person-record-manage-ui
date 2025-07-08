@@ -2,18 +2,7 @@ import { RestClient, asSystem, asUser } from '@ministryofjustice/hmpps-rest-clie
 import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import config from '../config'
 import logger from '../../logger'
-
-export interface SourceSystemComposition {
-  nomis: string
-  delius: string
-  commonPlatform: string
-  libra: string
-}
-
-export interface Cluster {
-  uuid: string
-  composition: SourceSystemComposition
-}
+import { Cluster } from '../Cluster'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
