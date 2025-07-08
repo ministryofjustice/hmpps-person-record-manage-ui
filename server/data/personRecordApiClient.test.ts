@@ -3,7 +3,10 @@ import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients
 import PersonRecordApiClient from './personRecordApiClient'
 import config from '../config'
 
+const token = { access_token: 'userToken', expires_in: 300 }
+
 describe('PersonRecordApiClient', () => {
+  let fakePersonRecordApiClient: nock.Scope
   let personRecordApiClient: PersonRecordApiClient
   let mockAuthenticationClient: jest.Mocked<AuthenticationClient>
 
@@ -13,11 +16,25 @@ describe('PersonRecordApiClient', () => {
     } as unknown as jest.Mocked<AuthenticationClient>
 
     personRecordApiClient = new PersonRecordApiClient(mockAuthenticationClient)
+    fakePersonRecordApiClient = nock(config.apis.personRecordApi.url)
   })
 
   afterEach(() => {
     nock.cleanAll()
     jest.resetAllMocks()
+  })
+
+  describe('getClusters', () => {
+    it('should make a GET request to /admin/clusters', async () => {
+      const response = { data: 'data' }
+      fakePersonRecordApiClient
+        .get('/admin/clusters')
+        .matchHeader('authorization', `Bearer ${token.access_token}`)
+        .reply(200, response)
+
+      const output = await personRecordApiClient.getClusters(token.access_token)
+      expect(output).toEqual(response)
+    })
   })
 
   describe('getCurrentTime', () => {
