@@ -3,9 +3,9 @@ import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients
 import config from '../config'
 import logger from '../../logger'
 
-export default class ExampleApiClient extends RestClient {
+export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
-    super('Example API', config.apis.exampleApi, logger, authenticationClient)
+    super('Person Record API', config.apis.personRecordApi, logger, authenticationClient)
   }
 
   /**

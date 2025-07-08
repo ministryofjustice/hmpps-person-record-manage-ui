@@ -13,9 +13,8 @@ generic-service:
     port: 3000
 
   ingress:
-    enabled: false
+    enabled: true
     host: app-hostname.local # override per environment
-    tlsSecretName: hmpps-person-record-manage-ui-cert
 
   livenessProbe:
     httpGet:
