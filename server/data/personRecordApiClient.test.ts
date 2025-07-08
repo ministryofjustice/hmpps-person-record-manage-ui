@@ -26,7 +26,7 @@ describe('PersonRecordApiClient', () => {
 
   describe('getClusters', () => {
     it('should make a GET request to /admin/clusters', async () => {
-      const response = {}
+      const response = { data: 'data' }
       fakePersonRecordApiClient
         .get('/admin/clusters')
         .matchHeader('authorization', `Bearer ${token.access_token}`)

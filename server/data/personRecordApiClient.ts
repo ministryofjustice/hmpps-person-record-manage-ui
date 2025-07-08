@@ -4,6 +4,18 @@ import Context from 'applicationinsights/out/Library/Context'
 import config from '../config'
 import logger from '../../logger'
 
+export interface SourceSystemComposition {
+  nomis: string
+  delius: string
+  commonPlatform: string
+  libra: string
+}
+
+export interface Cluster {
+  uuid: string
+  composition: SourceSystemComposition
+}
+
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
     super('Person Record API', config.apis.personRecordApi, logger, authenticationClient)
@@ -26,8 +38,8 @@ export default class PersonRecordApiClient extends RestClient {
    *
    */
 
-  public getClusters(token: string): Promise<void> {
-    return this.get<void>({ path: '/admin/clusters' }, asUser(token))
+  public getClusters(token: string): Promise<Cluster> {
+    return this.get<Cluster>({ path: '/admin/clusters' }, asUser(token))
   }
 
   /**
