@@ -38,8 +38,8 @@ export default class PersonRecordApiClient extends RestClient {
    *
    */
 
-  public getClusters(token: string): Promise<Cluster> {
-    return this.get<Cluster>({ path: '/admin/clusters' }, asUser(token))
+  public getClusters(token: string): Promise<Cluster[]> {
+    return this.get({ path: '/admin/clusters' }, asUser(token))
   }
 
   /**
