@@ -14,17 +14,29 @@ interface IndexTemplateValues {
   needAttentionPagination: Pagination
 }
 
-export default function routes({ auditService }: Services): Router {
+export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
 
   router.get('/', async (req, res, next) => {
+    const { token } = res.locals.user
+    const rows: Row[] = []
+
+    const clusters = await personRecordService.getClusters(token)
+
+    clusters.forEach(cluster => {
+      const composition = `${cluster.recordComposition.commonPlatform},
+       ${cluster.recordComposition.delius},
+       ${cluster.recordComposition.libra},
+       ${cluster.recordComposition.nomis}`
+
+      rows.push(Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(composition)))
+    })
+
     const needAttentionTableData = Table({
       head: [Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_1), Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2)],
-      rows: [
-        Row(LinkItem('TestUUID', '/1234'), TextItem('Test')),
-        Row(LinkItem('TestUUID', '/1234'), TextItem('Test')),
-      ],
+      rows,
     })
+
     const needAttentionPagination: Pagination = Pagination({
       previous: PageLink('/page1'),
       next: PageLink('/page2'),
