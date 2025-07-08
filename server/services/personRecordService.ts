@@ -4,6 +4,6 @@ export default class PersonRecordService {
   constructor(private readonly personRecordApiClient: PersonRecordApiClient) {}
 
   getCurrentTime() {
-    return this.personRecordApiClient.getCurrentTime()
+    return this.prisonRecordApiClient.getCurrentTime()
   }
 }
