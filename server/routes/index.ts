@@ -18,10 +18,10 @@ export default function routes({ auditService, personRecordService }: Services):
   const router = Router()
 
   router.get('/', async (req, res, next) => {
-    const { token } = res.locals.user
+    const { username } = res.locals.user
     const rows: Row[] = []
 
-    const clusters = await personRecordService.getClusters(token)
+    const clusters = await personRecordService.getClusters(username)
 
     clusters.forEach(cluster => {
       const composition = `${cluster.recordComposition.commonPlatform},
