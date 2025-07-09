@@ -1,4 +1,4 @@
-import { RestClient, asSystem, asUser } from '@ministryofjustice/hmpps-rest-client'
+import { RestClient, asSystem } from '@ministryofjustice/hmpps-rest-client'
 import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import config from '../config'
 import logger from '../../logger'
@@ -25,8 +25,8 @@ export default class PersonRecordApiClient extends RestClient {
    *
    *
    */
-  public getClusters(token: string): Promise<Cluster[]> {
-    return this.get({ path: '/admin/clusters' }, asUser(token))
+  public getClusters(username: string): Promise<Cluster[]> {
+    return this.get({ path: '/admin/clusters' }, asSystem(username))
   }
 
   /**
