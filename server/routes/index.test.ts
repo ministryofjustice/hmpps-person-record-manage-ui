@@ -32,19 +32,21 @@ afterEach(() => {
 
 describe('GET /', () => {
   it('should render index page', () => {
-    const clusters: Cluster[] = [
-      {
-        uuid: 'uuid1',
-        recordComposition: {
-          commonPlatform: 'CommonPlatform-2',
-          delius: 'delius-3',
-          nomis: 'nomis-4',
-          libra: 'libra-5',
+    const cluster: Cluster = {
+      content: [
+        {
+          uuid: 'uuid1',
+          recordComposition: {
+            commonPlatform: 'CommonPlatform-2',
+            delius: 'delius-3',
+            nomis: 'nomis-4',
+            libra: 'libra-5',
+          },
         },
-      },
-    ]
+      ],
+    }
     auditService.logPageView.mockResolvedValue(null)
-    personRecordService.getClusters.mockResolvedValue(clusters)
+    personRecordService.getClusters.mockResolvedValue(cluster)
 
     return request(app)
       .get('/')
