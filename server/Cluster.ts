@@ -5,7 +5,11 @@ export interface SourceSystemComposition {
   libra: string
 }
 
-export interface Cluster {
+export interface Content {
   uuid: string
   recordComposition: SourceSystemComposition
+}
+
+export interface Cluster {
+  content: Content[]
 }

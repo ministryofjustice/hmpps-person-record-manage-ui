@@ -23,7 +23,7 @@ export default function routes({ auditService, personRecordService }: Services):
 
     const clusters = await personRecordService.getClusters(username)
 
-    clusters.forEach(cluster => {
+    clusters.content.forEach(cluster => {
       const composition = `${cluster.recordComposition.commonPlatform},
        ${cluster.recordComposition.delius},
        ${cluster.recordComposition.libra},

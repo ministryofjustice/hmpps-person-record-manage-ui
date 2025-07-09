@@ -25,7 +25,19 @@ describe('PersonRecordService', () => {
   })
 
   it('should call getClusters on the api client and return its result', async () => {
-    const expectedResult: Cluster[] = []
+    const expectedResult: Cluster = {
+      content: [
+        {
+          uuid: 'uuid1',
+          recordComposition: {
+            commonPlatform: 'CommonPlatform-2',
+            delius: 'delius-3',
+            nomis: 'nomis-4',
+            libra: 'libra-5',
+          },
+        },
+      ],
+    }
 
     personRecordApiClient.getClusters.mockResolvedValue(expectedResult)
 
