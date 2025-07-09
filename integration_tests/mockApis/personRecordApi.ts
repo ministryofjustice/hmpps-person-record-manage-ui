@@ -23,7 +23,9 @@ export default {
       response: {
         status: httpStatus,
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-        jsonBody: [],
+        jsonBody: {
+          content: [],
+        },
       },
     }),
 }
