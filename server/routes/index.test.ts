@@ -37,10 +37,10 @@ describe('GET /', () => {
         {
           uuid: 'uuid1',
           recordComposition: {
-            commonPlatform: 'CommonPlatform-2',
-            delius: 'delius-3',
-            nomis: 'nomis-4',
-            libra: 'libra-5',
+            commonPlatform: '2',
+            delius: '3',
+            nomis: '4',
+            libra: '5',
           },
         },
       ],
@@ -55,10 +55,10 @@ describe('GET /', () => {
       .expect(res => {
         expect(res.text).toContain('Enter a reference number')
         expect(res.text).toContain('You can search by a CPR UUID')
-        expect(res.text).toContain('CommonPlatform-2')
-        expect(res.text).toContain('delius-3')
-        expect(res.text).toContain('nomis-4')
-        expect(res.text).toContain('libra-5')
+        expect(res.text).toContain('CommonPlatform(2)')
+        expect(res.text).toContain('Delius(3)')
+        expect(res.text).toContain('Nomis(4)')
+        expect(res.text).toContain('Libra(5)')
         expect(auditService.logPageView).toHaveBeenCalledWith(Page.EXAMPLE_PAGE, {
           who: user.username,
           correlationId: expect.any(String),

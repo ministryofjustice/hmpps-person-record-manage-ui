@@ -24,10 +24,17 @@ export default function routes({ auditService, personRecordService }: Services):
     const clusters = await personRecordService.getClusters(username)
 
     clusters.content.forEach(cluster => {
-      const composition = `${cluster.recordComposition.commonPlatform},
-       ${cluster.recordComposition.delius},
-       ${cluster.recordComposition.libra},
-       ${cluster.recordComposition.nomis}`
+      const cpInt = Number(cluster.recordComposition.commonPlatform)
+      const deliusInt = Number(cluster.recordComposition.delius)
+      const libraInt = Number(cluster.recordComposition.libra)
+      const nomisInt = Number(cluster.recordComposition.nomis)
+
+      const cpString = cpInt > 0 ? `CommonPlatform(${cpInt})` : ''
+      const deliusString = deliusInt > 0 ? `Delius(${deliusInt})` : ''
+      const libraString = libraInt > 0 ? `Libra(${libraInt})` : ''
+      const nomisString = nomisInt > 0 ? `Nomis(${nomisInt})` : ''
+
+      const composition = `${cpString}, ${deliusString}, ${libraString}, ${nomisString}`
 
       rows.push(Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(composition)))
     })
