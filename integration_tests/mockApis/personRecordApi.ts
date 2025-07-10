@@ -24,7 +24,51 @@ export default {
         status: httpStatus,
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
         jsonBody: {
-          content: [],
+          content: [
+            {
+              uuid: 'e98d8c39-df1e-42a5-baef-2e76b0aa9e68',
+              recordComposition: {
+                nomis: 0,
+                delius: 0,
+                commonPlatform: 2,
+                libra: 0,
+              },
+            },
+            {
+              uuid: '2904b95e-ffa6-4e01-a393-23e9615ded19',
+              recordComposition: {
+                nomis: 0,
+                delius: 0,
+                commonPlatform: 0,
+                libra: 2,
+              },
+            },
+          ],
+          pageable: {
+            pageNumber: 0,
+            pageSize: 20,
+            sort: {
+              empty: true,
+              sorted: false,
+              unsorted: true,
+            },
+            offset: 0,
+            unpaged: false,
+            paged: true,
+          },
+          last: true,
+          totalElements: 2,
+          totalPages: 1,
+          first: true,
+          size: 20,
+          number: 0,
+          sort: {
+            empty: true,
+            sorted: false,
+            unsorted: true,
+          },
+          numberOfElements: 2,
+          empty: false,
         },
       },
     }),
