@@ -34,7 +34,7 @@ export default function routes({ auditService, personRecordService }: Services):
       const libraString = libraInt > 0 ? `Libra(${libraInt})` : ''
       const nomisString = nomisInt > 0 ? `Nomis(${nomisInt})` : ''
 
-      const composition = `${cpString}, ${deliusString}, ${libraString}, ${nomisString}`
+      const composition = `${cpString}, ${deliusString}, ${libraString}, ${nomisString}`.replace(', ,', ',')
 
       rows.push(Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(composition)))
     })

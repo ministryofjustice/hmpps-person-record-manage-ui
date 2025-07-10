@@ -66,16 +66,35 @@ describe('GET /', () => {
       })
   })
 
-  // it('service errors are handled', () => {
-  //   auditService.logPageView.mockResolvedValue(null)
-  //   exampleService.getCurrentTime.mockRejectedValue(new Error('Some problem calling external api!'))
+  it('should render composition summay without unnecessary commas', () => {
+    const cluster: Cluster = {
+      content: [
+        {
+          uuid: 'uuid1',
+          recordComposition: {
+            commonPlatform: '2',
+            delius: '0',
+            nomis: '4',
+            libra: '5',
+          },
+        },
+      ],
+    }
+    auditService.logPageView.mockResolvedValue(null)
+    personRecordService.getClusters.mockResolvedValue(cluster)
 
-  //   return request(app)
-  //     .get('/')
-  //     .expect('Content-Type', /html/)
-  //     .expect(500)
-  //     .expect(res => {
-  //       expect(res.text).toContain('Some problem calling external api!')
-  //     })
-  // })
+    return request(app)
+      .get('/')
+      .expect('Content-Type', /html/)
+      .expect(200)
+      .expect(res => {
+        expect(res.text).toContain('Enter a reference number')
+        expect(res.text).toContain('You can search by a CPR UUID')
+        expect(res.text).toContain('CommonPlatform(2), Libra(5), Nomis(4)')
+        expect(auditService.logPageView).toHaveBeenCalledWith(Page.EXAMPLE_PAGE, {
+          who: user.username,
+          correlationId: expect.any(String),
+        })
+      })
+  })
 })
