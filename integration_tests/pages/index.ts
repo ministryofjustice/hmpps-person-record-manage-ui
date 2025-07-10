@@ -6,4 +6,8 @@ export default class IndexPage extends Page {
   }
 
   needsAttentionHeader = (): PageElement => cy.get('h2')
+
+  getPaginationLink = (index: number): PageElement => cy.get(`.govuk-pagination li:nth-of-type(${index}) a`)
+
+  getPaginationItem = (index: number): PageElement => cy.get(`.govuk-pagination li:nth-of-type(${index})`)
 }
