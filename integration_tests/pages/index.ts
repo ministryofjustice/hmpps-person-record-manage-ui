@@ -5,7 +5,5 @@ export default class IndexPage extends Page {
     super('Search')
   }
 
-  headerUserName = (): PageElement => cy.get('[data-qa=header-user-name]')
-
-  headerPhaseBanner = (): PageElement => cy.get('[data-qa=header-phase-banner]')
+  needsAttentionHeader = (): PageElement => cy.get('h2')
 }
