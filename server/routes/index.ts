@@ -42,7 +42,7 @@ export default function routes({ auditService, personRecordService }: Services):
         PageItem({
           number: i,
           href: `/item${i}`,
-          current: true,
+          current: i === clusters.number,
         }),
       )
     }
