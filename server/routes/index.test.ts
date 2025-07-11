@@ -54,12 +54,14 @@ describe('GET /', () => {
           ],
         },
       ],
-      isLastPage: false,
-      count: 20,
-      page: 4,
-      perPage: 20,
-      totalCount: 202,
-      totalPages: 11,
+      pagination: {
+        isLastPage: false,
+        count: 20,
+        page: 4,
+        perPage: 20,
+        totalCount: 202,
+        totalPages: 11,
+      },
     }
     auditService.logPageView.mockResolvedValue(null)
     personRecordService.getClusters.mockResolvedValue(cluster)
@@ -107,12 +109,14 @@ describe('GET /', () => {
           ],
         },
       ],
-      isLastPage: false,
-      count: 20,
-      page: 4,
-      perPage: 20,
-      totalCount: 202,
-      totalPages: 11,
+      pagination: {
+        isLastPage: false,
+        count: 20,
+        page: 4,
+        perPage: 20,
+        totalCount: 202,
+        totalPages: 11,
+      },
     }
     auditService.logPageView.mockResolvedValue(null)
     personRecordService.getClusters.mockResolvedValue(cluster)

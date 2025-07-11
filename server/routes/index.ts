@@ -37,12 +37,12 @@ export default function routes({ auditService, personRecordService }: Services):
       rows,
     })
     const items = []
-    for (let i = 1; i <= clusters.totalPages; i += 1) {
+    for (let i = 1; i <= clusters.pagination.totalPages; i += 1) {
       items.push(
         PageItem({
           number: i,
           href: `/item${i}`,
-          current: i === clusters.page,
+          current: i === clusters.pagination.page,
         }),
       )
     }

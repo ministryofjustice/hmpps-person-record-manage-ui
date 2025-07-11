@@ -32,12 +32,14 @@ describe('PersonRecordService', () => {
           recordComposition: [] as SourceSystemComposition[],
         },
       ],
-      isLastPage: false,
-      count: 20,
-      page: 4,
-      perPage: 20,
-      totalCount: 202,
-      totalPages: 11,
+      pagination: {
+        isLastPage: false,
+        count: 20,
+        page: 4,
+        perPage: 20,
+        totalCount: 202,
+        totalPages: 11,
+      },
     }
 
     personRecordApiClient.getClusters.mockResolvedValue(expectedResult)

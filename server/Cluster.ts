@@ -10,10 +10,12 @@ export interface Content {
 
 export interface Cluster {
   content: Content[]
-  isLastPage: boolean
-  count: number
-  page: number
-  perPage: number
-  totalCount: number
-  totalPages: number
+  pagination: {
+    isLastPage: boolean
+    count: number
+    page: number
+    perPage: number
+    totalCount: number
+    totalPages: number
+  }
 }
