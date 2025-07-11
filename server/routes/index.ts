@@ -24,19 +24,12 @@ export default function routes({ auditService, personRecordService }: Services):
     const clusters = await personRecordService.getClusters(username)
 
     clusters.content.forEach(cluster => {
-      const cpInt = Number(cluster.recordComposition.commonPlatform)
-      const deliusInt = Number(cluster.recordComposition.delius)
-      const libraInt = Number(cluster.recordComposition.libra)
-      const nomisInt = Number(cluster.recordComposition.nomis)
+      const clusterComposition = cluster.recordComposition
+        .filter(({ count }) => count > 0)
+        .map(({ sourceSystem, count }) => `${sourceSystem}(${count})`)
+        .join(' ')
 
-      const cpString = cpInt > 0 ? `CommonPlatform(${cpInt})` : ''
-      const deliusString = deliusInt > 0 ? `Delius(${deliusInt})` : ''
-      const libraString = libraInt > 0 ? `Libra(${libraInt})` : ''
-      const nomisString = nomisInt > 0 ? `Nomis(${nomisInt})` : ''
-
-      const composition = `${cpString}, ${deliusString}, ${libraString}, ${nomisString}`.replace(', ,', ',')
-
-      rows.push(Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(composition)))
+      rows.push(Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(clusterComposition)))
     })
 
     const needAttentionTableData = Table({

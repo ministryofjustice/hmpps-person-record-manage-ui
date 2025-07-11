@@ -13,6 +13,9 @@ start-int: build
 	docker compose -f docker-compose-test.yml up -d && \
 	npm run start-feature &
 
+test:
+	npm run test
+
 test-int: start-int
 	npm run int-test
 

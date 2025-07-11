@@ -1,13 +1,11 @@
 export interface SourceSystemComposition {
-  nomis: string
-  delius: string
-  commonPlatform: string
-  libra: string
+  sourceSystem: string
+  count: number
 }
 
 export interface Content {
   uuid: string
-  recordComposition: SourceSystemComposition
+  recordComposition: SourceSystemComposition[]
 }
 
 export interface Cluster {
