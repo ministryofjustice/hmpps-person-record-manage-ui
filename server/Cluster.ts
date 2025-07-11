@@ -10,4 +10,6 @@ export interface Content {
 
 export interface Cluster {
   content: Content[]
+  totalPages: number
+  number: number
 }
