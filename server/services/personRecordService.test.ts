@@ -29,12 +29,7 @@ describe('PersonRecordService', () => {
       content: [
         {
           uuid: 'uuid1',
-          recordComposition: {
-            commonPlatform: 'CommonPlatform-2',
-            delius: 'delius-3',
-            nomis: 'nomis-4',
-            libra: 'libra-5',
-          },
+          recordComposition: [],
         },
       ],
     }
