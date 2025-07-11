@@ -46,6 +46,10 @@ export default function routes({ auditService, personRecordService }: Services):
           href: '/item1',
           current: true,
         }),
+        PageItem({
+          number: 2,
+          href: '/item2',
+        }),
       ],
     })
     const templateValues: IndexTemplateValues = {

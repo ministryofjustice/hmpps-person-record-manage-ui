@@ -38,8 +38,10 @@ context('Needs Attention', () => {
 
     cy.signIn()
 
+    // console.log('cy.get('html:root'))
+
     indexPage.needsAttentionHeader().contains('Needs Attention Clusters')
     indexPage.getPaginationItem(1).contains('1')
-    // indexPage.getPaginationItem(2).contains('2')
+    indexPage.getPaginationItem(2).contains('2')
   })
 })
