@@ -1,6 +1,6 @@
 import PersonRecordApiClient from '../data/personRecordApiClient'
 import PersonRecordService from './personRecordService'
-import { SourceSystemComposition } from '../Cluster'
+import { SourceSystemComposition, Cluster } from '../Cluster'
 
 jest.mock('../data/personRecordApiClient')
 const token = { access_token: 'userToken', expires_in: 300 }
@@ -25,38 +25,19 @@ describe('PersonRecordService', () => {
   })
 
   it('should call getClusters on the api client and return its result', async () => {
-    const expectedResult = {
+    const expectedResult: Cluster = {
       content: [
         {
           uuid: 'uuid1',
           recordComposition: [] as SourceSystemComposition[],
         },
       ],
-      pageable: {
-        pageNumber: 0,
-        pageSize: 20,
-        sort: {
-          empty: true,
-          sorted: false,
-          unsorted: true,
-        },
-        offset: 0,
-        paged: true,
-        unpaged: false,
-      },
-      last: false,
-      totalElements: 202,
+      isLastPage: false,
+      count: 20,
+      page: 4,
+      perPage: 20,
+      totalCount: 202,
       totalPages: 11,
-      first: true,
-      size: 20,
-      number: 0,
-      sort: {
-        empty: true,
-        sorted: false,
-        unsorted: true,
-      },
-      numberOfElements: 20,
-      empty: false,
     }
 
     personRecordApiClient.getClusters.mockResolvedValue(expectedResult)
