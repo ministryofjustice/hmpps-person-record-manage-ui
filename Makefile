@@ -11,9 +11,12 @@ start-dev:
 start-int: build
 	source feature.env && \
 	docker compose -f docker-compose-test.yml up -d && \
-	npm run start-feature
+	npm run start-feature &
 
-test-int:
+test:
+	npm run test
+
+test-int: start-int
 	npm run int-test
 
 stop:

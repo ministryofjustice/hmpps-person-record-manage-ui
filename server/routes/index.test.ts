@@ -36,12 +36,24 @@ describe('GET /', () => {
       content: [
         {
           uuid: 'uuid1',
-          recordComposition: {
-            commonPlatform: '2',
-            delius: '3',
-            nomis: '4',
-            libra: '5',
-          },
+          recordComposition: [
+            {
+              sourceSystem: 'COMMON_PLATFORM',
+              count: 2,
+            },
+            {
+              sourceSystem: 'DELIUS',
+              count: 3,
+            },
+            {
+              sourceSystem: 'LIBRA',
+              count: 4,
+            },
+            {
+              sourceSystem: 'NOMIS',
+              count: 5,
+            },
+          ],
         },
       ],
     }
@@ -55,10 +67,10 @@ describe('GET /', () => {
       .expect(res => {
         expect(res.text).toContain('Enter a reference number')
         expect(res.text).toContain('You can search by a CPR UUID')
-        expect(res.text).toContain('CommonPlatform(2)')
-        expect(res.text).toContain('Delius(3)')
-        expect(res.text).toContain('Nomis(4)')
-        expect(res.text).toContain('Libra(5)')
+        expect(res.text).toContain('COMMON_PLATFORM(2)')
+        expect(res.text).toContain('DELIUS(3)')
+        expect(res.text).toContain('LIBRA(4)')
+        expect(res.text).toContain('NOMIS(5)')
         expect(auditService.logPageView).toHaveBeenCalledWith(Page.EXAMPLE_PAGE, {
           who: user.username,
           correlationId: expect.any(String),
@@ -66,17 +78,29 @@ describe('GET /', () => {
       })
   })
 
-  it('should render composition summay without unnecessary commas', () => {
+  it('should render composition summary omitting source systems with no records', () => {
     const cluster: Cluster = {
       content: [
         {
           uuid: 'uuid1',
-          recordComposition: {
-            commonPlatform: '2',
-            delius: '0',
-            nomis: '4',
-            libra: '5',
-          },
+          recordComposition: [
+            {
+              sourceSystem: 'COMMON_PLATFORM',
+              count: 2,
+            },
+            {
+              sourceSystem: 'DELIUS',
+              count: 0,
+            },
+            {
+              sourceSystem: 'LIBRA',
+              count: 4,
+            },
+            {
+              sourceSystem: 'NOMIS',
+              count: 5,
+            },
+          ],
         },
       ],
     }
@@ -90,7 +114,7 @@ describe('GET /', () => {
       .expect(res => {
         expect(res.text).toContain('Enter a reference number')
         expect(res.text).toContain('You can search by a CPR UUID')
-        expect(res.text).toContain('CommonPlatform(2), Libra(5), Nomis(4)')
+        expect(res.text).toContain('COMMON_PLATFORM(2) LIBRA(4) NOMIS(5)')
         expect(auditService.logPageView).toHaveBeenCalledWith(Page.EXAMPLE_PAGE, {
           who: user.username,
           correlationId: expect.any(String),
