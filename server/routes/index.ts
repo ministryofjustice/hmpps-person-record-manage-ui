@@ -36,21 +36,20 @@ export default function routes({ auditService, personRecordService }: Services):
       head: [Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_1), Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2)],
       rows,
     })
-
+    const items = []
+    for (let i = 1; i <= clusters.totalPages; i += 1) {
+      items.push(
+        PageItem({
+          number: i,
+          href: `/item${i}`,
+          current: true,
+        }),
+      )
+    }
     const needAttentionPagination: Pagination = Pagination({
       previous: PageLink('/page1'),
       next: PageLink('/page2'),
-      items: [
-        PageItem({
-          number: 1,
-          href: '/item1',
-          current: true,
-        }),
-        PageItem({
-          number: 2,
-          href: '/item2',
-        }),
-      ],
+      items,
     })
     const templateValues: IndexTemplateValues = {
       needAttentionTableData,

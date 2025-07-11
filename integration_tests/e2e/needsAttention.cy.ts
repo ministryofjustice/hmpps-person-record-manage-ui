@@ -37,11 +37,17 @@ context('Needs Attention', () => {
     cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
 
     cy.signIn()
-
-    // console.log('cy.get('html:root'))
-
     indexPage.needsAttentionHeader().contains('Needs Attention Clusters')
     indexPage.getPaginationItem(1).contains('1')
     indexPage.getPaginationItem(2).contains('2')
+    indexPage.getPaginationItem(3).contains('3')
+    indexPage.getPaginationItem(4).contains('4')
+    indexPage.getPaginationItem(5).contains('5')
+    indexPage.getPaginationItem(6).contains('6')
+    indexPage.getPaginationItem(7).contains('7')
+    indexPage.getPaginationItem(8).contains('8')
+    indexPage.getPaginationItem(9).contains('9')
+    indexPage.getPaginationItem(10).contains('10')
+    indexPage.getPaginationItem(11).contains('11')
   })
 })
