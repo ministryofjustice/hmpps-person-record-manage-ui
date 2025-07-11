@@ -27,21 +27,45 @@ export default {
           content: [
             {
               uuid: 'e98d8c39-df1e-42a5-baef-2e76b0aa9e68',
-              recordComposition: {
-                nomis: 0,
-                delius: 0,
-                commonPlatform: 2,
-                libra: 0,
-              },
+              recordComposition: [
+                {
+                  sourceSystem: 'COMMON_PLATFORM',
+                  count: 2,
+                },
+                {
+                  sourceSystem: 'DELIUS',
+                  count: 0,
+                },
+                {
+                  sourceSystem: 'LIBRA',
+                  count: 0,
+                },
+                {
+                  sourceSystem: 'NOMIS',
+                  count: 0,
+                },
+              ],
             },
             {
               uuid: '2904b95e-ffa6-4e01-a393-23e9615ded19',
-              recordComposition: {
-                nomis: 0,
-                delius: 0,
-                commonPlatform: 0,
-                libra: 2,
-              },
+              recordComposition: [
+                {
+                  sourceSystem: 'COMMON_PLATFORM',
+                  count: 0,
+                },
+                {
+                  sourceSystem: 'DELIUS',
+                  count: 0,
+                },
+                {
+                  sourceSystem: 'LIBRA',
+                  count: 2,
+                },
+                {
+                  sourceSystem: 'NOMIS',
+                  count: 0,
+                },
+              ],
             },
           ],
           pageable: {
