@@ -1,7 +1,9 @@
 import PersonRecordApiClient from '../data/personRecordApiClient'
 import PersonRecordService from './personRecordService'
+import { Cluster } from '../Cluster'
 
 jest.mock('../data/personRecordApiClient')
+const token = { access_token: 'userToken', expires_in: 300 }
 
 describe('PersonRecordService', () => {
   const personRecordApiClient = new PersonRecordApiClient(null) as jest.Mocked<PersonRecordApiClient>
@@ -20,5 +22,28 @@ describe('PersonRecordService', () => {
 
     expect(personRecordApiClient.getCurrentTime).toHaveBeenCalledTimes(1)
     expect(result).toEqual(expectedTime)
+  })
+
+  it('should call getClusters on the api client and return its result', async () => {
+    const expectedResult: Cluster = {
+      content: [
+        {
+          uuid: 'uuid1',
+          recordComposition: {
+            commonPlatform: 'CommonPlatform-2',
+            delius: 'delius-3',
+            nomis: 'nomis-4',
+            libra: 'libra-5',
+          },
+        },
+      ],
+    }
+
+    personRecordApiClient.getClusters.mockResolvedValue(expectedResult)
+
+    const result = await personRecordService.getClusters(token.access_token)
+
+    expect(personRecordApiClient.getClusters).toHaveBeenCalledTimes(1)
+    expect(result).toEqual(expectedResult)
   })
 })

@@ -2,6 +2,7 @@ import { RestClient, asSystem } from '@ministryofjustice/hmpps-rest-client'
 import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import config from '../config'
 import logger from '../../logger'
+import { Cluster } from '../Cluster'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
@@ -17,6 +18,15 @@ export default class PersonRecordApiClient extends RestClient {
    */
   getCurrentTime() {
     return this.get<string>({ path: '/example/time' }, asSystem())
+  }
+
+  /**
+   * Making a get request to person record to get needs attention clusters
+   *
+   *
+   */
+  async getClusters(username: string): Promise<Cluster> {
+    return this.get({ path: '/admin/clusters' }, asSystem(username))
   }
 
   /**

@@ -14,17 +14,36 @@ interface IndexTemplateValues {
   needAttentionPagination: Pagination
 }
 
-export default function routes({ auditService }: Services): Router {
+export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
 
   router.get('/', async (req, res, next) => {
+    const { username } = res.locals.user
+    const rows: Row[] = []
+
+    const clusters = await personRecordService.getClusters(username)
+
+    clusters.content.forEach(cluster => {
+      const cpInt = Number(cluster.recordComposition.commonPlatform)
+      const deliusInt = Number(cluster.recordComposition.delius)
+      const libraInt = Number(cluster.recordComposition.libra)
+      const nomisInt = Number(cluster.recordComposition.nomis)
+
+      const cpString = cpInt > 0 ? `CommonPlatform(${cpInt})` : ''
+      const deliusString = deliusInt > 0 ? `Delius(${deliusInt})` : ''
+      const libraString = libraInt > 0 ? `Libra(${libraInt})` : ''
+      const nomisString = nomisInt > 0 ? `Nomis(${nomisInt})` : ''
+
+      const composition = `${cpString}, ${deliusString}, ${libraString}, ${nomisString}`.replace(', ,', ',')
+
+      rows.push(Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(composition)))
+    })
+
     const needAttentionTableData = Table({
       head: [Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_1), Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2)],
-      rows: [
-        Row(LinkItem('TestUUID', '/1234'), TextItem('Test')),
-        Row(LinkItem('TestUUID', '/1234'), TextItem('Test')),
-      ],
+      rows,
     })
+
     const needAttentionPagination: Pagination = Pagination({
       previous: PageLink('/page1'),
       next: PageLink('/page2'),

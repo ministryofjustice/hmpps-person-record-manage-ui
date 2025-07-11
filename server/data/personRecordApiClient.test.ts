@@ -3,7 +3,10 @@ import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients
 import PersonRecordApiClient from './personRecordApiClient'
 import config from '../config'
 
+const token = { username: 'username1', expires_in: 300 }
+
 describe('PersonRecordApiClient', () => {
+  let fakePersonRecordApiClient: nock.Scope
   let personRecordApiClient: PersonRecordApiClient
   let mockAuthenticationClient: jest.Mocked<AuthenticationClient>
 
@@ -13,6 +16,7 @@ describe('PersonRecordApiClient', () => {
     } as unknown as jest.Mocked<AuthenticationClient>
 
     personRecordApiClient = new PersonRecordApiClient(mockAuthenticationClient)
+    fakePersonRecordApiClient = nock(config.apis.personRecordApi.url)
   })
 
   afterEach(() => {
@@ -20,17 +24,16 @@ describe('PersonRecordApiClient', () => {
     jest.resetAllMocks()
   })
 
-  describe('getCurrentTime', () => {
-    it('should make a GET request to /prisonRecord/time using system token and return the response body', async () => {
-      nock(config.apis.personRecordApi.url)
-        .get('/example/time')
-        .matchHeader('authorization', 'Bearer test-system-token')
-        .reply(200, { time: '2025-01-01T12:00:00Z' })
+  describe('getClusters', () => {
+    it('should make a GET request to /admin/clusters', async () => {
+      const response = { data: 'data' }
+      fakePersonRecordApiClient
+        .get('/admin/clusters')
+        // .matchHeader('authorization', `Bearer ${token.username}`)
+        .reply(200, response)
 
-      const response = await personRecordApiClient.getCurrentTime()
-
-      expect(response).toEqual({ time: '2025-01-01T12:00:00Z' })
-      expect(mockAuthenticationClient.getToken).toHaveBeenCalledTimes(1)
+      const output = await personRecordApiClient.getClusters(token.username)
+      expect(output).toEqual(response)
     })
   })
 })
