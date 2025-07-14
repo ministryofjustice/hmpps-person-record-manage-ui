@@ -15,9 +15,9 @@ export default function routes({ auditService, personRecordService }: Services):
   router.get('/', async (req, res, _) => {
     const { username } = res.locals.user
 
-    const clusters = await personRecordService.getClusters(username)
-
-    const rows = clusters.content.map(cluster => {
+    const { content, pagination } = await personRecordService.getClusters(username)
+    const { page, isLastPage, totalPages } = pagination
+    const rows = content.map(cluster => {
       const clusterComposition = cluster.recordComposition
         .filter(({ count }) => count > 0)
         .map(({ sourceSystem, count }) => `${sourceSystem}(${count})`)
@@ -31,19 +31,19 @@ export default function routes({ auditService, personRecordService }: Services):
       rows,
     })
     const pages = []
-    for (let i = 1; i <= clusters.pagination.totalPages; i += 1) {
+    for (let i = 1; i <= totalPages; i += 1) {
       pages.push(
         PageItem({
           number: i,
           href: `/item${i}`,
-          current: i === clusters.pagination.page,
+          current: i === page,
         }),
       )
     }
 
-    const previous: PageLink = clusters.pagination.page > 1 ? PageLink(`/page${clusters.pagination.page - 1}`) : null
+    const previous: PageLink = page > 1 ? PageLink(`/page${page - 1}`) : null
 
-    const next: PageLink = clusters.pagination.isLastPage ? null : PageLink(`/page${clusters.pagination.page + 1}`)
+    const next: PageLink = isLastPage ? null : PageLink(`/page${page + 1}`)
     const needsAttentionPagination: Pagination = Pagination({
       previous,
       next,
