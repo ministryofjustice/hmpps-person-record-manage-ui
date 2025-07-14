@@ -43,11 +43,14 @@ export default function routes({ auditService, personRecordService }: Services):
         }),
       )
     }
+    paginationUrl.searchParams.set('page', String(currentPage - 1))
 
-    const previous: PageLink = currentPage > 1 ? PageLink(`/page${currentPage - 1}`) : null
+    const previousHref = currentPage === 1 ? null : paginationUrl.href
+    const previous = previousHref ? PageLink(previousHref) : null
+
     paginationUrl.searchParams.set('page', String(currentPage + 1))
-    const nextHref = isLastPage ? null : paginationUrl.href
 
+    const nextHref = isLastPage ? null : paginationUrl.href
     const next = nextHref ? PageLink(nextHref) : null
 
     const needsAttentionPagination: Pagination = Pagination({
