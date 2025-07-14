@@ -9,11 +9,6 @@ import {
 } from '../domain/constants/indexPage'
 import { PageItem, PageLink, Pagination } from '../utils/paginationBuilder'
 
-interface IndexTemplateValues {
-  needsAttentionTableData: Table
-  needsAttentionPagination: Pagination
-}
-
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
 
@@ -35,9 +30,9 @@ export default function routes({ auditService, personRecordService }: Services):
       head: [Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_1), Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2)],
       rows,
     })
-    const items = []
+    const paginationItems = []
     for (let i = 1; i <= clusters.pagination.totalPages; i += 1) {
-      items.push(
+      paginationItems.push(
         PageItem({
           number: i,
           href: `/item${i}`,
@@ -48,14 +43,14 @@ export default function routes({ auditService, personRecordService }: Services):
     const needsAttentionPagination: Pagination = Pagination({
       previous: PageLink('/page1'),
       next: PageLink('/page2'),
-      items,
+      paginationItems,
     })
-    const templateValues: IndexTemplateValues = {
+
+    await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
+    return res.render('pages/index', {
       needsAttentionTableData,
       needsAttentionPagination,
-    }
-    await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
-    return res.render('pages/index', templateValues)
+    })
   })
 
   return router
