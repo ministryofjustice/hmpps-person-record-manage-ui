@@ -14,7 +14,7 @@ export default {
         jsonBody: { status: httpStatus === 200 ? 'UP' : 'DOWN' },
       },
     }),
-  stubPersonRecordGetAdminClusters: (httpStatus = 200): SuperAgentRequest =>
+  stubPersonRecordGetAdminClusters: ({ httpStatus = 200, page = 1 }): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'GET',
@@ -71,7 +71,7 @@ export default {
           pagination: {
             isLastPage: false,
             count: 20,
-            page: 4,
+            page,
             perPage: 20,
             totalCount: 202,
             totalPages: 11,

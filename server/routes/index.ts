@@ -40,8 +40,14 @@ export default function routes({ auditService, personRecordService }: Services):
         }),
       )
     }
+    // const currentPage = clusters.pagination.page
+    // const previousPage = currentPage > 1 ? currentPage -1 : null
+
+    const previousCheckPage: PageLink =
+      clusters.pagination.page > 1 ? PageLink(`/page${clusters.pagination.page - 1}`) : null
+
     const needsAttentionPagination: Pagination = Pagination({
-      previous: PageLink('/page1'),
+      previous: previousCheckPage,
       next: PageLink('/page2'),
       items: pages,
     })
