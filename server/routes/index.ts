@@ -30,9 +30,9 @@ export default function routes({ auditService, personRecordService }: Services):
       head: [Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_1), Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2)],
       rows,
     })
-    const paginationItems = []
+    const pages = []
     for (let i = 1; i <= clusters.pagination.totalPages; i += 1) {
-      paginationItems.push(
+      pages.push(
         PageItem({
           number: i,
           href: `/item${i}`,
@@ -43,7 +43,7 @@ export default function routes({ auditService, personRecordService }: Services):
     const needsAttentionPagination: Pagination = Pagination({
       previous: PageLink('/page1'),
       next: PageLink('/page2'),
-      paginationItems,
+      items: pages,
     })
 
     await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
