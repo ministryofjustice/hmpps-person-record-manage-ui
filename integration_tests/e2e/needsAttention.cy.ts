@@ -6,26 +6,11 @@ context('Needs Attention', () => {
   beforeEach(() => {
     cy.task('reset')
     cy.task('stubSignIn', { roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
-    cy.task('stubPersonRecordGetAdminClusters', { page: 1 })
-  })
-
-  it('Needs attention page loads', () => {
-    cy.signIn()
-    const indexPage = Page.verifyOnPage(IndexPage)
-    cy.task('stubVerifyToken', false)
-
-    cy.visit('/')
-    Page.verifyOnPage(AuthSignInPage)
-
-    cy.task('stubVerifyToken', true)
-    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
-
-    cy.signIn()
-
-    indexPage.needsAttentionHeader().contains('Needs Attention Clusters')
   })
 
   it('pagination has eleven pages', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 1 })
+
     cy.signIn()
     const indexPage = Page.verifyOnPage(IndexPage)
     cy.task('stubVerifyToken', false)
@@ -37,6 +22,7 @@ context('Needs Attention', () => {
     cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
 
     cy.signIn()
+    const indexPage = Page.verifyOnPage(IndexPage)
     indexPage.needsAttentionHeader().contains('Needs Attention Clusters')
     indexPage.getCurrentPaginationItem().contains('1')
     indexPage.getPaginationItem(2).contains('2')
@@ -53,7 +39,9 @@ context('Needs Attention', () => {
     indexPage.getPaginationItem(11).contains('11')
   })
 
-  it('previous button goes back a page', () => {
+  it('previous button not shown on page 1', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 1 })
+
     cy.signIn()
     const indexPage = Page.verifyOnPage(IndexPage)
     cy.task('stubVerifyToken', false)
@@ -65,7 +53,26 @@ context('Needs Attention', () => {
     cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
 
     cy.signIn()
-    indexPage.needsAttentionHeader().contains('Needs Attention Clusters')
+    const indexPage = Page.verifyOnPage(IndexPage)
     indexPage.getPreviousLink().should('not.exist')
+  })
+
+  it('next button not shown on page 11', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 11, isLastPage: true })
+    cy.signIn()
+    const indexPage = Page.verifyOnPage(IndexPage)
+    cy.task('stubVerifyToken', false)
+
+    cy.visit('/')
+    Page.verifyOnPage(AuthSignInPage)
+
+    cy.task('stubVerifyToken', true)
+    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
+
+    cy.signIn()
+
+    const indexPage = Page.verifyOnPage(IndexPage)
+
+    indexPage.getNextLink().should('not.exist')
   })
 })
