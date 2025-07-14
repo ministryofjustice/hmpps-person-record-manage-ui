@@ -19,17 +19,16 @@ export default function routes({ auditService, personRecordService }: Services):
 
   router.get('/', async (req, res, next) => {
     const { username } = res.locals.user
-    const rows: Row[] = []
 
     const clusters = await personRecordService.getClusters(username)
 
-    clusters.content.forEach(cluster => {
+    const rows = clusters.content.map(cluster => {
       const clusterComposition = cluster.recordComposition
         .filter(({ count }) => count > 0)
         .map(({ sourceSystem, count }) => `${sourceSystem}(${count})`)
         .join(' ')
 
-      rows.push(Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(clusterComposition)))
+      return Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(clusterComposition))
     })
 
     const needAttentionTableData = Table({
