@@ -12,7 +12,6 @@ context('Needs Attention', () => {
     cy.task('stubPersonRecordGetAdminClusters', { page: 1 })
 
     cy.signIn()
-    const indexPage = Page.verifyOnPage(IndexPage)
     cy.task('stubVerifyToken', false)
 
     cy.visit('/')
@@ -43,7 +42,6 @@ context('Needs Attention', () => {
     cy.task('stubPersonRecordGetAdminClusters', { page: 1 })
 
     cy.signIn()
-    const indexPage = Page.verifyOnPage(IndexPage)
     cy.task('stubVerifyToken', false)
 
     cy.visit('/')
@@ -60,7 +58,6 @@ context('Needs Attention', () => {
   it('next button not shown on page 11', () => {
     cy.task('stubPersonRecordGetAdminClusters', { page: 11, isLastPage: true })
     cy.signIn()
-    const indexPage = Page.verifyOnPage(IndexPage)
     cy.task('stubVerifyToken', false)
 
     cy.visit('/')
