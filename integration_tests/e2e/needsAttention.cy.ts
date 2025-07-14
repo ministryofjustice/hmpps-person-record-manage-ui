@@ -95,4 +95,50 @@ context('Needs Attention', () => {
     Page.verifyOnPage(IndexPage)
     indexPage.getCurrentPaginationItem().contains('4')
   })
+
+  it('Check next link on page is correct', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 5, isLastPage: false })
+    cy.signIn()
+    cy.task('stubVerifyToken', false)
+
+    cy.visit('/')
+    Page.verifyOnPage(AuthSignInPage)
+
+    cy.task('stubVerifyToken', true)
+    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
+
+    cy.signIn()
+
+    const indexPage = Page.verifyOnPage(IndexPage)
+
+    cy.task('stubPersonRecordGetAdminClusters', { page: 6, isLastPage: false })
+    cy.task('stubVerifyToken', true)
+
+    indexPage.getNextLink().click()
+    Page.verifyOnPage(IndexPage)
+    indexPage.getCurrentPaginationItem().contains('6')
+  })
+
+  it('Check previous link on page is correct', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 10, isLastPage: false })
+    cy.signIn()
+    cy.task('stubVerifyToken', false)
+
+    cy.visit('/')
+    Page.verifyOnPage(AuthSignInPage)
+
+    cy.task('stubVerifyToken', true)
+    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
+
+    cy.signIn()
+
+    const indexPage = Page.verifyOnPage(IndexPage)
+
+    cy.task('stubPersonRecordGetAdminClusters', { page: 9, isLastPage: false })
+    cy.task('stubVerifyToken', true)
+
+    indexPage.getPreviousLink().click()
+    Page.verifyOnPage(IndexPage)
+    indexPage.getCurrentPaginationItem().contains('9')
+  })
 })
