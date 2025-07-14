@@ -3,6 +3,7 @@ import request from 'supertest'
 import { appWithAllRoutes, user } from './testutils/appSetup'
 import AuditService, { Page } from '../services/auditService'
 import PersonRecordService from '../services/personRecordService'
+import { Cluster } from '../Cluster'
 
 jest.mock('../services/auditService')
 jest.mock('../data/personRecordApiClient')
@@ -29,7 +30,7 @@ afterEach(() => {
 
 describe('GET /', () => {
   it('should render index page', () => {
-    const cluster = {
+    const cluster: Cluster = {
       content: [
         {
           uuid: 'uuid1',
@@ -53,31 +54,14 @@ describe('GET /', () => {
           ],
         },
       ],
-      pageable: {
-        pageNumber: 0,
-        pageSize: 20,
-        sort: {
-          empty: true,
-          sorted: false,
-          unsorted: true,
-        },
-        offset: 0,
-        paged: true,
-        unpaged: false,
+      pagination: {
+        isLastPage: false,
+        count: 20,
+        page: 4,
+        perPage: 20,
+        totalCount: 202,
+        totalPages: 11,
       },
-      last: false,
-      totalElements: 202,
-      totalPages: 11,
-      first: true,
-      size: 20,
-      number: 0,
-      sort: {
-        empty: true,
-        sorted: false,
-        unsorted: true,
-      },
-      numberOfElements: 20,
-      empty: false,
     }
     auditService.logPageView.mockResolvedValue(null)
     personRecordService.getClusters.mockResolvedValue(cluster)
@@ -125,31 +109,14 @@ describe('GET /', () => {
           ],
         },
       ],
-      pageable: {
-        pageNumber: 0,
-        pageSize: 20,
-        sort: {
-          empty: true,
-          sorted: false,
-          unsorted: true,
-        },
-        offset: 0,
-        paged: true,
-        unpaged: false,
+      pagination: {
+        isLastPage: false,
+        count: 20,
+        page: 4,
+        perPage: 20,
+        totalCount: 202,
+        totalPages: 11,
       },
-      last: false,
-      totalElements: 202,
-      totalPages: 11,
-      first: true,
-      size: 20,
-      number: 0,
-      sort: {
-        empty: true,
-        sorted: false,
-        unsorted: true,
-      },
-      numberOfElements: 20,
-      empty: false,
     }
     auditService.logPageView.mockResolvedValue(null)
     personRecordService.getClusters.mockResolvedValue(cluster)
