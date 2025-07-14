@@ -9,36 +9,30 @@ import {
 } from '../domain/constants/indexPage'
 import { PageItem, PageLink, Pagination } from '../utils/paginationBuilder'
 
-interface IndexTemplateValues {
-  needAttentionTableData: Table
-  needAttentionPagination: Pagination
-}
-
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
 
-  router.get('/', async (req, res, next) => {
+  router.get('/', async (req, res, _) => {
     const { username } = res.locals.user
-    const rows: Row[] = []
 
     const clusters = await personRecordService.getClusters(username)
 
-    clusters.content.forEach(cluster => {
+    const rows = clusters.content.map(cluster => {
       const clusterComposition = cluster.recordComposition
         .filter(({ count }) => count > 0)
         .map(({ sourceSystem, count }) => `${sourceSystem}(${count})`)
         .join(' ')
 
-      rows.push(Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(clusterComposition)))
+      return Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(clusterComposition))
     })
 
-    const needAttentionTableData = Table({
+    const needsAttentionTableData = Table({
       head: [Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_1), Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2)],
       rows,
     })
-    const items = []
+    const pages = []
     for (let i = 1; i <= clusters.pagination.totalPages; i += 1) {
-      items.push(
+      pages.push(
         PageItem({
           number: i,
           href: `/item${i}`,
@@ -46,17 +40,17 @@ export default function routes({ auditService, personRecordService }: Services):
         }),
       )
     }
-    const needAttentionPagination: Pagination = Pagination({
+    const needsAttentionPagination: Pagination = Pagination({
       previous: PageLink('/page1'),
       next: PageLink('/page2'),
-      items,
+      items: pages,
     })
-    const templateValues: IndexTemplateValues = {
-      needAttentionTableData,
-      needAttentionPagination,
-    }
+
     await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
-    return res.render('pages/index', templateValues)
+    return res.render('pages/index', {
+      needsAttentionTableData,
+      needsAttentionPagination,
+    })
   })
 
   return router
