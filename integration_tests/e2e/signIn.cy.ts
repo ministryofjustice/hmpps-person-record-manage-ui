@@ -7,7 +7,7 @@ context('Sign In', () => {
   beforeEach(() => {
     cy.task('reset')
     cy.task('stubSignIn', { roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
-    cy.task('stubPersonRecordGetAdminClusters')
+    cy.task('stubPersonRecordGetAdminClusters', {})
   })
 
   it('Unauthenticated user directed to auth', () => {
