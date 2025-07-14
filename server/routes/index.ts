@@ -32,26 +32,23 @@ export default function routes({ auditService, personRecordService }: Services):
       rows,
     })
     const pages = []
-    const paginationUrl = new URL(`/`, config.ingressUrl)
-    for (let i = 1; i <= totalPages; i += 1) {
-      paginationUrl.searchParams.set('page', String(i))
+    const paginationUrl = new URL('/', config.ingressUrl)
+    for (let page = 1; page <= totalPages; page += 1) {
+      paginationUrl.searchParams.set('page', String(page))
       pages.push(
         PageItem({
-          number: i,
+          number: page,
           href: paginationUrl.href,
-          current: i === currentPage,
+          current: page === currentPage,
         }),
       )
     }
-    paginationUrl.searchParams.set('page', String(currentPage - 1))
 
-    const previousHref = currentPage === 1 ? null : paginationUrl.href
-    const previous = previousHref ? PageLink(previousHref) : null
+    paginationUrl.searchParams.set('page', String(currentPage - 1))
+    const previous = currentPage === 1 ? null : PageLink(paginationUrl.href)
 
     paginationUrl.searchParams.set('page', String(currentPage + 1))
-
-    const nextHref = isLastPage ? null : paginationUrl.href
-    const next = nextHref ? PageLink(nextHref) : null
+    const next = isLastPage ? null : PageLink(paginationUrl.href)
 
     const needsAttentionPagination: Pagination = Pagination({
       previous,
