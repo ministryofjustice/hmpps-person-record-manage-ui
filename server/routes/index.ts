@@ -10,8 +10,8 @@ import {
 import { PageItem, PageLink, Pagination } from '../utils/paginationBuilder'
 
 interface IndexTemplateValues {
-  needAttentionTableData: Table
-  needAttentionPagination: Pagination
+  needsAttentionTableData: Table
+  needsAttentionPagination: Pagination
 }
 
 export default function routes({ auditService, personRecordService }: Services): Router {
