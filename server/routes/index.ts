@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import type { Services } from '../services'
+import config from '../config'
 import { Page } from '../services/auditService'
 import { Heading, LinkItem, Row, Table, TextItem } from '../utils/tableBuilder'
 import {
@@ -31,11 +32,13 @@ export default function routes({ auditService, personRecordService }: Services):
       rows,
     })
     const pages = []
+    const paginationUrl = new URL(`/`, config.ingressUrl)
     for (let i = 1; i <= totalPages; i += 1) {
+      paginationUrl.searchParams.set('page', String(i))
       pages.push(
         PageItem({
           number: i,
-          href: `/item${i}`,
+          href: paginationUrl.href,
           current: i === currentPage,
         }),
       )
