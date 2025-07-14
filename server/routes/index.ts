@@ -17,7 +17,7 @@ interface IndexTemplateValues {
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
 
-  router.get('/', async (req, res, next) => {
+  router.get('/', async (req, res, _) => {
     const { username } = res.locals.user
 
     const clusters = await personRecordService.getClusters(username)
@@ -31,7 +31,7 @@ export default function routes({ auditService, personRecordService }: Services):
       return Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(clusterComposition))
     })
 
-    const needAttentionTableData = Table({
+    const needsAttentionTableData = Table({
       head: [Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_1), Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2)],
       rows,
     })
@@ -45,14 +45,14 @@ export default function routes({ auditService, personRecordService }: Services):
         }),
       )
     }
-    const needAttentionPagination: Pagination = Pagination({
+    const needsAttentionPagination: Pagination = Pagination({
       previous: PageLink('/page1'),
       next: PageLink('/page2'),
       items,
     })
     const templateValues: IndexTemplateValues = {
-      needAttentionTableData,
-      needAttentionPagination,
+      needsAttentionTableData,
+      needsAttentionPagination,
     }
     await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
     return res.render('pages/index', templateValues)
