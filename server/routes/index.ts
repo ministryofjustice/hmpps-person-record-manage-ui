@@ -41,7 +41,6 @@ export default function routes({ auditService, personRecordService }: Services):
           number: pageNo,
           href: paginationUrl.href,
           current: pageNo === currentPage,
-
         }),
       )
     }
