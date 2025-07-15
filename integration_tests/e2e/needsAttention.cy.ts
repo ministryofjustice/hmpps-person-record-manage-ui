@@ -56,7 +56,7 @@ context('Needs Attention', () => {
   })
 
   it('next button not shown on page 11', () => {
-    cy.task('stubPersonRecordGetAdminClusters', { page: 11, isLastPage: true })
+    cy.task('stubPersonRecordGetAdminClusters', { page: 1, isLastPage: false })
     cy.signIn()
     cy.task('stubVerifyToken', false)
 
@@ -70,11 +70,14 @@ context('Needs Attention', () => {
 
     const indexPage = Page.verifyOnPage(IndexPage)
 
-    indexPage.getNextLink().should('not.exist')
+    cy.task('stubPersonRecordGetAdminClusters', { page: 11, isLastPage: true })
+    const nextButtonCheck = indexPage.getPaginationItem(11).click()
+    nextButtonCheck.should('not.exist')
   })
 
   it('Check link on page is correct', () => {
-    cy.task('stubPersonRecordGetAdminClusters', { page: 3, isLastPage: false })
+    cy.task('stubPersonRecordGetAdminClusters', { page: 1, isLastPage: false })
+
     cy.signIn()
     cy.task('stubVerifyToken', false)
 
@@ -91,13 +94,16 @@ context('Needs Attention', () => {
     cy.task('stubPersonRecordGetAdminClusters', { page: 4, isLastPage: false })
     cy.task('stubVerifyToken', true)
 
+    cy.task('stubPersonRecordGetAdminClusters', { page: 3, isLastPage: false })
+
     indexPage.getPaginationItem(4).click()
     Page.verifyOnPage(IndexPage)
     indexPage.getCurrentPaginationItem().contains('4')
   })
 
   it('Check next link on page is correct', () => {
-    cy.task('stubPersonRecordGetAdminClusters', { page: 5, isLastPage: false })
+    cy.task('stubPersonRecordGetAdminClusters', { page: 1, isLastPage: false })
+
     cy.signIn()
     cy.task('stubVerifyToken', false)
 
@@ -111,8 +117,13 @@ context('Needs Attention', () => {
 
     const indexPage = Page.verifyOnPage(IndexPage)
 
-    cy.task('stubPersonRecordGetAdminClusters', { page: 6, isLastPage: false })
+    cy.task('stubPersonRecordGetAdminClusters', { page: 5, isLastPage: false })
+
+    indexPage.getPaginationLink(5).click()
+
     cy.task('stubVerifyToken', true)
+
+    cy.task('stubPersonRecordGetAdminClusters', { page: 6, isLastPage: false })
 
     indexPage.getNextLink().click()
     Page.verifyOnPage(IndexPage)
@@ -120,7 +131,7 @@ context('Needs Attention', () => {
   })
 
   it('Check previous link on page is correct', () => {
-    cy.task('stubPersonRecordGetAdminClusters', { page: 10, isLastPage: false })
+    cy.task('stubPersonRecordGetAdminClusters', { page: 1, isLastPage: false })
     cy.signIn()
     cy.task('stubVerifyToken', false)
 
@@ -134,8 +145,13 @@ context('Needs Attention', () => {
 
     const indexPage = Page.verifyOnPage(IndexPage)
 
-    cy.task('stubPersonRecordGetAdminClusters', { page: 9, isLastPage: false })
+    cy.task('stubPersonRecordGetAdminClusters', { page: 10, isLastPage: false })
+
+    indexPage.getPaginationLink(10).click()
+
     cy.task('stubVerifyToken', true)
+
+    cy.task('stubPersonRecordGetAdminClusters', { page: 9, isLastPage: false })
 
     indexPage.getPreviousLink().click()
     Page.verifyOnPage(IndexPage)

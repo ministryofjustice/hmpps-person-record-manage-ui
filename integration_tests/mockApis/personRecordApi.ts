@@ -20,7 +20,7 @@ export default {
     stubFor({
       request: {
         method: 'GET',
-        urlPattern: '/person-record-api/admin/clusters',
+        urlPattern: `/person-record-api/admin/clusters\\?page=${page}`,
       },
       response: {
         status: httpStatus,

@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router, Request } from 'express'
 
 import type { Services } from '../services'
 import config from '../config'
@@ -13,11 +13,12 @@ import { PageItem, PageLink, Pagination } from '../utils/paginationBuilder'
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
 
-  router.get('/', async (req, res, _) => {
+  router.get('/', async (req: Request, res, _) => {
     const { username } = res.locals.user
-
-    const { content, pagination } = await personRecordService.getClusters(username)
-    const { page: currentPage, isLastPage, totalPages } = pagination
+    const { page } = req.query as Record<string, string>
+    const currentPage = page ? parseInt(page, 10) : 1
+    const { content, pagination } = await personRecordService.getClusters(username, currentPage)
+    const { isLastPage, totalPages } = pagination
     const rows = content.map(cluster => {
       const clusterComposition = cluster.recordComposition
         .filter(({ count }) => count > 0)
@@ -33,13 +34,13 @@ export default function routes({ auditService, personRecordService }: Services):
     })
     const pages = []
     const paginationUrl = new URL('/', config.ingressUrl)
-    for (let page = 1; page <= totalPages; page += 1) {
-      paginationUrl.searchParams.set('page', String(page))
+    for (let pageNo = 1; pageNo <= totalPages; pageNo += 1) {
+      paginationUrl.searchParams.set('page', String(pageNo))
       pages.push(
         PageItem({
-          number: page,
+          number: pageNo,
           href: paginationUrl.href,
-          current: page === currentPage,
+          current: pageNo === currentPage,
         }),
       )
     }

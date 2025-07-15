@@ -28,11 +28,11 @@ describe('PersonRecordApiClient', () => {
     it('should make a GET request to /admin/clusters', async () => {
       const response = { data: 'data' }
       fakePersonRecordApiClient
-        .get('/admin/clusters')
+        .get('/admin/clusters?page=1')
         // .matchHeader('authorization', `Bearer ${token.username}`)
         .reply(200, response)
 
-      const output = await personRecordApiClient.getClusters(token.username)
+      const output = await personRecordApiClient.getClusters(token.username, 1)
       expect(output).toEqual(response)
     })
   })
