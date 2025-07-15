@@ -33,7 +33,7 @@ describe('PersonRecordService', () => {
 
     personRecordApiClient.getClusters.mockResolvedValue(expectedResult)
 
-    const result = await personRecordService.getClusters(token.access_token)
+    const result = await personRecordService.getClusters(token.access_token, 1)
 
     expect(personRecordApiClient.getClusters).toHaveBeenCalledTimes(1)
     expect(result).toEqual(expectedResult)
