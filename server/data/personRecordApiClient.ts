@@ -10,17 +10,6 @@ export default class PersonRecordApiClient extends RestClient {
   }
 
   /**
-   * Example: Making an anonymous request with a system token
-   *
-   * Use this pattern to call the API with a system token that is not tied to a specific user.
-   * This is useful for service-to-service authorization when no user context is required.
-   *
-   */
-  getCurrentTime() {
-    return this.get<string>({ path: '/example/time' }, asSystem())
-  }
-
-  /**
    * Making a get request to person record to get needs attention clusters
    *
    *

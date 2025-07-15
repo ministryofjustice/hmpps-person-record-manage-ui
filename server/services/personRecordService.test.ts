@@ -13,17 +13,6 @@ describe('PersonRecordService', () => {
     personRecordService = new PersonRecordService(personRecordApiClient)
   })
 
-  it('should call getCurrentTime on the api client and return its result', async () => {
-    const expectedTime = '2025-01-01T12:00:00Z'
-
-    personRecordApiClient.getCurrentTime.mockResolvedValue(expectedTime)
-
-    const result = await personRecordService.getCurrentTime()
-
-    expect(personRecordApiClient.getCurrentTime).toHaveBeenCalledTimes(1)
-    expect(result).toEqual(expectedTime)
-  })
-
   it('should call getClusters on the api client and return its result', async () => {
     const expectedResult: Cluster = {
       content: [
