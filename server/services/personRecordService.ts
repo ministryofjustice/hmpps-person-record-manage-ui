@@ -6,5 +6,6 @@ export default class PersonRecordService {
 
   async getClusters(username: string, page: number): Promise<Cluster> {
     return this.personRecordApiClient.getClusters(username, page)
+
   }
 }
