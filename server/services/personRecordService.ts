@@ -7,8 +7,4 @@ export default class PersonRecordService {
   async getClusters(username: string): Promise<Cluster> {
     return this.personRecordApiClient.getClusters(username)
   }
-
-  getCurrentTime() {
-    return this.personRecordApiClient.getCurrentTime()
-  }
 }
