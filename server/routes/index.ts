@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import type { Services } from '../services'
+import config from '../config'
 import { Page } from '../services/auditService'
 import { Heading, LinkItem, Row, Table, TextItem } from '../utils/tableBuilder'
 import {
@@ -9,54 +10,60 @@ import {
 } from '../domain/constants/indexPage'
 import { PageItem, PageLink, Pagination } from '../utils/paginationBuilder'
 
-interface IndexTemplateValues {
-  needAttentionTableData: Table
-  needAttentionPagination: Pagination
-}
-
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
 
-  router.get('/', async (req, res, next) => {
+  router.get('/', async (req, res, _) => {
     const { username } = res.locals.user
-    const rows: Row[] = []
 
-    const clusters = await personRecordService.getClusters(username)
-
-    clusters.content.forEach(cluster => {
+    const { content, pagination } = await personRecordService.getClusters(username)
+    const { page: currentPage, isLastPage, totalPages } = pagination
+    const rows = content.map(cluster => {
       const clusterComposition = cluster.recordComposition
         .filter(({ count }) => count > 0)
         .map(({ sourceSystem, count }) => `${sourceSystem}(${count})`)
         .join(' ')
 
-      rows.push(Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(clusterComposition)))
+      return Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(clusterComposition))
     })
 
-    const needAttentionTableData = Table({
+    const needsAttentionTableData = Table({
       head: [Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_1), Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2)],
       rows,
     })
-    const items = []
-    for (let i = 1; i <= clusters.pagination.totalPages; i += 1) {
-      items.push(
+    const pages = []
+    const paginationUrl = new URL(`/`, config.ingressUrl)
+    for (let i = 1; i <= totalPages; i += 1) {
+      paginationUrl.searchParams.set('page', String(i))
+      pages.push(
         PageItem({
           number: i,
-          href: `/item${i}`,
-          current: i === clusters.pagination.page,
+          href: paginationUrl.href,
+          current: i === currentPage,
         }),
       )
     }
-    const needAttentionPagination: Pagination = Pagination({
-      previous: PageLink('/page1'),
-      next: PageLink('/page2'),
-      items,
+    paginationUrl.searchParams.set('page', String(currentPage - 1))
+
+    const previousHref = currentPage === 1 ? null : paginationUrl.href
+    const previous = previousHref ? PageLink(previousHref) : null
+
+    paginationUrl.searchParams.set('page', String(currentPage + 1))
+
+    const nextHref = isLastPage ? null : paginationUrl.href
+    const next = nextHref ? PageLink(nextHref) : null
+
+    const needsAttentionPagination: Pagination = Pagination({
+      previous,
+      next,
+      items: pages,
     })
-    const templateValues: IndexTemplateValues = {
-      needAttentionTableData,
-      needAttentionPagination,
-    }
+
     await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
-    return res.render('pages/index', templateValues)
+    return res.render('pages/index', {
+      needsAttentionTableData,
+      needsAttentionPagination,
+    })
   })
 
   return router

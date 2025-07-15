@@ -11,5 +11,9 @@ export default class IndexPage extends Page {
 
   getPaginationItem = (index: number): PageElement => cy.get(`.govuk-pagination li:nth-of-type(${index})`)
 
+  getPreviousLink = (): PageElement => cy.get(`.govuk-pagination__prev a`)
+
+  getNextLink = (): PageElement => cy.get(`.govuk-pagination__next a`)
+
   getCurrentPaginationItem = (): PageElement => cy.get(`.govuk-pagination__item--current`)
 }

@@ -6,12 +6,12 @@ context('Needs Attention', () => {
   beforeEach(() => {
     cy.task('reset')
     cy.task('stubSignIn', { roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
-    cy.task('stubPersonRecordGetAdminClusters')
   })
 
-  it('Needs attention page loads', () => {
+  it('pagination has eleven pages', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 1 })
+
     cy.signIn()
-    const indexPage = Page.verifyOnPage(IndexPage)
     cy.task('stubVerifyToken', false)
 
     cy.visit('/')
@@ -21,29 +21,14 @@ context('Needs Attention', () => {
     cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
 
     cy.signIn()
-
-    indexPage.needsAttentionHeader().contains('Needs Attention Clusters')
-  })
-
-  it('pagination has two pages', () => {
-    cy.signIn()
     const indexPage = Page.verifyOnPage(IndexPage)
-    cy.task('stubVerifyToken', false)
-
-    cy.visit('/')
-    Page.verifyOnPage(AuthSignInPage)
-
-    cy.task('stubVerifyToken', true)
-    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
-
-    cy.signIn()
     indexPage.needsAttentionHeader().contains('Needs Attention Clusters')
-    indexPage.getPaginationItem(1).contains('1')
+    indexPage.getCurrentPaginationItem().contains('1')
     indexPage.getPaginationItem(2).contains('2')
     indexPage.getPaginationItem(2).should('not.have.class', 'govuk-pagination__item--current')
     indexPage.getPaginationItem(3).contains('3')
     indexPage.getPaginationItem(4).contains('4')
-    indexPage.getCurrentPaginationItem().contains('4')
+    indexPage.getPaginationItem(4).contains('4')
     indexPage.getPaginationItem(5).contains('5')
     indexPage.getPaginationItem(6).contains('6')
     indexPage.getPaginationItem(7).contains('7')
@@ -51,5 +36,109 @@ context('Needs Attention', () => {
     indexPage.getPaginationItem(9).contains('9')
     indexPage.getPaginationItem(10).contains('10')
     indexPage.getPaginationItem(11).contains('11')
+  })
+
+  it('previous button not shown on page 1', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 1 })
+
+    cy.signIn()
+    cy.task('stubVerifyToken', false)
+
+    cy.visit('/')
+    Page.verifyOnPage(AuthSignInPage)
+
+    cy.task('stubVerifyToken', true)
+    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
+
+    cy.signIn()
+    const indexPage = Page.verifyOnPage(IndexPage)
+    indexPage.getPreviousLink().should('not.exist')
+  })
+
+  it('next button not shown on page 11', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 11, isLastPage: true })
+    cy.signIn()
+    cy.task('stubVerifyToken', false)
+
+    cy.visit('/')
+    Page.verifyOnPage(AuthSignInPage)
+
+    cy.task('stubVerifyToken', true)
+    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
+
+    cy.signIn()
+
+    const indexPage = Page.verifyOnPage(IndexPage)
+
+    indexPage.getNextLink().should('not.exist')
+  })
+
+  it('Check link on page is correct', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 3, isLastPage: false })
+    cy.signIn()
+    cy.task('stubVerifyToken', false)
+
+    cy.visit('/')
+    Page.verifyOnPage(AuthSignInPage)
+
+    cy.task('stubVerifyToken', true)
+    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
+
+    cy.signIn()
+
+    const indexPage = Page.verifyOnPage(IndexPage)
+
+    cy.task('stubPersonRecordGetAdminClusters', { page: 4, isLastPage: false })
+    cy.task('stubVerifyToken', true)
+
+    indexPage.getPaginationItem(4).click()
+    Page.verifyOnPage(IndexPage)
+    indexPage.getCurrentPaginationItem().contains('4')
+  })
+
+  it('Check next link on page is correct', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 5, isLastPage: false })
+    cy.signIn()
+    cy.task('stubVerifyToken', false)
+
+    cy.visit('/')
+    Page.verifyOnPage(AuthSignInPage)
+
+    cy.task('stubVerifyToken', true)
+    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
+
+    cy.signIn()
+
+    const indexPage = Page.verifyOnPage(IndexPage)
+
+    cy.task('stubPersonRecordGetAdminClusters', { page: 6, isLastPage: false })
+    cy.task('stubVerifyToken', true)
+
+    indexPage.getNextLink().click()
+    Page.verifyOnPage(IndexPage)
+    indexPage.getCurrentPaginationItem().contains('6')
+  })
+
+  it('Check previous link on page is correct', () => {
+    cy.task('stubPersonRecordGetAdminClusters', { page: 10, isLastPage: false })
+    cy.signIn()
+    cy.task('stubVerifyToken', false)
+
+    cy.visit('/')
+    Page.verifyOnPage(AuthSignInPage)
+
+    cy.task('stubVerifyToken', true)
+    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
+
+    cy.signIn()
+
+    const indexPage = Page.verifyOnPage(IndexPage)
+
+    cy.task('stubPersonRecordGetAdminClusters', { page: 9, isLastPage: false })
+    cy.task('stubVerifyToken', true)
+
+    indexPage.getPreviousLink().click()
+    Page.verifyOnPage(IndexPage)
+    indexPage.getCurrentPaginationItem().contains('9')
   })
 })
