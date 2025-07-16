@@ -2,21 +2,20 @@ import { RestClient, asSystem } from '@ministryofjustice/hmpps-rest-client'
 import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import config from '../config'
 import logger from '../../logger'
+import { Cluster } from '../Cluster'
 
-export default class ExampleApiClient extends RestClient {
+export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
-    super('Example API', config.apis.exampleApi, logger, authenticationClient)
+    super('Person Record API', config.apis.personRecordApi, logger, authenticationClient)
   }
 
   /**
-   * Example: Making an anonymous request with a system token
+   * Making a get request to person record to get needs attention clusters
    *
-   * Use this pattern to call the API with a system token that is not tied to a specific user.
-   * This is useful for service-to-service authorization when no user context is required.
    *
    */
-  getCurrentTime() {
-    return this.get<string>({ path: '/example/time' }, asSystem())
+  async getClusters(username: string, page: number): Promise<Cluster> {
+    return this.get({ path: '/admin/clusters', query: { page } }, asSystem(username))
   }
 
   /**

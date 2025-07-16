@@ -2,10 +2,18 @@ import Page, { PageElement } from './page'
 
 export default class IndexPage extends Page {
   constructor() {
-    super('This site is under construction...')
+    super('Search')
   }
 
-  headerUserName = (): PageElement => cy.get('[data-qa=header-user-name]')
+  needsAttentionHeader = (): PageElement => cy.get('h2')
 
-  headerPhaseBanner = (): PageElement => cy.get('[data-qa=header-phase-banner]')
+  getPaginationLink = (index: number): PageElement => cy.get(`.govuk-pagination li:nth-of-type(${index}) a`)
+
+  getPaginationItem = (index: number): PageElement => cy.get(`.govuk-pagination li:nth-of-type(${index})`)
+
+  getPreviousLink = (): PageElement => cy.get(`.govuk-pagination__prev a`)
+
+  getNextLink = (): PageElement => cy.get(`.govuk-pagination__next a`)
+
+  getCurrentPaginationItem = (): PageElement => cy.get(`.govuk-pagination__item--current`)
 }
