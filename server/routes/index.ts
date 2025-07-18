@@ -32,18 +32,19 @@ export default function routes({ auditService, personRecordService }: Services):
       head: [Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_1), Heading(NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2)],
       rows,
     })
-    const pages = []
+
     const paginationUrl = new URL('/', config.ingressUrl)
-    for (let pageNo = 1; pageNo <= totalPages; pageNo += 1) {
-      paginationUrl.searchParams.set('page', String(pageNo))
-      pages.push(
-        PageItem({
+    const pages = [...Array(totalPages).keys()]
+      .map(p => p + 1)
+      .map(pageNo => {
+        paginationUrl.searchParams.set('page', String(pageNo))
+
+        return PageItem({
           number: pageNo,
           href: paginationUrl.href,
           current: pageNo === currentPage,
-        }),
-      )
-    }
+        })
+      })
 
     paginationUrl.searchParams.set('page', String(currentPage - 1))
     const previous = currentPage === 1 ? null : PageLink(paginationUrl.href)
