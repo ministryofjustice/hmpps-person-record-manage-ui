@@ -3,6 +3,7 @@ import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients
 import config from '../config'
 import logger from '../../logger'
 import { Cluster } from '../Cluster'
+import { ClusterView } from '../clusterView'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
@@ -16,6 +17,15 @@ export default class PersonRecordApiClient extends RestClient {
    */
   async getClusters(username: string, page: number): Promise<Cluster> {
     return this.get({ path: '/admin/clusters', query: { page } }, asSystem(username))
+  }
+
+  /**
+   * Making a get request to person record to get specified cluster information
+   *
+   *
+   */
+  async getCluster(username: string, uuid: string): Promise<ClusterView> {
+    return this.get({ path: '/admin/cluster' }, asSystem(username))
   }
 
   /**
