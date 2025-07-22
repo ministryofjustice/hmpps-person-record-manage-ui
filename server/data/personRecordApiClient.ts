@@ -25,7 +25,7 @@ export default class PersonRecordApiClient extends RestClient {
    *
    */
   async getCluster(username: string, uuid: string): Promise<ClusterView> {
-    return this.get({ path: '/admin/cluster' }, asSystem(username))
+    return this.get({ path: `/admin/cluster/${uuid}` }, asSystem(username))
   }
 
   /**

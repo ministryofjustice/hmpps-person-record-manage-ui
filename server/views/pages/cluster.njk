@@ -5,11 +5,15 @@
 
 {% block content %}
 
-  {%- from "moj/components/search/macro.njk" import mojSearch -%}
   {%- from "govuk/components/table/macro.njk" import govukTable -%}
-  {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
-  <h1>UUID "{{uuid}}"</h1>
+  {{ govukBackLink({
+    text: "Back",
+    href: "/"
+  }) }}
+
+  <h1>UUID: "{{uuid}}"</h1>
 
   <h2 class="govuk-heading-m">Record composition</h1>
   <div class="moj-scrollable-pane">
