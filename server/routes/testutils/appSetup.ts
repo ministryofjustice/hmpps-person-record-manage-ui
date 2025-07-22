@@ -3,7 +3,7 @@ import { NotFound } from 'http-errors'
 
 import { randomUUID } from 'crypto'
 import indexRoutes from '../index'
-import clusterRoutes from '../cluster'
+import clusterRoutes from '../cluster/cluster'
 import nunjucksSetup from '../../utils/nunjucksSetup'
 import errorHandler from '../../errorHandler'
 import type { Services } from '../../services'

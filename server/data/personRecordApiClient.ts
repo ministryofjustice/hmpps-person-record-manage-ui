@@ -2,8 +2,8 @@ import { RestClient, asSystem } from '@ministryofjustice/hmpps-rest-client'
 import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import config from '../config'
 import logger from '../../logger'
-import { Cluster } from '../Cluster'
-import { ClusterView } from '../clusterView'
+import { Clusters } from '../clusters'
+import { Cluster } from '../cluster'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
@@ -15,7 +15,7 @@ export default class PersonRecordApiClient extends RestClient {
    *
    *
    */
-  async getClusters(username: string, page: number): Promise<Cluster> {
+  async getClusters(username: string, page: number): Promise<Clusters> {
     return this.get({ path: '/admin/clusters', query: { page } }, asSystem(username))
   }
 
@@ -24,7 +24,7 @@ export default class PersonRecordApiClient extends RestClient {
    *
    *
    */
-  async getCluster(username: string, uuid: string): Promise<ClusterView> {
+  async getCluster(username: string, uuid: string): Promise<Cluster> {
     return this.get({ path: `/admin/cluster/${uuid}` }, asSystem(username))
   }
 

@@ -18,7 +18,7 @@ import setUpWebSession from './middleware/setUpWebSession'
 
 import indexRoutes from './routes'
 import type { Services } from './services'
-import clusterRoutes from './routes/cluster'
+import clusterRoutes from './routes/cluster/cluster'
 
 export default function createApp(services: Services): express.Application {
   const app = express()

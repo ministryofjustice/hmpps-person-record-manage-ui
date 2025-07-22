@@ -3,7 +3,7 @@ import request from 'supertest'
 import { appWithAllRoutes, user } from './testutils/appSetup'
 import AuditService, { Page } from '../services/auditService'
 import PersonRecordService from '../services/personRecordService'
-import { Cluster } from '../Cluster'
+import { Clusters } from '../clusters'
 
 jest.mock('../services/auditService')
 jest.mock('../data/personRecordApiClient')
@@ -30,7 +30,7 @@ afterEach(() => {
 
 describe('GET /', () => {
   it('should render index page', () => {
-    const cluster: Cluster = {
+    const clusters: Clusters = {
       content: [
         {
           uuid: 'uuid1',
@@ -64,7 +64,7 @@ describe('GET /', () => {
       },
     }
     auditService.logPageView.mockResolvedValue(null)
-    personRecordService.getClusters.mockResolvedValue(cluster)
+    personRecordService.getClusters.mockResolvedValue(clusters)
 
     return request(app)
       .get('/')
@@ -85,7 +85,7 @@ describe('GET /', () => {
   })
 
   it('should render composition summary omitting source systems with no records', () => {
-    const cluster = {
+    const clusters = {
       content: [
         {
           uuid: 'uuid1',
@@ -119,7 +119,7 @@ describe('GET /', () => {
       },
     }
     auditService.logPageView.mockResolvedValue(null)
-    personRecordService.getClusters.mockResolvedValue(cluster)
+    personRecordService.getClusters.mockResolvedValue(clusters)
 
     return request(app)
       .get('/')

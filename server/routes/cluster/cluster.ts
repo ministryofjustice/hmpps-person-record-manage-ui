@@ -1,13 +1,18 @@
 import { Router, Request } from 'express'
 
-import type { Services } from '../services'
-import { Page } from '../services/auditService'
-import { Heading, Row, Table, TextItem } from '../utils/tableBuilder'
+import type { Record } from '../../cluster'
+import type { Services } from '../../services'
+import { Page } from '../../services/auditService'
+import { Heading, Row, Table, TextItem } from '../../utils/tableBuilder'
 import {
   RECORD_COMPOSITION_NAME_TABLE_HEADING_1,
   RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING_1,
   RECORD_COMPOSITION_REFERENCE_TABLE_HEADING_1,
-} from '../domain/constants/clusterPage'
+} from '../../domain/constants/clusterPage'
+
+function buildPersonFrendilyName(record: Record) {
+  return [record.firstName, record.middleName, record.lastName].filter(name => name != null).join(' ')
+}
 
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
@@ -16,7 +21,11 @@ export default function routes({ auditService, personRecordService }: Services):
     const { username } = res.locals.user
     const { uuid, records } = await personRecordService.getCluster(username, req.params.uuid)
     const rows = records.map(record => {
-      return Row(TextItem(record.name), TextItem(record.sourceSystem), TextItem(record.reference))
+      return Row(
+        TextItem(record.sourceSystemId),
+        TextItem(buildPersonFrendilyName(record)),
+        TextItem(record.sourceSystem),
+      )
     })
 
     const recordComposition = Table({

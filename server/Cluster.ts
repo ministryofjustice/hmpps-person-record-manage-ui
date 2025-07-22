@@ -1,21 +1,12 @@
-export interface SourceSystemComposition {
+export interface Record {
+  firstName: string
+  middleName: string
+  lastName: string
+  sourceSystemId: string
   sourceSystem: string
-  count: number
-}
-
-export interface Content {
-  uuid: string
-  recordComposition: SourceSystemComposition[]
 }
 
 export interface Cluster {
-  content: Content[]
-  pagination: {
-    isLastPage: boolean
-    count: number
-    page: number
-    perPage: number
-    totalCount: number
-    totalPages: number
-  }
+  uuid: string
+  records: Record[]
 }
