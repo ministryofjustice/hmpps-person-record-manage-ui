@@ -36,4 +36,14 @@ describe('PersonRecordApiClient', () => {
       expect(output).toEqual(response)
     })
   })
+
+  describe('getCluster', () => {
+    it('it should makea GET request to /admin/cluster', async () => {
+      const response = { data: 'data' }
+      fakePersonRecordApiClient.get('/admin/cluster/uuid1').reply(200, response)
+
+      const output = await personRecordApiClient.getCluster(token.username, 'uuid1')
+      expect(output).toEqual(response)
+    })
+  })
 })

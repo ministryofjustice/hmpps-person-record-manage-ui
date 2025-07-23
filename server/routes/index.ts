@@ -8,6 +8,7 @@ import {
   NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_1,
   NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2,
 } from '../domain/constants/indexPage'
+
 import { PageItem, PageLink, Pagination } from '../utils/paginationBuilder'
 import createSearchHandler from './searchHandler'
 
@@ -24,10 +25,10 @@ export default function routes({ auditService, personRecordService }: Services):
     const rows = content.map(cluster => {
       const clusterComposition = cluster.recordComposition
         .filter(({ count }) => count > 0)
-        .map(({ sourceSystem, count }) => `${sourceSystem}(${count})`)
-        .join(' ')
+        .map(({ sourceSystem, count }) => `${sourceSystem} (${count})`)
+        .join(', ')
 
-      return Row(LinkItem(cluster.uuid, cluster.uuid), TextItem(clusterComposition))
+      return Row(LinkItem(cluster.uuid, `/cluster/${cluster.uuid}`), TextItem(clusterComposition))
     })
 
     const needsAttentionTableData = Table({
@@ -60,7 +61,7 @@ export default function routes({ auditService, personRecordService }: Services):
       items: pages,
     })
 
-    await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
+    await auditService.logPageView(Page.INDEX_PAGE, { who: res.locals.user.username, correlationId: req.id })
     return res.render('pages/index', {
       needsAttentionTableData,
       needsAttentionPagination,
