@@ -1,4 +1,4 @@
 // Record Composition Table
 export const RECORD_COMPOSITION_NAME_TABLE_HEADING_1 = 'Name'
 export const RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING_1 = 'Source System'
-export const RECORD_COMPOSITION_REFERENCE_TABLE_HEADING_1 = 'Refrence'
+export const RECORD_COMPOSITION_REFERENCE_TABLE_HEADING_1 = 'Reference'
