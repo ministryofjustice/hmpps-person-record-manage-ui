@@ -5,13 +5,13 @@ import type { Services } from '../../services'
 import { Page } from '../../services/auditService'
 import { Heading, Row, Table, TextItem } from '../../utils/tableBuilder'
 import {
-  RECORD_COMPOSITION_NAME_TABLE_HEADING_1,
-  RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING_1,
-  RECORD_COMPOSITION_REFERENCE_TABLE_HEADING_1,
+  RECORD_COMPOSITION_NAME_TABLE_HEADING,
+  RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING,
+  RECORD_COMPOSITION_SOURCE_SYSTEM_ID_TABLE_HEADING,
 } from '../../domain/constants/clusterPage'
 
-function buildPersonFriendlyName(record: Record) {
-  return [record.firstName, record.middleName, record.lastName].filter(name => name != null).join(' ')
+function buildPersonFrendilyName(record: Record) {
+  return [record.firstName, record.middleName, record.lastName].filter(name => name != null || name === '').join(' ')
 }
 
 export default function routes({ auditService, personRecordService }: Services): Router {
@@ -23,16 +23,16 @@ export default function routes({ auditService, personRecordService }: Services):
     const rows = records.map(record => {
       return Row(
         TextItem(record.sourceSystemId),
-        TextItem(buildPersonFriendlyName(record)),
+        TextItem(buildPersonFrendilyName(record)),
         TextItem(record.sourceSystem),
       )
     })
 
     const recordComposition = Table({
       head: [
-        Heading(RECORD_COMPOSITION_NAME_TABLE_HEADING_1),
-        Heading(RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING_1),
-        Heading(RECORD_COMPOSITION_REFERENCE_TABLE_HEADING_1),
+        Heading(RECORD_COMPOSITION_SOURCE_SYSTEM_ID_TABLE_HEADING),
+        Heading(RECORD_COMPOSITION_NAME_TABLE_HEADING),
+        Heading(RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING),
       ],
       rows,
     })

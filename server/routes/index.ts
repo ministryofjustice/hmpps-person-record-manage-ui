@@ -23,8 +23,8 @@ export default function routes({ auditService, personRecordService }: Services):
     const rows = content.map(cluster => {
       const clusterComposition = cluster.recordComposition
         .filter(({ count }) => count > 0)
-        .map(({ sourceSystem, count }) => `${sourceSystem}(${count})`)
-        .join(' ')
+        .map(({ sourceSystem, count }) => `${sourceSystem} (${count})`)
+        .join(', ')
 
       return Row(LinkItem(cluster.uuid, `/cluster/${cluster.uuid}`), TextItem(clusterComposition))
     })
