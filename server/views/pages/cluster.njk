@@ -20,4 +20,13 @@
     {{ govukTable(recordComposition) }}
   </div>
 
+<h2 class="govuk-heading-m">Event Log</h1>
+  <div class="moj-scrollable-pane nowrap">
+  {{ govukTable({
+    head: eventLog.head,
+    rows: eventLog.rows
+    }) }}
+</div>
+
+
 {% endblock %}
