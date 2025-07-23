@@ -10,7 +10,7 @@ import {
   RECORD_COMPOSITION_REFERENCE_TABLE_HEADING_1,
 } from '../../domain/constants/clusterPage'
 
-function buildPersonFrendilyName(record: Record) {
+function buildPersonFriendlyName(record: Record) {
   return [record.firstName, record.middleName, record.lastName].filter(name => name != null).join(' ')
 }
 
@@ -23,7 +23,7 @@ export default function routes({ auditService, personRecordService }: Services):
     const rows = records.map(record => {
       return Row(
         TextItem(record.sourceSystemId),
-        TextItem(buildPersonFrendilyName(record)),
+        TextItem(buildPersonFriendlyName(record)),
         TextItem(record.sourceSystem),
       )
     })
