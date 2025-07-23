@@ -8,7 +8,7 @@ export interface Content {
   recordComposition: SourceSystemComposition[]
 }
 
-export interface Cluster {
+export interface Clusters {
   content: Content[]
   pagination: {
     isLastPage: boolean

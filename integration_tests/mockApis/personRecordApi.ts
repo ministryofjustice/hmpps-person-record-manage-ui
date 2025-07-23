@@ -81,4 +81,34 @@ export default {
         },
       },
     }),
+  stubPersonRecordGetAdminCluster: ({ httpStatus, uuid } = { httpStatus: 200, uuid: '1234' }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/person-record-api/admin/cluster/${uuid}`,
+      },
+      response: {
+        status: httpStatus,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          uuid: `${uuid}`,
+          records: [
+            {
+              firstName: 'Jane',
+              middleName: 'c',
+              lastName: 'Doe',
+              sourceSystemId: '1234',
+              sourceSystem: 'DELIUS',
+            },
+            {
+              firstName: 'John',
+              middleName: 'd',
+              lastName: 'Smith',
+              sourceSystemId: '4321',
+              sourceSystem: 'NOMIS',
+            },
+          ],
+        },
+      },
+    }),
 }
