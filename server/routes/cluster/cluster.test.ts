@@ -29,7 +29,7 @@ afterEach(() => {
 })
 
 describe('GET /cluster/uuid1', () => {
-  xit('should render cluster view page for a specified uuid', () => {
+  it('should render cluster view page for a specified uuid', () => {
     const cluster: Cluster = {
       uuid: 'uuid1',
       records: [

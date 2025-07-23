@@ -38,7 +38,7 @@ describe('PersonRecordApiClient', () => {
   })
 
   describe('getCluster', () => {
-    xit('it should makea GET request to /admin/cluster', async () => {
+    it('it should makea GET request to /admin/cluster', async () => {
       const response = { data: 'data' }
       fakePersonRecordApiClient.get('/admin/cluster/uuid1').reply(200, response)
 
