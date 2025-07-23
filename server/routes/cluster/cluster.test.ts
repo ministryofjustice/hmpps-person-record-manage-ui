@@ -5,9 +5,9 @@ import AuditService, { Page } from '../../services/auditService'
 import PersonRecordService from '../../services/personRecordService'
 import { Cluster } from '../../cluster'
 
-jest.mock('../services/auditService')
-jest.mock('../data/personRecordApiClient')
-jest.mock('../services/personRecordService')
+jest.mock('../../services/auditService')
+jest.mock('../../data/personRecordApiClient')
+jest.mock('../../services/personRecordService')
 
 const auditService = new AuditService(null) as jest.Mocked<AuditService>
 const personRecordService = new PersonRecordService(null) as jest.Mocked<PersonRecordService>
