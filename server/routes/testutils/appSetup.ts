@@ -4,6 +4,7 @@ import { NotFound } from 'http-errors'
 import { randomUUID } from 'crypto'
 import indexRoutes from '../index'
 import clusterRoutes from '../cluster/cluster'
+import searchRoutes from '../search/search'
 import nunjucksSetup from '../../utils/nunjucksSetup'
 import errorHandler from '../../errorHandler'
 import type { Services } from '../../services'
@@ -49,6 +50,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
   app.use(express.urlencoded({ extended: true }))
   app.use(indexRoutes(services))
   app.use(clusterRoutes(services))
+  app.use(searchRoutes())
   app.use((req, res, next) => next(new NotFound()))
   app.use(errorHandler(production))
 
