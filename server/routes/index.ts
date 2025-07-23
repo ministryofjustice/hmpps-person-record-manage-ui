@@ -59,7 +59,7 @@ export default function routes({ auditService, personRecordService }: Services):
       items: pages,
     })
 
-    await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
+    await auditService.logPageView(Page.INDEX_PAGE, { who: res.locals.user.username, correlationId: req.id })
     return res.render('pages/index', {
       needsAttentionTableData,
       needsAttentionPagination,

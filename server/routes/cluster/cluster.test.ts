@@ -52,7 +52,7 @@ describe('GET /cluster/uuid1', () => {
         expect(res.text).toContain('John Tom Smith')
         expect(res.text).toContain('4321')
         expect(res.text).toContain('NOMIS')
-        expect(auditService.logPageView).toHaveBeenCalledWith(Page.EXAMPLE_PAGE, {
+        expect(auditService.logPageView).toHaveBeenCalledWith(Page.CLUSTER_PAGE, {
           who: user.username,
           correlationId: expect.any(String),
         })

@@ -37,7 +37,7 @@ export default function routes({ auditService, personRecordService }: Services):
       rows,
     })
 
-    await auditService.logPageView(Page.EXAMPLE_PAGE, { who: res.locals.user.username, correlationId: req.id })
+    await auditService.logPageView(Page.CLUSTER_PAGE, { who: res.locals.user.username, correlationId: req.id })
     return res.render('pages/cluster', {
       uuid,
       recordComposition,

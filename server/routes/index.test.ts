@@ -77,7 +77,7 @@ describe('GET /', () => {
         expect(res.text).toContain('DELIUS (3)')
         expect(res.text).toContain('LIBRA (4)')
         expect(res.text).toContain('NOMIS (5)')
-        expect(auditService.logPageView).toHaveBeenCalledWith(Page.EXAMPLE_PAGE, {
+        expect(auditService.logPageView).toHaveBeenCalledWith(Page.INDEX_PAGE, {
           who: user.username,
           correlationId: expect.any(String),
         })
@@ -129,7 +129,7 @@ describe('GET /', () => {
         expect(res.text).toContain('Enter a reference number')
         expect(res.text).toContain('You can search by a CPR UUID')
         expect(res.text).toContain('COMMON_PLATFORM (2), LIBRA (4), NOMIS (5)')
-        expect(auditService.logPageView).toHaveBeenCalledWith(Page.EXAMPLE_PAGE, {
+        expect(auditService.logPageView).toHaveBeenCalledWith(Page.INDEX_PAGE, {
           who: user.username,
           correlationId: expect.any(String),
         })
