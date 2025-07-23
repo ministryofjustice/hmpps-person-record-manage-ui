@@ -3,7 +3,8 @@ import { Router, Request } from 'express'
 import type { Services } from '../services'
 import { Page } from '../services/auditService'
 
-import { buildNeedsAttentionTable, buildNeedsAttentionPagination } from '../builders/needsAttentionTable.builder'
+import buildNeedsAttentionTable from '../builders/needsAttentionTable.builder'
+import buildPagination from '../builders/pagination.builder'
 
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
@@ -15,7 +16,7 @@ export default function routes({ auditService, personRecordService }: Services):
     const { content, pagination } = await personRecordService.getClusters(username, currentPage)
 
     const needsAttentionTableData = buildNeedsAttentionTable(content)
-    const needsAttentionPagination = buildNeedsAttentionPagination(currentPage, pagination)
+    const needsAttentionPagination = buildPagination('/', currentPage, pagination)
 
     await auditService.logPageView(Page.INDEX_PAGE, { who: res.locals.user.username, correlationId: req.id })
     return res.render('pages/index', {

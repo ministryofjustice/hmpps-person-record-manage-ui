@@ -1,3 +1,5 @@
+import { PaginationDetails } from './paginationDetails'
+
 export interface SourceSystemComposition {
   sourceSystem: string
   count: number
@@ -8,16 +10,7 @@ export interface ClusterSummary {
   recordComposition: SourceSystemComposition[]
 }
 
-export interface PaginationDetails {
-  isLastPage: boolean
-  count: number
-  page: number
-  perPage: number
-  totalCount: number
-  totalPages: number
-}
-
-export interface ClustersResponse {
+export interface ClustersSummaryResponse {
   content: ClusterSummary[]
   pagination: PaginationDetails
 }

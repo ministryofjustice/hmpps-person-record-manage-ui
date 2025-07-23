@@ -3,7 +3,7 @@ import request from 'supertest'
 import { appWithAllRoutes, user } from '../testutils/appSetup'
 import AuditService, { Page } from '../../services/auditService'
 import PersonRecordService from '../../services/personRecordService'
-import { ClusterResponse } from '../../data/model/clusterResponse'
+import { ClusterDetailResponse } from '../../data/model/clusterDetailResponse'
 
 jest.mock('../../services/auditService')
 jest.mock('../../data/personRecordApiClient')
@@ -30,7 +30,7 @@ afterEach(() => {
 
 describe('GET /cluster/uuid1', () => {
   it('should render cluster view page for a specified uuid', () => {
-    const cluster: ClusterResponse = {
+    const cluster: ClusterDetailResponse = {
       uuid: 'uuid1',
       records: [
         { firstName: 'Jane', middleName: 'Mary', lastName: 'Doe', sourceSystemId: '1234', sourceSystem: 'DELIUS' },
