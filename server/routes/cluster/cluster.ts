@@ -10,7 +10,7 @@ import {
   RECORD_COMPOSITION_SOURCE_SYSTEM_ID_TABLE_HEADING,
 } from '../../domain/constants/clusterPage'
 
-function buildPersonFrendilyName(record: Record) {
+function buildReadableName(record: Record) {
   return [record.firstName, record.middleName, record.lastName].filter(name => name != null || name === '').join(' ')
 }
 
@@ -22,11 +22,7 @@ export default function routes({ auditService, personRecordService }: Services):
     const { uuid } = req.params
     const { records } = await personRecordService.getCluster(username, uuid)
     const rows = records.map(record => {
-      return Row(
-        TextItem(record.sourceSystemId),
-        TextItem(buildPersonFrendilyName(record)),
-        TextItem(record.sourceSystem),
-      )
+      return Row(TextItem(record.sourceSystemId), TextItem(buildReadableName(record)), TextItem(record.sourceSystem))
     })
 
     const recordComposition = Table({

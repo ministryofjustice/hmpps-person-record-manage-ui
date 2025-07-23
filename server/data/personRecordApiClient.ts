@@ -1,9 +1,9 @@
-import { RestClient, asSystem } from '@ministryofjustice/hmpps-rest-client'
+import { RestClient, asSystem, SanitisedError } from '@ministryofjustice/hmpps-rest-client'
 import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import config from '../config'
 import logger from '../../logger'
 import { Clusters } from '../clusters'
-import { Cluster } from '../cluster'
+import { Cluster, Record } from '../cluster'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
@@ -25,38 +25,17 @@ export default class PersonRecordApiClient extends RestClient {
    *
    */
   async getCluster(username: string, uuid: string): Promise<Cluster> {
-    return this.get({ path: `/admin/cluster/${uuid}` }, asSystem(username))
+    return this.get(
+      {
+        path: `/admin/cluster/${uuid}`,
+        errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
+          if (error.responseStatus === 404) {
+            return { uuid, records: [] as Record[] }
+          }
+          throw error
+        },
+      },
+      asSystem(username),
+    )
   }
-
-  /**
-   * Example: Making a request with the user's own token
-   *
-   * Use this pattern to call the API with a user's access token.
-   * This is useful when authorization depends on the user's roles and permissions.
-   *
-   * Example:
-   * ```
-   * import { asUser } from '@ministryofjustice/hmpps-rest-client'
-   *
-   * getCurrentTime(token: string) {
-   *   return this.get({ path: '/example/time' }, asUser(token))
-   * }
-   * ```
-   */
-
-  /**
-   * Example: Making a request with a system token for a specific user
-   *
-   * Use this pattern to call the API with a system token tied to a specific user.
-   * This is typically used for auditing purposes to track system-initiated actions on behalf of a user.
-   *
-   * Example:
-   * ```
-   * import { asSystem } from '@ministryofjustice/hmpps-rest-client'
-   *
-   * getCurrentTime(username: string) {
-   *   return this.get({ path: '/example/time' }, asSystem(username))
-   * }
-   * ```
-   */
 }
