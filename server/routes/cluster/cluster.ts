@@ -19,7 +19,8 @@ export default function routes({ auditService, personRecordService }: Services):
 
   router.get('/cluster/:uuid', async (req: Request, res, _) => {
     const { username } = res.locals.user
-    const { uuid, records } = await personRecordService.getCluster(username, req.params.uuid)
+    const { uuid } = req.params
+    const { records } = await personRecordService.getCluster(username, uuid)
     const rows = records.map(record => {
       return Row(
         TextItem(record.sourceSystemId),
