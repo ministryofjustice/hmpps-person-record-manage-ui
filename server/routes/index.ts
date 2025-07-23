@@ -15,8 +15,7 @@ export default function routes({ auditService, personRecordService }: Services):
 
   router.get('/', async (req: Request, res, _) => {
     const { username } = res.locals.user
-    const { page } = req.query as Record<string, string>
-    const currentPage = page ? parseInt(page, 10) : 1
+    const currentPage = parseInt(req.query.page, 10) || 1
     const { content, pagination } = await personRecordService.getClusters(username, currentPage)
     const { isLastPage, totalPages } = pagination
     const rows = content.map(cluster => {
