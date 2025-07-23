@@ -1,0 +1,32 @@
+import {
+  RECORD_COMPOSITION_NAME_TABLE_HEADING,
+  RECORD_COMPOSITION_SOURCE_SYSTEM_ID_TABLE_HEADING,
+  RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING,
+} from '../domain/constants/clusterPage'
+import type { Record } from '../data/model/clusterResponse'
+import { Heading, Row, Table, TextItem } from './types/table'
+
+const buildPersonFrendilyName = (record: Record) => {
+  return [record.firstName, record.middleName, record.lastName].filter(name => name != null || name === '').join(' ')
+}
+
+const buildRecordCompositionTable = (records: Record[]): Table => {
+  const rows = records.map(record => {
+    return Row(
+      TextItem(record.sourceSystemId),
+      TextItem(buildPersonFrendilyName(record)),
+      TextItem(record.sourceSystem),
+    )
+  })
+
+  return Table({
+    head: [
+      Heading(RECORD_COMPOSITION_SOURCE_SYSTEM_ID_TABLE_HEADING),
+      Heading(RECORD_COMPOSITION_NAME_TABLE_HEADING),
+      Heading(RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING),
+    ],
+    rows,
+  })
+}
+
+export default buildRecordCompositionTable
