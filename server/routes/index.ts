@@ -9,9 +9,12 @@ import {
   NEEDS_ATTENTION_CLUSTER_TABLE_HEADING_2,
 } from '../domain/constants/indexPage'
 import { PageItem, PageLink, Pagination } from '../utils/paginationBuilder'
+import createSearchHandler from './searchHandler'
 
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
+
+  router.post('/search', createSearchHandler())
 
   router.get('/', async (req: Request, res, _) => {
     const { username } = res.locals.user
