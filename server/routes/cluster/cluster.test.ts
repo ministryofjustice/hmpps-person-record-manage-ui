@@ -2,8 +2,8 @@ import type { Express } from 'express'
 import request from 'supertest'
 import { appWithAllRoutes, user } from '../testutils/appSetup'
 import AuditService, { Page } from '../../services/auditService'
+import { ClusterDetailResponse } from '../../data/model/clusterDetailResponse'
 import PersonRecordService from '../../services/personRecordService'
-import { Cluster } from '../../cluster'
 import { EventLog } from '../../eventLog'
 
 jest.mock('../../services/auditService')
@@ -31,7 +31,7 @@ afterEach(() => {
 
 describe('GET /cluster/uuid1', () => {
   it('should render cluster view page for a specified uuid', () => {
-    const cluster: Cluster = {
+    const cluster: ClusterDetailResponse = {
       uuid: 'uuid1',
       records: [
         { firstName: 'Jane', middleName: 'Mary', lastName: 'Doe', sourceSystemId: '1234', sourceSystem: 'DELIUS' },
