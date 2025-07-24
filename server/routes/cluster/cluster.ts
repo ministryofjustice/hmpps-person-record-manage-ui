@@ -11,7 +11,6 @@ export default function routes({ auditService, personRecordService }: Services):
     const { username } = res.locals.user
     const { uuid } = req.params
     const { records } = await personRecordService.getCluster(username, uuid)
-
     const recordCompositionTable = buildRecordCompositionTable(records)
     await auditService.logPageView(Page.CLUSTER_PAGE, { who: res.locals.user.username, correlationId: req.id })
     return res.render('pages/cluster', {

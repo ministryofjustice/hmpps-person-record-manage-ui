@@ -1,6 +1,5 @@
 import { dataAccess } from '../data'
 import AuditService from './auditService'
-// import ExampleService from './exampleService'
 import PersonRecordService from './personRecordService'
 
 export const services = () => {
@@ -9,7 +8,6 @@ export const services = () => {
   return {
     applicationInfo,
     auditService: new AuditService(hmppsAuditClient),
-    // exampleService: new ExampleService(exampleApiClient),
     personRecordService: new PersonRecordService(personRecordApiClient),
   }
 }
