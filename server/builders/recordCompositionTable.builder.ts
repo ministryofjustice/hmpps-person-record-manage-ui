@@ -22,6 +22,9 @@ const buildRecordCompositionTable = (records: Record[]): Table => {
       Heading(RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING),
     ],
     rows,
+    attributes: {
+      id: 'record-composition-table-id',
+    },
   })
 }
 

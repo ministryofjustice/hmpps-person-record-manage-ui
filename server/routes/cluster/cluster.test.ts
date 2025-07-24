@@ -4,7 +4,7 @@ import { appWithAllRoutes, user } from '../testutils/appSetup'
 import AuditService, { Page } from '../../services/auditService'
 import { ClusterDetailResponse } from '../../data/model/clusterDetailResponse'
 import PersonRecordService from '../../services/personRecordService'
-import { EventLog } from '../../eventLog'
+import { EventLogResponse } from '../../data/model/eventLogResponse'
 
 jest.mock('../../services/auditService')
 jest.mock('../../data/personRecordApiClient')
@@ -38,7 +38,7 @@ describe('GET /cluster/uuid1', () => {
         { firstName: 'John', middleName: 'Tom', lastName: 'Smith', sourceSystemId: '4321', sourceSystem: 'NOMIS' },
       ],
     }
-    const eventLogRes: EventLog = {
+    const eventLogRes: EventLogResponse = {
       uuid: 'uuid1',
       eventLogs: [
         {

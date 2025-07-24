@@ -4,7 +4,7 @@ import config from '../config'
 import logger from '../../logger'
 import { ClustersSummaryResponse } from './model/clustersSummaryResponse'
 import { ClusterDetailResponse, Record } from './model/clusterDetailResponse'
-import { EventLog } from '../eventLog'
+import { EventLogResponse } from './model/eventLogResponse'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
@@ -38,10 +38,8 @@ export default class PersonRecordApiClient extends RestClient {
 
   /**
    * Making a get request to person record to get specified cluster event logs
-   *
-   *
    */
-  async getEventLog(username: string, uuid: string): Promise<EventLog> {
+  async getEventLog(username: string, uuid: string): Promise<EventLogResponse> {
     return this.get({ path: `/admin/event-log/${uuid}` }, asSystem(username))
   }
 }

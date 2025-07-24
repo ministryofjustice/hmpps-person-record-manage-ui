@@ -18,7 +18,7 @@ export interface EventLogDetails {
   excludeOverrideMarkers: string[]
 }
 
-export interface EventLog {
+export interface EventLogResponse {
   uuid: string
   eventLogs: EventLogDetails[]
 }

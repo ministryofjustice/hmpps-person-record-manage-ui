@@ -1,7 +1,7 @@
 import PersonRecordApiClient from '../data/personRecordApiClient'
 import PersonRecordService from './personRecordService'
 import { SourceSystemComposition, ClustersSummaryResponse } from '../data/model/clustersSummaryResponse'
-import { EventLog } from '../eventLog'
+import { EventLogResponse } from '../data/model/eventLogResponse'
 
 jest.mock('../data/personRecordApiClient')
 const token = { access_token: 'userToken', expires_in: 300 }
@@ -41,7 +41,7 @@ describe('PersonRecordService', () => {
   })
 
   it('should call getEventLog on the api client and return its result', async () => {
-    const expectedResult: EventLog = {
+    const expectedResult: EventLogResponse = {
       uuid: 'uuid1',
       eventLogs: [
         {

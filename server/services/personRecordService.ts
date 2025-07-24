@@ -1,7 +1,7 @@
 import { ClustersSummaryResponse } from '../data/model/clustersSummaryResponse'
 import { ClusterDetailResponse } from '../data/model/clusterDetailResponse'
 import PersonRecordApiClient from '../data/personRecordApiClient'
-import { EventLog } from '../eventLog'
+import { EventLogResponse } from '../data/model/eventLogResponse'
 
 export default class PersonRecordService {
   constructor(private readonly personRecordApiClient: PersonRecordApiClient) {}
@@ -14,7 +14,7 @@ export default class PersonRecordService {
     return this.personRecordApiClient.getCluster(username, uuid)
   }
 
-  async getEventLog(username: string, uuid: string): Promise<EventLog> {
+  async getEventLog(username: string, uuid: string): Promise<EventLogResponse> {
     return this.personRecordApiClient.getEventLog(username, uuid)
   }
 }

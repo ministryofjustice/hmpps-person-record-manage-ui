@@ -17,6 +17,7 @@ context('Cluster View', () => {
     const uuid = '1234'
 
     cy.task('stubPersonRecordGetAdminCluster', { uuid })
+    cy.task('stubPersonRecordGetAdminEventLog', { uuid })
     cy.visit(`/cluster/${uuid}`)
 
     const clusterPage = Page.verifyOnPage(ClusterPage, uuid)
@@ -33,10 +34,56 @@ context('Cluster View', () => {
     clusterPage.getRecordCompositionRow(2).contains('NOMIS')
   })
 
+  it('cluster view shows event logs', () => {
+    const uuid = '1234'
+
+    cy.task('stubPersonRecordGetAdminCluster', { uuid })
+    cy.task('stubPersonRecordGetAdminEventLog', { uuid })
+    cy.visit(`/cluster/${uuid}`)
+
+    const clusterPage = Page.verifyOnPage(ClusterPage, uuid)
+    clusterPage.getEventLogTableHeader(1).contains('UUID Status Type')
+    clusterPage.getEventLogTableHeader(2).contains('First Name')
+    clusterPage.getEventLogTableHeader(3).contains('First Name Aliases')
+    clusterPage.getEventLogTableHeader(4).contains('Middle Names')
+    clusterPage.getEventLogTableHeader(5).contains('Last Name')
+    clusterPage.getEventLogTableHeader(6).contains('Last Name Aliases')
+    clusterPage.getEventLogTableHeader(7).contains('Date Of Birth')
+    clusterPage.getEventLogTableHeader(8).contains('Date Of Birth Aliases')
+    clusterPage.getEventLogTableHeader(9).contains('Postcodes')
+    clusterPage.getEventLogTableHeader(10).contains("CRO's")
+    clusterPage.getEventLogTableHeader(11).contains("PNC's")
+    clusterPage.getEventLogTableHeader(12).contains('Source System')
+    clusterPage.getEventLogTableHeader(13).contains('Event Type')
+    clusterPage.getEventLogTableHeader(14).contains('Record Merged To')
+    clusterPage.getEventLogTableHeader(15).contains('Event Timestamp')
+    clusterPage.getEventLogTableHeader(16).contains('Sentence Dates')
+    clusterPage.getEventLogTableHeader(17).contains('Exclude Override Markers')
+
+    clusterPage.getEventLogTableRow(1).contains('ACTIVE')
+    clusterPage.getEventLogTableRow(1).contains('John')
+    clusterPage.getEventLogTableRow(1).contains('jon jonny')
+    clusterPage.getEventLogTableRow(1).contains('c')
+    clusterPage.getEventLogTableRow(1).contains('Doe')
+    clusterPage.getEventLogTableRow(1).contains('Doe Dow')
+    clusterPage.getEventLogTableRow(1).contains('1970-Jan-01')
+    clusterPage.getEventLogTableRow(1).contains('1970-Feb-01 1970-Mar')
+    clusterPage.getEventLogTableRow(1).contains('SW1 SW2')
+    clusterPage.getEventLogTableRow(1).contains('123 456')
+    clusterPage.getEventLogTableRow(1).contains('abc def')
+    clusterPage.getEventLogTableRow(1).contains('DELIUS')
+    clusterPage.getEventLogTableRow(1).contains('CREATE')
+    clusterPage.getEventLogTableRow(1).contains('abc-123')
+    clusterPage.getEventLogTableRow(1).contains('2025-07-25:09:00')
+    clusterPage.getEventLogTableRow(1).contains('2025-Jan-01 20205-Mar-01')
+    clusterPage.getEventLogTableRow(1).contains('123 321')
+  })
+
   it('back button navigates to index page', () => {
     const uuid = '1234'
 
     cy.task('stubPersonRecordGetAdminCluster', { uuid })
+    cy.task('stubPersonRecordGetAdminEventLog', { uuid })
     cy.visit(`/cluster/${uuid}`)
 
     const clusterPage = Page.verifyOnPage(ClusterPage, uuid)

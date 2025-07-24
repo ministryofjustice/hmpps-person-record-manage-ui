@@ -17,7 +17,7 @@ import {
   EVENT_LOG_SENTENCE_DATES_TABLE_HEADING,
   EVENT_LOG_EXCLUDE_OVERRIDE_MARKER_TABLE_HEADING,
 } from '../domain/constants/eventLog'
-import { EventLogDetails } from '../eventLog'
+import { EventLogDetails } from '../data/model/eventLogResponse'
 import { Row, TextItem, Table, Heading } from './types/table'
 
 const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
@@ -63,6 +63,9 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
       Heading(EVENT_LOG_EXCLUDE_OVERRIDE_MARKER_TABLE_HEADING),
     ],
     rows: eventLogRows,
+    attributes: {
+      id: 'event-log-table-id',
+    },
   })
 }
 
