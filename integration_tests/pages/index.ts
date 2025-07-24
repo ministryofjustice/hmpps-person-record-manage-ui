@@ -16,4 +16,9 @@ export default class IndexPage extends Page {
   getNextLink = (): PageElement => cy.get(`.govuk-pagination__next a`)
 
   getCurrentPaginationItem = (): PageElement => cy.get(`.govuk-pagination__item--current`)
+
+  searchFor = (search: string) => {
+    cy.get('#search').type(search)
+    cy.get('.moj-search form').submit()
+  }
 }

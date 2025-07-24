@@ -20,8 +20,8 @@ context('Cluster View', () => {
     cy.task('stubPersonRecordGetAdminEventLog', { uuid })
 
     cy.visit(`/`)
-    cy.get('#search').type(uuid)
-    cy.get('.moj-search form').submit()
+    const indexPage = Page.verifyOnPage(IndexPage, uuid)
+    indexPage.searchFor(uuid)
 
     const clusterPage = Page.verifyOnPage(ClusterPage, uuid)
     clusterPage.getUuidHeader().contains(`UUID: ${uuid}`)
@@ -43,8 +43,8 @@ context('Cluster View', () => {
 
     cy.get('.govuk-error-message').should('not.exist')
 
-    cy.get('#search').type('notfounduuid')
-    cy.get('.moj-search form').submit()
+    const indexPage = Page.verifyOnPage(IndexPage)
+    indexPage.searchFor('notfounduuid')
 
     Page.verifyOnPage(IndexPage)
 
