@@ -46,4 +46,14 @@ describe('PersonRecordApiClient', () => {
       expect(output).toEqual(response)
     })
   })
+
+  describe('getEventLog', () => {
+    it('it should makea GET request to /admin/event-log', async () => {
+      const response = { data: 'data' }
+      fakePersonRecordApiClient.get('/admin/event-log/uuid1').reply(200, response)
+
+      const output = await personRecordApiClient.getEventLog(token.username, 'uuid1')
+      expect(output).toEqual(response)
+    })
+  })
 })
