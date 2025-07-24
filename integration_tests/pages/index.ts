@@ -21,4 +21,6 @@ export default class IndexPage extends Page {
     cy.get('#search').type(search)
     cy.get('.moj-search form').submit()
   }
+
+  getErrorMessage = (): PageElement => cy.get('.govuk-error-message')
 }

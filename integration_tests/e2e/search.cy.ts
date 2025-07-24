@@ -41,13 +41,12 @@ context('Cluster View', () => {
     cy.task('stubPersonRecordGetAdminCluster', { httpStatus: 404, uuid: 'notfounduuid' })
     cy.visit(`/`)
 
-    cy.get('.govuk-error-message').should('not.exist')
-
     const indexPage = Page.verifyOnPage(IndexPage)
+    indexPage.getErrorMessage().should('not.exist')
     indexPage.searchFor('notfounduuid')
 
     Page.verifyOnPage(IndexPage)
 
-    cy.get('.govuk-error-message').contains('No results found')
+    indexPage.getErrorMessage().contains('No results found')
   })
 })
