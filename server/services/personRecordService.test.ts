@@ -1,6 +1,6 @@
 import PersonRecordApiClient from '../data/personRecordApiClient'
 import PersonRecordService from './personRecordService'
-import { SourceSystemComposition, Clusters } from '../clusters'
+import { SourceSystemComposition, ClustersSummaryResponse } from '../data/model/clustersSummaryResponse'
 
 jest.mock('../data/personRecordApiClient')
 const token = { access_token: 'userToken', expires_in: 300 }
@@ -14,7 +14,7 @@ describe('PersonRecordService', () => {
   })
 
   it('should call getClusters on the api client and return its result', async () => {
-    const expectedResult: Clusters = {
+    const expectedResult: ClustersSummaryResponse = {
       content: [
         {
           uuid: 'uuid1',

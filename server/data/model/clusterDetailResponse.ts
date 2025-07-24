@@ -6,7 +6,7 @@ export interface Record {
   sourceSystem: string
 }
 
-export interface Cluster {
+export interface ClusterDetailResponse {
   uuid: string
   records: Record[]
 }
