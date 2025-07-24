@@ -3,7 +3,7 @@ import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients
 import config from '../config'
 import logger from '../../logger'
 import { ClustersSummaryResponse } from './model/clustersSummaryResponse'
-import { ClusterDetailResponse } from './model/clusterDetailResponse'
+import { ClusterDetailResponse, Record } from './model/clusterDetailResponse'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
