@@ -19,32 +19,51 @@ import {
   EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING,
 } from '../domain/constants/clusterPage'
 import { EVENT_LOG_TABLE_ID } from '../domain/ids/clusterPageIds'
-import { Row, TextItem, Table, Heading } from './types/table'
+import { Row, TextItem, Table, Heading, HTMLItem, TagItem, TagColour } from './types/table'
+
+const buildUUIDStatusTypeItem = (uuidStatusType: string): HTMLItem | TextItem => {
+  switch (uuidStatusType) {
+    case 'NEEDS_ATTENTION':
+      return TagItem(uuidStatusType, TagColour.RED)
+    case 'MERGED':
+    case 'RECLUSTER_MERGE':
+      return TagItem(uuidStatusType, TagColour.YELLOW)
+    case 'ACTIVE':
+      return TagItem(uuidStatusType, TagColour.GREEN)
+    default:
+      return TextItem(uuidStatusType)
+  }
+}
+
+const buildReadableList = (list: string[]): string => {
+  return list.map(item => item.trim()).join(', ')
+}
 
 const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
   const eventLogRows = eventLogs.map(eventLog => {
     return Row(
-      TextItem(eventLog.uuidStatusType),
+      TextItem(eventLog.eventTimestamp),
+      buildUUIDStatusTypeItem(eventLog.uuidStatusType),
       TextItem(eventLog.firstName),
-      TextItem(eventLog.firstNameAliases.join(' ')),
+      TextItem(buildReadableList(eventLog.firstNameAliases)),
       TextItem(eventLog.middleNames),
       TextItem(eventLog.lastName),
-      TextItem(eventLog.lastNameAliases.join(' ')),
+      TextItem(buildReadableList(eventLog.lastNameAliases)),
       TextItem(eventLog.dateOfBirth),
-      TextItem(eventLog.dateOfBirthAliases.join(' ')),
-      TextItem(eventLog.postcodes.join(' ')),
-      TextItem(eventLog.pncs.join(' ')),
-      TextItem(eventLog.cros.join(' ')),
+      TextItem(buildReadableList(eventLog.dateOfBirthAliases)),
+      TextItem(buildReadableList(eventLog.postcodes)),
+      TextItem(buildReadableList(eventLog.pncs)),
+      TextItem(buildReadableList(eventLog.cros)),
       TextItem(eventLog.sourceSystem),
       TextItem(eventLog.eventType),
       TextItem(eventLog.recordMergedTo),
-      TextItem(eventLog.eventTimestamp),
-      TextItem(eventLog.sentenceDates.join(' ')),
-      TextItem(eventLog.excludeOverrideMarkers.join(' ')),
+      TextItem(buildReadableList(eventLog.sentenceDates)),
+      TextItem(buildReadableList(eventLog.excludeOverrideMarkers)),
     )
   })
   return Table({
     head: [
+      Heading(EVENT_LOG_EVENT_TIME_STAMP_TABLE_HEADING),
       Heading(EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING),
       Heading(EVENT_LOG_FIRST_NAME_TABLE_HEADING),
       Heading(EVENT_LOG_FIRST_NAME_ALIASES_TABLE_HEADING),
@@ -59,7 +78,6 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
       Heading(EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING),
       Heading(EVENT_LOG_EVENT_TYPE_TABLE_HEADING),
       Heading(EVENT_LOG_RECORD_MERGED_TO_TABLE_HEADING),
-      Heading(EVENT_LOG_EVENT_TIME_STAMP_TABLE_HEADING),
       Heading(EVENT_LOG_SENTENCE_DATES_TABLE_HEADING),
       Heading(EVENT_LOG_EXCLUDE_OVERRIDE_MARKER_TABLE_HEADING),
     ],

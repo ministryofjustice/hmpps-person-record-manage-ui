@@ -13,23 +13,33 @@ export type Attributes = {
   id: string
 }
 
-export type Row = Array<TextItem | HtmlItem>
+export type Row = Array<TextItem | HTMLItem>
 
 export type TextItem = {
   text: string
 }
 
-export type HtmlItem = {
+export type HTMLItem = {
   html: string
+}
+
+export enum TagColour {
+  YELLOW = 'govuk-tag--yellow',
+  RED = 'govuk-tag--red',
+  GREEN = 'govuk-tag--green',
 }
 
 export const TextItem = (text: string): TextItem => ({ text })
 
-export const LinkItem = (text: string, link: string): HtmlItem => ({
+export const TagItem = (text: string, colour: TagColour): HTMLItem => ({
+  html: `<strong class="govuk-tag ${colour}">${text}</strong>`,
+})
+
+export const LinkItem = (text: string, link: string): HTMLItem => ({
   html: `<a href="${link}" class="govuk-link">${text}</a>`,
 })
 
-export const Row = (...items: (TextItem | HtmlItem)[]): Row => items
+export const Row = (...items: (TextItem | HTMLItem)[]): Row => items
 
 export const Heading = (text: string): Heading => ({ text })
 
