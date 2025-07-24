@@ -1,6 +1,7 @@
 import PersonRecordApiClient from '../data/personRecordApiClient'
 import PersonRecordService from './personRecordService'
 import { SourceSystemComposition, ClustersSummaryResponse } from '../data/model/clustersSummaryResponse'
+import { EventLogResponse } from '../data/model/eventLogResponse'
 
 jest.mock('../data/personRecordApiClient')
 const token = { access_token: 'userToken', expires_in: 300 }
@@ -36,6 +37,40 @@ describe('PersonRecordService', () => {
     const result = await personRecordService.getClusters(token.access_token, 1)
 
     expect(personRecordApiClient.getClusters).toHaveBeenCalledTimes(1)
+    expect(result).toEqual(expectedResult)
+  })
+
+  it('should call getEventLog on the api client and return its result', async () => {
+    const expectedResult: EventLogResponse = {
+      uuid: 'uuid1',
+      eventLogs: [
+        {
+          uuidStatusType: 'uuidStatusType',
+          firstName: 'John',
+          firstNameAliases: ['jon', 'johny'],
+          middleNames: 'c',
+          lastName: 'Doe',
+          lastNameAliases: ['Doe', 'Dow'],
+          dateOfBirth: '1970-Jan-01',
+          dateOfBirthAliases: ['1970-Feb-01', '1970-Mar'],
+          postcodes: ['SW1', 'SW2'],
+          pncs: ['123', '456'],
+          cros: ['abc', 'def'],
+          sourceSystem: 'DELIUS',
+          eventType: 'CREATE',
+          recordMergedTo: 'abc-123',
+          eventTimestamp: '2025-07-25:09:00',
+          sentenceDates: ['2025-Jan-01', '20205-Mar-01'],
+          excludeOverrideMarkers: ['123', '321'],
+        },
+      ],
+    }
+
+    personRecordApiClient.getEventLog.mockResolvedValue(expectedResult)
+
+    const result = await personRecordService.getEventLog(token.access_token, 'uuid1')
+
+    expect(personRecordApiClient.getEventLog).toHaveBeenCalledTimes(1)
     expect(result).toEqual(expectedResult)
   })
 })

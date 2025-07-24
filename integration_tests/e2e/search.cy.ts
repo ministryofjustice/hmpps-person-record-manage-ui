@@ -17,7 +17,7 @@ context('Cluster View', () => {
     const uuid = '1234'
 
     cy.task('stubPersonRecordGetAdminCluster', { uuid })
-    cy.task('stubPersonRecordGetAdminCluster', { uuid })
+    cy.task('stubPersonRecordGetAdminEventLog', { uuid })
 
     cy.visit(`/`)
     cy.get('#search').type(uuid)

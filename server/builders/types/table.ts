@@ -2,10 +2,15 @@
 export type Table = {
   head: Heading[]
   rows: Row[]
+  attributes?: Attributes
 }
 
 export type Heading = {
   text: string
+}
+
+export type Attributes = {
+  id: string
 }
 
 export type Row = Array<TextItem | HtmlItem>
@@ -28,7 +33,8 @@ export const Row = (...items: (TextItem | HtmlItem)[]): Row => items
 
 export const Heading = (text: string): Heading => ({ text })
 
-export const Table = (structure: { head: Heading[]; rows: Row[] }): Table => ({
+export const Table = (structure: { head: Heading[]; rows: Row[]; attributes?: Attributes }): Table => ({
   head: structure.head,
   rows: structure.rows,
+  attributes: structure.attributes,
 })

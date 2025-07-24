@@ -5,6 +5,7 @@ import {
 } from '../domain/constants/clusterPage'
 import type { Record } from '../data/model/clusterDetailResponse'
 import { Heading, Row, Table, TextItem } from './types/table'
+import { RECORD_COMPOSITION_TABLE_ID } from '../domain/ids/clusterPageIds'
 
 const buildReadableName = (record: Record) => {
   return [record.firstName, record.middleName, record.lastName].filter(name => name != null || name === '').join(' ')
@@ -22,6 +23,9 @@ const buildRecordCompositionTable = (records: Record[]): Table => {
       Heading(RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING),
     ],
     rows,
+    attributes: {
+      id: RECORD_COMPOSITION_TABLE_ID,
+    },
   })
 }
 
