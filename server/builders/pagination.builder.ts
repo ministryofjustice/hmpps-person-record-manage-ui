@@ -1,6 +1,8 @@
 import config from '../config'
 import { PaginationDetails } from '../data/model/paginationDetails'
-import { PageEllipsis, PageEllipsisItem, PageItem, PageLink, Pagination } from './types/pagination'
+import { PageEllipsis, PageItem, PageLink, Pagination } from './types/pagination'
+
+export const PageEllipsisItem: PageEllipsis = PageEllipsis(true)
 
 const buildPaginationItems = (
   currentPage: number,

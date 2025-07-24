@@ -24,6 +24,4 @@ export const PageItem = (props: PageItem): PageItem => props
 
 export const PageEllipsis = (ellipsis: boolean): PageEllipsis => ({ ellipsis })
 
-export const PageEllipsisItem: PageEllipsis = PageEllipsis(true)
-
 export const Pagination = (structure: Pagination): Pagination => structure
