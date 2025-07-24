@@ -1,0 +1,24 @@
+export interface EventLogDetails {
+  uuidStatusType: string
+  firstName: string
+  firstNameAliases: string[]
+  middleNames: string
+  lastName: string
+  lastNameAliases: string[]
+  dateOfBirth: string
+  dateOfBirthAliases: string[]
+  postcodes: string[]
+  pncs: string[]
+  cros: string[]
+  sourceSystem: string
+  eventType: string
+  recordMergedTo: string
+  eventTimestamp: string
+  sentenceDates: string[]
+  excludeOverrideMarkers: string[]
+}
+
+export interface EventLog {
+  uuid: string
+  eventLogs: EventLogDetails[]
+}

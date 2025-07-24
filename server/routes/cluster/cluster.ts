@@ -57,27 +57,29 @@ export default function routes({ auditService, personRecordService }: Services):
       rows: recordRows,
     })
 
-    const eventLogRows = [
-      Row(
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-        TextItem('hard-Coded'),
-      ),
-    ]
+    const { eventLogs } = await personRecordService.getEventLog(username, uuid)
+
+    const eventLogRows = eventLogs.map(eventLog => {
+      return Row(
+        TextItem(eventLog.uuidStatusType),
+        TextItem(eventLog.firstName),
+        TextItem(eventLog.firstNameAliases.join(' ')),
+        TextItem(eventLog.middleNames),
+        TextItem(eventLog.lastName),
+        TextItem(eventLog.lastNameAliases.join(' ')),
+        TextItem(eventLog.dateOfBirth),
+        TextItem(eventLog.dateOfBirthAliases.join(' ')),
+        TextItem(eventLog.postcodes.join(' ')),
+        TextItem(eventLog.pncs.join(' ')),
+        TextItem(eventLog.cros.join(' ')),
+        TextItem(eventLog.sourceSystem),
+        TextItem(eventLog.eventType),
+        TextItem(eventLog.recordMergedTo),
+        TextItem(eventLog.eventTimestamp),
+        TextItem(eventLog.sentenceDates.join(' ')),
+        TextItem(eventLog.excludeOverrideMarkers.join(' ')),
+      )
+    })
     const eventLog = Table({
       head: [
         Heading(EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING),

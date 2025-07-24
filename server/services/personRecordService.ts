@@ -1,5 +1,6 @@
 import { Clusters } from '../clusters'
 import { Cluster } from '../cluster'
+import { EventLog } from '../eventLog'
 import PersonRecordApiClient from '../data/personRecordApiClient'
 
 export default class PersonRecordService {
@@ -11,5 +12,9 @@ export default class PersonRecordService {
 
   async getCluster(username: string, uuid: string): Promise<Cluster> {
     return this.personRecordApiClient.getCluster(username, uuid)
+  }
+
+  async getEventLog(username: string, uuid: string): Promise<EventLog> {
+    return this.personRecordApiClient.getEventLog(username, uuid)
   }
 }
