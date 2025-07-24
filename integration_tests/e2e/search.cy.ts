@@ -40,6 +40,9 @@ context('Cluster View', () => {
   it('search with no results redirects to index page and shows no results found error message', () => {
     cy.task('stubPersonRecordGetAdminCluster', { httpStatus: 404, uuid: 'notfounduuid' })
     cy.visit(`/`)
+
+    cy.get('.govuk-error-message').contains('No results found').should('not.exist')
+
     cy.get('#search').type('notfounduuid')
     cy.get('.moj-search form').submit()
 

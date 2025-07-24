@@ -16,11 +16,13 @@ export default function routes({ auditService, personRecordService }: Services):
 
     const needsAttentionTableData = buildNeedsAttentionTable(content)
     const needsAttentionPagination = buildPagination('/', currentPage, pagination)
+    const search = { errorText: 'No results found' }
 
     await auditService.logPageView(Page.INDEX_PAGE, { who: res.locals.user.username, correlationId: req.id })
     return res.render('pages/index', {
       needsAttentionTableData,
       needsAttentionPagination,
+      search,
     })
   })
 

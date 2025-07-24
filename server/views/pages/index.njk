@@ -11,6 +11,10 @@
 
   <h1>Search</h1>
 
+ {%- if search.errorText %}
+    {% set errorMessage = {  text: search.errorText } %}
+  {% endif -%}
+
   {{ mojSearch({
     csrfToken: csrfToken,
     action: "/search",
@@ -23,9 +27,7 @@
       text: "Enter a reference number",
       classes: "govuk-!-font-weight-bold"
     },
-    errorMessage: {
-        text: "No results found"
-      },
+    errorMessage: errorMessage,
     hint: {
       text: "You can search by a CPR UUID"
     },
