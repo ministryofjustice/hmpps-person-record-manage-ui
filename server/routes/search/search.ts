@@ -10,7 +10,7 @@ export default function routes({ personRecordService }: Services): Router {
     const { search: uuid } = req.body
     const { records } = await personRecordService.getCluster(username, uuid)
     if (records.length === 0) {
-      return res.redirect('/')
+      return res.redirect('/?error=notfound')
     }
     return res.redirect(`/cluster/${uuid}`)
   })
