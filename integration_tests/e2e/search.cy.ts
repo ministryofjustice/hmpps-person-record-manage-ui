@@ -2,7 +2,7 @@ import IndexPage from '../pages'
 import ClusterPage from '../pages/cluster'
 import Page from '../pages/page'
 
-context('Cluster View', () => {
+context('Search', () => {
   beforeEach(() => {
     cy.task('reset')
     cy.task('stubPersonRecordGetAdminClusters', { page: 1 })
