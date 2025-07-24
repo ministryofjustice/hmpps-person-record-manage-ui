@@ -57,6 +57,7 @@ describe('PersonRecordService', () => {
           pncs: ['123', '456'],
           cros: ['abc', 'def'],
           sourceSystem: 'DELIUS',
+          sourceSystemId: '1234',
           eventType: 'CREATE',
           recordMergedTo: 'abc-123',
           eventTimestamp: '2025-07-25:09:00',
