@@ -15,6 +15,7 @@ import {
   EVENT_LOG_POST_CODE_TABLE_HEADING,
   EVENT_LOG_RECORD_MERGED_TO_TABLE_HEADING,
   EVENT_LOG_SENTENCE_DATES_TABLE_HEADING,
+  EVENT_LOG_SOURCE_SYSTEM_ID_TABLE_HEADING,
   EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING,
   EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING,
 } from '../domain/constants/clusterPage'
@@ -44,6 +45,7 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
     return Row(
       TextItem(eventLog.eventTimestamp),
       buildUUIDStatusTypeItem(eventLog.uuidStatusType),
+      TextItem(eventLog.sourceSystemId),
       TextItem(eventLog.firstName),
       TextItem(buildReadableList(eventLog.firstNameAliases)),
       TextItem(eventLog.middleNames),
@@ -65,6 +67,7 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
     head: [
       Heading(EVENT_LOG_EVENT_TIME_STAMP_TABLE_HEADING),
       Heading(EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING),
+      Heading(EVENT_LOG_SOURCE_SYSTEM_ID_TABLE_HEADING),
       Heading(EVENT_LOG_FIRST_NAME_TABLE_HEADING),
       Heading(EVENT_LOG_FIRST_NAME_ALIASES_TABLE_HEADING),
       Heading(EVENT_LOG_MIDDLE_NAMES_TABLE_HEADING),
