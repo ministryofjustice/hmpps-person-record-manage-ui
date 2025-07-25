@@ -11,6 +11,7 @@ export interface EventLogDetails {
   pncs: string[]
   cros: string[]
   sourceSystem: string
+  sourceSystemId: string
   eventType: string
   recordMergedTo: string
   eventTimestamp: string

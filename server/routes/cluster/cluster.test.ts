@@ -54,6 +54,7 @@ describe('GET /cluster/uuid1', () => {
           pncs: ['123', '456'],
           cros: ['abc', 'def'],
           sourceSystem: 'DELIUS',
+          sourceSystemId: '1234',
           eventType: 'CREATE',
           recordMergedTo: 'abc-123',
           eventTimestamp: '2025-07-25:09:00',
@@ -80,6 +81,7 @@ describe('GET /cluster/uuid1', () => {
         expect(res.text).toContain('NOMIS')
 
         expect(res.text).toContain('ACTIVE')
+        expect(res.text).toContain('1234')
         expect(res.text).toContain('John')
         expect(res.text).toContain('jon, jonny')
         expect(res.text).toContain('c')

@@ -2,7 +2,7 @@ import IndexPage from '../pages'
 import ClusterPage from '../pages/cluster'
 import Page from '../pages/page'
 
-context('Cluster View', () => {
+context('Search', () => {
   beforeEach(() => {
     cy.task('reset')
     cy.task('stubPersonRecordGetAdminClusters', { page: 1 })
@@ -20,8 +20,8 @@ context('Cluster View', () => {
     cy.task('stubPersonRecordGetAdminEventLog', { uuid })
 
     cy.visit(`/`)
-    cy.get('#search').type(uuid)
-    cy.get('.moj-search form').submit()
+    const indexPage = Page.verifyOnPage(IndexPage, uuid)
+    indexPage.searchFor(uuid)
 
     const clusterPage = Page.verifyOnPage(ClusterPage, uuid)
     clusterPage.getUuidHeader().contains(`UUID: ${uuid}`)
@@ -41,13 +41,12 @@ context('Cluster View', () => {
     cy.task('stubPersonRecordGetAdminCluster', { httpStatus: 404, uuid: 'notfounduuid' })
     cy.visit(`/`)
 
-    cy.get('.govuk-error-message').should('not.exist')
-
-    cy.get('#search').type('notfounduuid')
-    cy.get('.moj-search form').submit()
+    const indexPage = Page.verifyOnPage(IndexPage)
+    indexPage.getErrorMessage().should('not.exist')
+    indexPage.searchFor('notfounduuid')
 
     Page.verifyOnPage(IndexPage)
 
-    cy.get('.govuk-error-message').contains('No results found')
+    indexPage.getErrorMessage().contains('No results found')
   })
 })

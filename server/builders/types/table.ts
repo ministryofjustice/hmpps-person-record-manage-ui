@@ -1,4 +1,3 @@
-// types need moving to somewhere sensible
 export type Table = {
   head: Heading[]
   rows: Row[]
