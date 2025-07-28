@@ -18,4 +18,5 @@ generic-service:
     AUDIT_ENABLED: "false"
 
 generic-prometheus-alerts:
+  businessHoursOnly: true
   alertSeverity: hmpps-person-record-alerts-prod
