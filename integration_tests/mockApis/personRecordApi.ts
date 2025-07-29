@@ -81,4 +81,70 @@ export default {
         },
       },
     }),
+  stubPersonRecordGetAdminCluster: ({ httpStatus, uuid } = { httpStatus: 200, uuid: '1234' }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/person-record-api/admin/cluster/${uuid}`,
+      },
+      response: {
+        status: httpStatus,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          uuid: `${uuid}`,
+          records: [
+            {
+              firstName: 'Jane',
+              middleName: 'c',
+              lastName: 'Doe',
+              sourceSystemId: '1234',
+              sourceSystem: 'DELIUS',
+            },
+            {
+              firstName: 'John',
+              middleName: 'd',
+              lastName: 'Smith',
+              sourceSystemId: '4321',
+              sourceSystem: 'NOMIS',
+            },
+          ],
+        },
+      },
+    }),
+  stubPersonRecordGetAdminEventLog: ({ httpStatus, uuid } = { httpStatus: 200, uuid: '1234' }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/person-record-api/admin/event-log/${uuid}`,
+      },
+      response: {
+        status: httpStatus,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          uuid: `${uuid}`,
+          eventLogs: [
+            {
+              uuidStatusType: 'ACTIVE',
+              firstName: 'John',
+              firstNameAliases: ['jon', 'jonny'],
+              middleNames: 'c',
+              lastName: 'Doe',
+              lastNameAliases: ['Doe', 'Dow'],
+              dateOfBirth: '1970-Jan-01',
+              dateOfBirthAliases: ['1970-Feb-01', '1970-Mar'],
+              postcodes: ['SW1', 'SW2'],
+              pncs: ['123', '456'],
+              cros: ['abc', 'def'],
+              sourceSystem: 'DELIUS',
+              sourceSystemId: '1234',
+              eventType: 'CREATE',
+              recordMergedTo: 'abc-123',
+              eventTimestamp: '2025-07-25:09:00',
+              sentenceDates: ['2025-Jan-01', '20205-Mar-01'],
+              excludeOverrideMarkers: ['123', '321'],
+            },
+          ],
+        },
+      },
+    }),
 }

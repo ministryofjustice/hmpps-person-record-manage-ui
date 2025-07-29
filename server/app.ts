@@ -16,8 +16,10 @@ import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
 
-import routes from './routes'
+import indexRoutes from './routes'
 import type { Services } from './services'
+import clusterRoutes from './routes/cluster/cluster'
+import searchRoutes from './routes/search/search'
 
 export default function createApp(services: Services): express.Application {
   const app = express()
@@ -38,7 +40,9 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpCsrf())
   app.use(setUpCurrentUser())
 
-  app.use(routes(services))
+  app.use(indexRoutes(services))
+  app.use(clusterRoutes(services))
+  app.use(searchRoutes(services))
 
   app.use((req, res, next) => next(createError(404, 'Not found')))
   app.use(errorHandler(process.env.NODE_ENV === 'production'))
