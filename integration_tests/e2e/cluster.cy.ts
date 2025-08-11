@@ -76,7 +76,7 @@ context('Cluster View', () => {
     clusterPage.getEventLogTableRow(1).contains('DELIUS')
     clusterPage.getEventLogTableRow(1).contains('CREATE')
     clusterPage.getEventLogTableRow(1).contains('abc-123')
-    clusterPage.getEventLogTableRow(1).contains('2025-05-12T10:37:56.087296')
+    clusterPage.getEventLogTableRow(1).contains('2025-05-12 10:37:56.087296')
     clusterPage.getEventLogTableRow(1).contains('2025-Jan-01, 20205-Mar-01')
     clusterPage.getEventLogTableRow(1).contains('123, 321')
   })
