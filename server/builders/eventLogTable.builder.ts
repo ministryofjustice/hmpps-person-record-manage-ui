@@ -1,4 +1,5 @@
 import { EventLogDetails } from '../data/model/eventLogResponse'
+import timestampHelper from './helpers/timestampHelper'
 import {
   EVENT_LOG_CROS_TABLE_HEADING,
   EVENT_LOG_DATE_OF_BIRTH_ALIASES_TABLE_HEADING,
@@ -43,7 +44,7 @@ const buildReadableList = (list: string[]): string => {
 const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
   const eventLogRows = eventLogs.map(eventLog => {
     return Row(
-      TextItem(eventLog.eventTimestamp),
+      TextItem(timestampHelper(eventLog.eventTimestamp)),
       buildUUIDStatusTypeItem(eventLog.uuidStatusType),
       TextItem(eventLog.sourceSystemId),
       TextItem(eventLog.firstName),
