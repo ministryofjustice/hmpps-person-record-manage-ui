@@ -57,7 +57,7 @@ describe('GET /cluster/uuid1', () => {
           sourceSystemId: '1234',
           eventType: 'CREATE',
           recordMergedTo: 'abc-123',
-          eventTimestamp: '2025-07-25:09:00',
+          eventTimestamp: '2025-05-12T10:37:56.087296',
           sentenceDates: ['2025-Jan-01', '20205-Mar-01'],
           excludeOverrideMarkers: ['123', '321'],
         },
@@ -95,7 +95,7 @@ describe('GET /cluster/uuid1', () => {
         expect(res.text).toContain('DELIUS')
         expect(res.text).toContain('CREATE')
         expect(res.text).toContain('abc-123')
-        expect(res.text).toContain('2025-07-25:09:00')
+        expect(res.text).toContain('2025-05-12\r\n10:37:56.087296')
         expect(res.text).toContain('2025-Jan-01, 20205-Mar-01')
         expect(res.text).toContain('123, 321')
 

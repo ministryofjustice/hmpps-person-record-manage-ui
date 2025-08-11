@@ -139,7 +139,7 @@ export default {
               sourceSystemId: '1234',
               eventType: 'CREATE',
               recordMergedTo: 'abc-123',
-              eventTimestamp: '2025-07-25:09:00',
+              eventTimestamp: '2025-05-12T10:37:56.087296',
               sentenceDates: ['2025-Jan-01', '20205-Mar-01'],
               excludeOverrideMarkers: ['123', '321'],
             },
