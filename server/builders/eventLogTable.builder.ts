@@ -1,4 +1,5 @@
 import { EventLogDetails } from '../data/model/eventLogResponse'
+import timestampHelper from './helpers/timestampHelper'
 import {
   EVENT_LOG_CROS_TABLE_HEADING,
   EVENT_LOG_DATE_OF_BIRTH_ALIASES_TABLE_HEADING,
@@ -43,8 +44,10 @@ const buildReadableList = (list: string[]): string => {
 const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
   const eventLogRows = eventLogs.map(eventLog => {
     return Row(
-      TextItem(eventLog.eventTimestamp),
+      TextItem(timestampHelper(eventLog.eventTimestamp)),
       buildUUIDStatusTypeItem(eventLog.uuidStatusType),
+      TextItem(eventLog.sourceSystem),
+      TextItem(eventLog.eventType),
       TextItem(eventLog.sourceSystemId),
       TextItem(eventLog.firstName),
       TextItem(buildReadableList(eventLog.firstNameAliases)),
@@ -56,8 +59,6 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
       TextItem(buildReadableList(eventLog.postcodes)),
       TextItem(buildReadableList(eventLog.pncs)),
       TextItem(buildReadableList(eventLog.cros)),
-      TextItem(eventLog.sourceSystem),
-      TextItem(eventLog.eventType),
       TextItem(eventLog.recordMergedTo),
       TextItem(buildReadableList(eventLog.sentenceDates)),
       TextItem(buildReadableList(eventLog.excludeOverrideMarkers)),
@@ -67,6 +68,8 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
     head: [
       Heading(EVENT_LOG_EVENT_TIME_STAMP_TABLE_HEADING),
       Heading(EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING),
+      Heading(EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING),
+      Heading(EVENT_LOG_EVENT_TYPE_TABLE_HEADING),
       Heading(EVENT_LOG_SOURCE_SYSTEM_ID_TABLE_HEADING),
       Heading(EVENT_LOG_FIRST_NAME_TABLE_HEADING),
       Heading(EVENT_LOG_FIRST_NAME_ALIASES_TABLE_HEADING),
@@ -78,8 +81,6 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
       Heading(EVENT_LOG_POST_CODE_TABLE_HEADING),
       Heading(EVENT_LOG_CROS_TABLE_HEADING),
       Heading(EVENT_LOG_PNCS_TABLE_HEADING),
-      Heading(EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING),
-      Heading(EVENT_LOG_EVENT_TYPE_TABLE_HEADING),
       Heading(EVENT_LOG_RECORD_MERGED_TO_TABLE_HEADING),
       Heading(EVENT_LOG_SENTENCE_DATES_TABLE_HEADING),
       Heading(EVENT_LOG_EXCLUDE_OVERRIDE_MARKER_TABLE_HEADING),
