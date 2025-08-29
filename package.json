@@ -150,5 +150,8 @@
     "@jgoz/esbuild-plugin-typecheck": {
       "esbuild": "$esbuild"
     }
+  },
+  "nunjucks": {
+    "chokidar": "$chokidar"
   }
 }
