@@ -149,9 +149,9 @@
   "overrides": {
     "@jgoz/esbuild-plugin-typecheck": {
       "esbuild": "$esbuild"
+    },
+    "nunjucks": {
+      "chokidar": "$chokidar"
     }
-  },
-  "nunjucks": {
-    "chokidar": "$chokidar"
   }
 }
