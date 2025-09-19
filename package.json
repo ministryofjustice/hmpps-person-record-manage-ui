@@ -9,6 +9,7 @@
     "watch-ts": "tsc -w",
     "build": "node esbuild/esbuild.config.js --build",
     "start": "node $NODE_OPTIONS dist/server.js | bunyan -o short",
+    "start::local": "node $NODE_OPTIONS --env-file=local.env dist/server.js | bunyan -o short",
     "start:dev": "concurrently -k -p \"[{name}]\" -n \"ESBuild,Node\" -c \"yellow.bold,cyan.bold\" \"node esbuild/esbuild.config.js --build --watch\" \"node esbuild/esbuild.config.js --dev-server\"",
     "start-feature": " node $NODE_DEBUG_OPTION --env-file=feature.env dist/server.js | bunyan -o short",
     "start-feature:dev": "concurrently -k -p \"[{name}]\" -n \"ESBuild,Node\" -c \"yellow.bold,cyan.bold\" \"node esbuild/esbuild.config.js  --build --watch \" \"node esbuild/esbuild.config.js --dev-test-server\"",
