@@ -62,7 +62,8 @@ describe('PersonRecordService', () => {
           recordMergedTo: 'abc-123',
           eventTimestamp: '2025-05-12T10:37:56.087296',
           sentenceDates: ['2025-Jan-01', '20205-Mar-01'],
-          excludeOverrideMarkers: ['123', '321'],
+          overrideMarker: '6639fd43-9d01-450a-87be-557bd3bcf47d',
+          overrideScopes: ['123', '321'],
         },
       ],
     }

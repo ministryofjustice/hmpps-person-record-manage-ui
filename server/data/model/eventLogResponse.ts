@@ -16,7 +16,8 @@ export interface EventLogDetails {
   recordMergedTo: string
   eventTimestamp: string
   sentenceDates: string[]
-  excludeOverrideMarkers: string[]
+  overrideMarker: string
+  overrideScopes: string[]
 }
 
 export interface EventLogResponse {
