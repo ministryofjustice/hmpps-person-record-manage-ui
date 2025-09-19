@@ -59,7 +59,8 @@ context('Cluster View', () => {
     clusterPage.getEventLogTableHeader(15).contains('PNCs')
     clusterPage.getEventLogTableHeader(16).contains('Record Merged To')
     clusterPage.getEventLogTableHeader(17).contains('Sentence Dates')
-    clusterPage.getEventLogTableHeader(18).contains('Exclude Override Markers')
+    clusterPage.getEventLogTableHeader(18).contains('Override Marker')
+    clusterPage.getEventLogTableHeader(19).contains('Override Scopes')
 
     clusterPage.getEventLogTableRow(1).contains('2025-05-12 10:37:56.087296')
     clusterPage.getEventLogTableRow(1).contains('ACTIVE')
@@ -78,6 +79,7 @@ context('Cluster View', () => {
     clusterPage.getEventLogTableRow(1).contains('abc, def')
     clusterPage.getEventLogTableRow(1).contains('abc-123')
     clusterPage.getEventLogTableRow(1).contains('2025-Jan-01, 20205-Mar-01')
+    clusterPage.getEventLogTableRow(1).contains('6639fd43-9d01-450a-87be-557bd3bcf47d')
     clusterPage.getEventLogTableRow(1).contains('123, 321')
   })
 

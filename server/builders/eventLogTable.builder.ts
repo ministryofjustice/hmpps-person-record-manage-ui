@@ -6,12 +6,13 @@ import {
   EVENT_LOG_DATE_OF_BIRTH_TABLE_HEADING,
   EVENT_LOG_EVENT_TIME_STAMP_TABLE_HEADING,
   EVENT_LOG_EVENT_TYPE_TABLE_HEADING,
-  EVENT_LOG_EXCLUDE_OVERRIDE_MARKER_TABLE_HEADING,
   EVENT_LOG_FIRST_NAME_ALIASES_TABLE_HEADING,
   EVENT_LOG_FIRST_NAME_TABLE_HEADING,
   EVENT_LOG_LAST_NAME_ALIASES_TABLE_HEADING,
   EVENT_LOG_LAST_NAME_TABLE_HEADING,
   EVENT_LOG_MIDDLE_NAMES_TABLE_HEADING,
+  EVENT_LOG_OVERRIDE_MARKER_TABLE_HEADING,
+  EVENT_LOG_OVERRIDE_SCOPES_TABLE_HEADING,
   EVENT_LOG_PNCS_TABLE_HEADING,
   EVENT_LOG_POST_CODE_TABLE_HEADING,
   EVENT_LOG_RECORD_MERGED_TO_TABLE_HEADING,
@@ -61,7 +62,8 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
       TextItem(buildReadableList(eventLog.pncs)),
       TextItem(eventLog.recordMergedTo),
       TextItem(buildReadableList(eventLog.sentenceDates)),
-      TextItem(buildReadableList(eventLog.excludeOverrideMarkers)),
+      TextItem(eventLog.overrideMarker),
+      TextItem(buildReadableList(eventLog.overrideScopes)),
     )
   })
   return Table({
@@ -83,7 +85,8 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
       Heading(EVENT_LOG_PNCS_TABLE_HEADING),
       Heading(EVENT_LOG_RECORD_MERGED_TO_TABLE_HEADING),
       Heading(EVENT_LOG_SENTENCE_DATES_TABLE_HEADING),
-      Heading(EVENT_LOG_EXCLUDE_OVERRIDE_MARKER_TABLE_HEADING),
+      Heading(EVENT_LOG_OVERRIDE_MARKER_TABLE_HEADING),
+      Heading(EVENT_LOG_OVERRIDE_SCOPES_TABLE_HEADING),
     ],
     rows: eventLogRows,
     attributes: {
