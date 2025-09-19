@@ -34,8 +34,15 @@ And then, to build the assets and start the app with esbuild:
 
 Once the application is running you should then be able to login with:
 
-username: AUTH_USER
+username: CPR_MANAGE_ADMIN
 password: password123456
+
+## Running against a local version of hmpps-person-record
+
+This can be useful to test changes which need to be made to both apps.
+In hmpps-person-record run `make run-local`
+In hmpps-person-record-manage-ui run `make run-local`
+
 
 To request specific users and roles then raise a PR
 to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
