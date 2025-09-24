@@ -49,7 +49,6 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
     return Row(
       TextItem(timestampHelper(eventLog.eventTimestamp)),
       buildUUIDStatusTypeItem(eventLog.uuidStatusType),
-      TextItem(eventLog.sourceSystem),
       TextItem(eventLog.eventType),
       TextItem(eventLog.sourceSystemId),
       TextItem(eventLog.firstName),
@@ -66,13 +65,13 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
       TextItem(buildReadableList(eventLog.sentenceDates)),
       TextItem(eventLog.overrideMarker),
       TextItem(buildReadableList(eventLog.overrideScopes)),
+      TextItem(eventLog.sourceSystem),
     )
   })
   return Table({
     head: [
       Heading(EVENT_LOG_EVENT_TIME_STAMP_TABLE_HEADING),
       Heading(EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING),
-      Heading(EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING),
       Heading(EVENT_LOG_EVENT_TYPE_TABLE_HEADING),
       Heading(EVENT_LOG_SOURCE_SYSTEM_ID_TABLE_HEADING),
       Heading(EVENT_LOG_FIRST_NAME_TABLE_HEADING),
@@ -89,6 +88,7 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
       Heading(EVENT_LOG_SENTENCE_DATES_TABLE_HEADING),
       Heading(EVENT_LOG_OVERRIDE_MARKER_TABLE_HEADING),
       Heading(EVENT_LOG_OVERRIDE_SCOPES_TABLE_HEADING),
+      Heading(EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING),
     ],
     rows: eventLogRows,
     attributes: {
