@@ -24,10 +24,12 @@ import {
 import { EVENT_LOG_TABLE_ID } from '../domain/ids/clusterPageIds'
 import { Row, TextItem, Table, Heading, HTMLItem, TagItem, TagColour } from './types/table'
 
+const needsAttentionViewText = 'Review'
+
 const buildUUIDStatusTypeItem = (uuidStatusType: string): HTMLItem | TextItem => {
   switch (uuidStatusType) {
     case 'NEEDS_ATTENTION':
-      return TagItem(uuidStatusType, TagColour.RED)
+      return TagItem(needsAttentionViewText, TagColour.RED)
     case 'MERGED':
     case 'RECLUSTER_MERGE':
       return TagItem(uuidStatusType, TagColour.YELLOW)

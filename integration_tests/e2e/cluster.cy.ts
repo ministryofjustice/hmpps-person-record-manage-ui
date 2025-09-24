@@ -81,6 +81,8 @@ context('Cluster View', () => {
     clusterPage.getEventLogTableRow(1).contains('2025-Jan-01, 20205-Mar-01')
     clusterPage.getEventLogTableRow(1).contains('6639fd43-9d01-450a-87be-557bd3bcf47d')
     clusterPage.getEventLogTableRow(1).contains('123, 321')
+
+    clusterPage.getEventLogTableRow(2).contains('Review')
   })
 
   it('back button navigates to index page', () => {
