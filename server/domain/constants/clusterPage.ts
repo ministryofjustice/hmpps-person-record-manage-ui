@@ -4,7 +4,7 @@ export const RECORD_COMPOSITION_SOURCE_SYSTEM_TABLE_HEADING = 'Source System'
 export const RECORD_COMPOSITION_SOURCE_SYSTEM_ID_TABLE_HEADING = 'Source System ID'
 
 // Event Log Table
-export const EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING = 'UUID Status Type'
+export const EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING = 'Status'
 export const EVENT_LOG_SOURCE_SYSTEM_ID_TABLE_HEADING = 'Source System ID'
 export const EVENT_LOG_FIRST_NAME_TABLE_HEADING = 'First Name'
 export const EVENT_LOG_FIRST_NAME_ALIASES_TABLE_HEADING = 'First Name Aliases'

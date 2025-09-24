@@ -43,7 +43,7 @@ context('Cluster View', () => {
 
     const clusterPage = Page.verifyOnPage(ClusterPage, uuid)
     clusterPage.getEventLogTableHeader(1).contains('Event Timestamp')
-    clusterPage.getEventLogTableHeader(2).contains('UUID Status Type')
+    clusterPage.getEventLogTableHeader(2).contains('Status')
     clusterPage.getEventLogTableHeader(3).contains('Source System')
     clusterPage.getEventLogTableHeader(4).contains('Event Type')
     clusterPage.getEventLogTableHeader(5).contains('Source System ID')
