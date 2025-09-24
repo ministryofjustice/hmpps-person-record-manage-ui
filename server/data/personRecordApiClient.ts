@@ -27,7 +27,7 @@ export default class PersonRecordApiClient extends RestClient {
         path: `/admin/cluster/${uuid}`,
         errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
           if (error.responseStatus === 404) {
-            return { uuid, records: [] as Record[] }
+            return { uuid, records: [] as Record[], clusterSpec: {} }
           }
           throw error
         },

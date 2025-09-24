@@ -108,6 +108,7 @@ export default {
               sourceSystem: 'NOMIS',
             },
           ],
+          clusterSpec: {},
         },
       },
     }),
