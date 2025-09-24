@@ -8,7 +8,7 @@ start-dev:
 	docker compose up --scale=app=0 -d && \
 	npm run start:dev
 
-run-local:
+run-local: build
 	npm run start::local
 
 start-int: build

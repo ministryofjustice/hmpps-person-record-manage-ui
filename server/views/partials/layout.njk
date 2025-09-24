@@ -2,6 +2,8 @@
 
 {% block head %}
   <link href="{{ '/assets/css/index.css' | assetMap }}" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/vega@6" nonce="{{ cspNonce }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-interpreter@1" nonce="{{ cspNonce }}"></script>
 {% endblock %}
 
 {% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}

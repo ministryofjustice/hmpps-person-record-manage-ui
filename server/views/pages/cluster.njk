@@ -20,6 +20,20 @@
     {{ govukTable(recordCompositionTable) }}
   </div>
 
+  <div id="vis"></div>
+  <script nonce="{{ cspNonce }}">
+    const runtime = vega.parse({{ clusterSpecJson | safe }}, null, { ast: true });
+
+    view = new vega.View(runtime, {
+      expr:      vega.expressionInterpreter,
+      renderer:  'canvas',
+      container: '#vis',
+      hover:     true
+    });
+
+    view.runAsync();
+  </script>
+
   <h2 class="govuk-heading-m">Event Log</h1>
   <div class="moj-scrollable-pane">
     {{ govukTable(eventLogTable) }}
