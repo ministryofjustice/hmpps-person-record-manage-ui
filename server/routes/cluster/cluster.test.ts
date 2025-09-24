@@ -37,6 +37,7 @@ describe('GET /cluster/uuid1', () => {
         { firstName: 'Jane', middleName: 'Mary', lastName: 'Doe', sourceSystemId: '1234', sourceSystem: 'DELIUS' },
         { firstName: 'John', middleName: 'Tom', lastName: 'Smith', sourceSystemId: '4321', sourceSystem: 'NOMIS' },
       ],
+      clusterSpec: {},
     }
     const eventLogRes: EventLogResponse = {
       uuid: 'uuid1',

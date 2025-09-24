@@ -9,4 +9,5 @@ export interface Record {
 export interface ClusterDetailResponse {
   uuid: string
   records: Record[]
+  clusterSpec: unknown
 }
