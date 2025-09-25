@@ -9,6 +9,7 @@ start-dev:
 	npm run start:dev
 
 run-local: build
+	docker compose up hmpps-auth -d && \
 	npm run start::local
 
 start-int: build
