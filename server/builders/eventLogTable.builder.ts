@@ -20,6 +20,7 @@ import {
   EVENT_LOG_SOURCE_SYSTEM_ID_TABLE_HEADING,
   EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING,
   EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING,
+  SUPPORTED_EVENT_TYPE,
 } from '../domain/constants/clusterPage'
 import { EVENT_LOG_TABLE_ID } from '../domain/ids/clusterPageIds'
 import { Row, TextItem, Table, Heading, HTMLItem, TagItem, TagColour } from './types/table'
@@ -40,6 +41,10 @@ const buildUUIDStatusTypeItem = (uuidStatusType: string): HTMLItem | TextItem =>
   }
 }
 
+const buildEventTypeItem = (eventType: string): TextItem => {
+  return TextItem(SUPPORTED_EVENT_TYPE.get(eventType) ?? eventType)
+}
+
 const buildReadableList = (list: string[]): string => {
   return list.map(item => item.trim()).join(', ')
 }
@@ -49,7 +54,7 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
     return Row(
       TextItem(timestampHelper(eventLog.eventTimestamp)),
       buildUUIDStatusTypeItem(eventLog.uuidStatusType),
-      TextItem(eventLog.eventType),
+      buildEventTypeItem(eventLog.eventType),
       TextItem(eventLog.sourceSystemId),
       TextItem(eventLog.firstName),
       TextItem(buildReadableList(eventLog.firstNameAliases)),

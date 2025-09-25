@@ -23,3 +23,20 @@ export const EVENT_LOG_EVENT_TIME_STAMP_TABLE_HEADING = 'Event Timestamp'
 export const EVENT_LOG_SENTENCE_DATES_TABLE_HEADING = 'Sentence Dates'
 export const EVENT_LOG_OVERRIDE_MARKER_TABLE_HEADING = 'Override Marker'
 export const EVENT_LOG_OVERRIDE_SCOPES_TABLE_HEADING = 'Override Scopes'
+
+// event types
+export const SUPPORTED_EVENT_TYPE = new Map<string, string>([
+  ['CPR_NEEDS_ATTENTION_TO_ACTIVE', 'NA to Active'],
+  ['CPR_RECLUSTER_NEEDS_ATTENTION', 'Recluster_Review'],
+  ['CPR_RECLUSTER_RECORD_MERGED', 'Recluster_Record_Merged'],
+  ['CPR_RECLUSTER_UUID_MERGED', 'Recluster_UUID_Merged'],
+  ['CPR_RECORD_CREATED', 'Record_Created'],
+  ['CPR_RECORD_DELETED', 'Record_Deleted'],
+  ['CPR_RECORD_MERGED', 'Record_Merged'],
+  ['CPR_RECORD_SEEDED', 'Record_Seeded'],
+  ['CPR_RECORD_UNMERGED', 'CPR_RECORD_UNMERGED'],
+  ['CPR_RECORD_UPDATED', 'Record_Updated'],
+  ['CPR_UUID_CREATED', 'UUID_Created'],
+  ['CPR_UUID_DELETED', 'UUID_Deleted'],
+  ['CPR_UUID_MERGED', 'UUID_Merged'],
+])
