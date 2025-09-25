@@ -3,11 +3,11 @@
 }
 
 .moj-search {
-  padding-bottom: 50px;
+  @include govuk-responsive-margin(3, 'bottom');
 }
 
 #vis {
-  padding-bottom: 40px;
+  @include govuk-responsive-margin(3, 'bottom');
 }
 
 .govuk-table {
