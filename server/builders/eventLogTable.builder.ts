@@ -20,22 +20,31 @@ import {
   EVENT_LOG_SOURCE_SYSTEM_ID_TABLE_HEADING,
   EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING,
   EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING,
+  SUPPORTED_EVENT_TYPE,
+  SUPPORTED_STATUS,
 } from '../domain/constants/clusterPage'
 import { EVENT_LOG_TABLE_ID } from '../domain/ids/clusterPageIds'
 import { Row, TextItem, Table, Heading, HTMLItem, TagItem, TagColour } from './types/table'
 
 const buildUUIDStatusTypeItem = (uuidStatusType: string): HTMLItem | TextItem => {
+  const statusType = buildStatusTypeItem(uuidStatusType)
   switch (uuidStatusType) {
     case 'NEEDS_ATTENTION':
-      return TagItem(uuidStatusType, TagColour.RED)
+      return TagItem(statusType, TagColour.RED)
     case 'MERGED':
     case 'RECLUSTER_MERGE':
-      return TagItem(uuidStatusType, TagColour.YELLOW)
+      return TagItem(statusType, TagColour.YELLOW)
     case 'ACTIVE':
-      return TagItem(uuidStatusType, TagColour.GREEN)
+      return TagItem(statusType, TagColour.GREEN)
     default:
-      return TextItem(uuidStatusType)
+      return TextItem(statusType)
   }
+}
+
+const buildStatusTypeItem = (statusType: string): string => SUPPORTED_STATUS.get(statusType) ?? statusType
+
+const buildEventTypeItem = (eventType: string): TextItem => {
+  return TextItem(SUPPORTED_EVENT_TYPE.get(eventType) ?? eventType)
 }
 
 const buildReadableList = (list: string[]): string => {
@@ -47,8 +56,7 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
     return Row(
       TextItem(timestampHelper(eventLog.eventTimestamp)),
       buildUUIDStatusTypeItem(eventLog.uuidStatusType),
-      TextItem(eventLog.sourceSystem),
-      TextItem(eventLog.eventType),
+      buildEventTypeItem(eventLog.eventType),
       TextItem(eventLog.sourceSystemId),
       TextItem(eventLog.firstName),
       TextItem(buildReadableList(eventLog.firstNameAliases)),
@@ -64,13 +72,13 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
       TextItem(buildReadableList(eventLog.sentenceDates)),
       TextItem(eventLog.overrideMarker),
       TextItem(buildReadableList(eventLog.overrideScopes)),
+      TextItem(eventLog.sourceSystem),
     )
   })
   return Table({
     head: [
       Heading(EVENT_LOG_EVENT_TIME_STAMP_TABLE_HEADING),
       Heading(EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING),
-      Heading(EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING),
       Heading(EVENT_LOG_EVENT_TYPE_TABLE_HEADING),
       Heading(EVENT_LOG_SOURCE_SYSTEM_ID_TABLE_HEADING),
       Heading(EVENT_LOG_FIRST_NAME_TABLE_HEADING),
@@ -87,6 +95,7 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
       Heading(EVENT_LOG_SENTENCE_DATES_TABLE_HEADING),
       Heading(EVENT_LOG_OVERRIDE_MARKER_TABLE_HEADING),
       Heading(EVENT_LOG_OVERRIDE_SCOPES_TABLE_HEADING),
+      Heading(EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING),
     ],
     rows: eventLogRows,
     attributes: {
