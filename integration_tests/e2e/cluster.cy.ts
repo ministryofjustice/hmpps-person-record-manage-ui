@@ -64,7 +64,7 @@ context('Cluster View', () => {
 
     clusterPage.getEventLogTableRow(1).contains('2025-05-12 10:37:56.087296')
     clusterPage.getEventLogTableRow(1).contains('ACTIVE')
-    clusterPage.getEventLogTableRow(1).contains('Record_Created')
+    clusterPage.getEventLogTableRow(1).contains('Record Created')
     clusterPage.getEventLogTableRow(1).contains('1234')
     clusterPage.getEventLogTableRow(1).contains('John')
     clusterPage.getEventLogTableRow(1).contains('jon, jonny')
@@ -83,7 +83,7 @@ context('Cluster View', () => {
     clusterPage.getEventLogTableRow(1).contains('DELIUS')
 
     clusterPage.getEventLogTableRow(2).contains('Review')
-    clusterPage.getEventLogTableRow(2).contains('Record_Updated')
+    clusterPage.getEventLogTableRow(2).contains('Record Updated')
   })
 
   it('back button navigates to index page', () => {
