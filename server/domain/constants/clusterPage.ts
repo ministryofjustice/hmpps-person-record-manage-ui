@@ -26,7 +26,7 @@ export const EVENT_LOG_OVERRIDE_SCOPES_TABLE_HEADING = 'Override Scopes'
 
 // event types
 export const SUPPORTED_EVENT_TYPE = new Map<string, string>([
-  ['CPR_NEEDS_ATTENTION_TO_ACTIVE', 'Needs Attention to Active'],
+  ['CPR_NEEDS_ATTENTION_TO_ACTIVE', 'Review to Active'],
   ['CPR_RECLUSTER_NEEDS_ATTENTION', 'Recluster Review'],
   ['CPR_RECLUSTER_RECORD_MERGED', 'Recluster Record Merged'],
   ['CPR_RECLUSTER_UUID_MERGED', 'Recluster UUID Merged'],
@@ -39,4 +39,12 @@ export const SUPPORTED_EVENT_TYPE = new Map<string, string>([
   ['CPR_UUID_CREATED', 'UUID Created'],
   ['CPR_UUID_DELETED', 'UUID Deleted'],
   ['CPR_UUID_MERGED', 'UUID Merged'],
+])
+
+// status
+export const SUPPORTED_STATUS = new Map<string, string>([
+  ['ACTIVE', 'Active'],
+  ['NEEDS_ATTENTION', 'Review'],
+  ['MERGED', 'Merged'],
+  ['RECLUSTER_MERGE', 'Recluster Merge'],
 ])

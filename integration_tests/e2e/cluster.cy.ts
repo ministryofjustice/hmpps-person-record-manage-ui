@@ -63,7 +63,7 @@ context('Cluster View', () => {
     clusterPage.getEventLogTableHeader(19).contains('Source System')
 
     clusterPage.getEventLogTableRow(1).contains('2025-05-12 10:37:56.087296')
-    clusterPage.getEventLogTableRow(1).contains('ACTIVE')
+    clusterPage.getEventLogTableRow(1).contains('Active')
     clusterPage.getEventLogTableRow(1).contains('Record Created')
     clusterPage.getEventLogTableRow(1).contains('1234')
     clusterPage.getEventLogTableRow(1).contains('John')
