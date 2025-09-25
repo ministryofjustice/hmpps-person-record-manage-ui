@@ -67,7 +67,7 @@ describe('GET /cluster/uuid1', () => {
     }
 
     auditService.logPageView.mockResolvedValue(null)
-    personRecordService.getCluster.mockResolvedValue(cluster)
+    personRecordService.getClusterFromUUID.mockResolvedValue(cluster)
     personRecordService.getEventLog.mockResolvedValue(eventLogRes)
 
     return request(app)

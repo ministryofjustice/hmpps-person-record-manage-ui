@@ -10,8 +10,16 @@ export default class PersonRecordService {
     return this.personRecordApiClient.getClusters(username, page)
   }
 
-  async getCluster(username: string, uuid: string): Promise<ClusterDetailResponse> {
-    return this.personRecordApiClient.getCluster(username, uuid)
+  async getClusterFromUUID(username: string, uuid: string): Promise<ClusterDetailResponse> {
+    return this.personRecordApiClient.getClusterFromUUID(username, uuid)
+  }
+
+  async getClusterFromCRN(username: string, crn: string): Promise<ClusterDetailResponse> {
+    return this.personRecordApiClient.getClusterFromCRN(username, crn)
+  }
+
+  async getClusterFromPrisonNumber(username: string, prisonNumber: string): Promise<ClusterDetailResponse> {
+    return this.personRecordApiClient.getClusterFromPrisonNumber(username, prisonNumber)
   }
 
   async getEventLog(username: string, uuid: string): Promise<EventLogResponse> {

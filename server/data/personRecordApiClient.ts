@@ -21,13 +21,49 @@ export default class PersonRecordApiClient extends RestClient {
   /**
    * Making a get request to person record to get specified cluster information
    */
-  async getCluster(username: string, uuid: string): Promise<ClusterDetailResponse> {
+  async getClusterFromUUID(username: string, uuid: string): Promise<ClusterDetailResponse> {
     return this.get(
       {
         path: `/admin/cluster/${uuid}`,
         errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
           if (error.responseStatus === 404) {
             return { uuid, records: [] as Record[], clusterSpec: {} }
+          }
+          throw error
+        },
+      },
+      asSystem(username),
+    )
+  }
+
+  /**
+   * Making a get request to person record to get specified cluster information
+   */
+  async getClusterFromCRN(username: string, crn: string): Promise<ClusterDetailResponse> {
+    return this.get(
+      {
+        path: `/admin/cluster/probation/${crn}`,
+        errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
+          if (error.responseStatus === 404) {
+            return { uuid: '', records: [] as Record[], clusterSpec: {} }
+          }
+          throw error
+        },
+      },
+      asSystem(username),
+    )
+  }
+
+  /**
+   * Making a get request to person record to get specified cluster information
+   */
+  async getClusterFromPrisonNumber(username: string, prisonNumber: string): Promise<ClusterDetailResponse> {
+    return this.get(
+      {
+        path: `/admin/cluster/prison/${prisonNumber}`,
+        errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
+          if (error.responseStatus === 404) {
+            return { uuid: '', records: [] as Record[], clusterSpec: {} }
           }
           throw error
         },

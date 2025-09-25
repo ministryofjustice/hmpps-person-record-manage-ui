@@ -12,7 +12,7 @@ export default function routes({ auditService, personRecordService }: Services):
     const { username } = res.locals.user
     const { uuid } = req.params
 
-    const { records, clusterSpec } = await personRecordService.getCluster(username, uuid)
+    const { records, clusterSpec } = await personRecordService.getClusterFromUUID(username, uuid)
     const clusterSpecJson = JSON.stringify(clusterSpec)
     const recordCompositionTable = buildRecordCompositionTable(records)
 
