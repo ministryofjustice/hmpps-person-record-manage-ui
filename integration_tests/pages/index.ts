@@ -1,5 +1,5 @@
 import Page, { PageElement } from './page'
-import { SearchTab } from '../../server/domain/ids/clusterPageIds'
+import { SEARCH_TABS, SearchTab } from '../../server/domain/ids/clusterPageIds'
 
 export default class IndexPage extends Page {
   constructor() {
@@ -24,16 +24,18 @@ export default class IndexPage extends Page {
   }
 
   searchForCRN = (crn: string) => {
+    this.switchToTab(SEARCH_TABS.crn)
     cy.get('#crn').type(crn)
     cy.get('.moj-search form#search-crn').submit()
   }
 
   searchForPrisonNumber = (crn: string) => {
+    this.switchToTab(SEARCH_TABS.prisonNumber)
     cy.get('#prisonNumber').type(crn)
     cy.get('.moj-search form#search-prison-number').submit()
   }
 
-  switchToTab = (tab: SearchTab) => {
+  private switchToTab = (tab: SearchTab) => {
     cy.get('.govuk-tabs__tab').get(`#tab_${tab}`).click()
   }
 

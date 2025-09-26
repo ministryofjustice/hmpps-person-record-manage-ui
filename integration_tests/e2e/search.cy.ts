@@ -1,7 +1,6 @@
 import IndexPage from '../pages'
 import ClusterPage from '../pages/cluster'
 import Page from '../pages/page'
-import { SEARCH_TABS } from '../../server/domain/ids/clusterPageIds'
 
 context('Search', () => {
   beforeEach(() => {
@@ -62,7 +61,6 @@ context('Search', () => {
 
       cy.visit(`/`)
       const indexPage = Page.verifyOnPage(IndexPage, uuid)
-      indexPage.switchToTab(SEARCH_TABS.crn)
       indexPage.searchForCRN(crn)
 
       const clusterPage = Page.verifyOnPage(ClusterPage, uuid)
@@ -74,7 +72,6 @@ context('Search', () => {
       cy.visit(`/`)
 
       const indexPage = Page.verifyOnPage(IndexPage)
-      indexPage.switchToTab(SEARCH_TABS.crn)
       indexPage.searchForCRN('notfounderror')
 
       Page.verifyOnPage(IndexPage)
@@ -92,7 +89,6 @@ context('Search', () => {
 
       cy.visit(`/`)
       const indexPage = Page.verifyOnPage(IndexPage, uuid)
-      indexPage.switchToTab(SEARCH_TABS.prisonNumber)
       indexPage.searchForPrisonNumber(prisonNumber)
 
       const clusterPage = Page.verifyOnPage(ClusterPage, uuid)
@@ -104,7 +100,6 @@ context('Search', () => {
       cy.visit(`/`)
 
       const indexPage = Page.verifyOnPage(IndexPage)
-      indexPage.switchToTab(SEARCH_TABS.prisonNumber)
       indexPage.searchForPrisonNumber('notfounderror')
 
       Page.verifyOnPage(IndexPage)
