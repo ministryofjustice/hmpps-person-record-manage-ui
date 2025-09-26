@@ -138,6 +138,7 @@ export default {
               cros: ['abc', 'def'],
               sourceSystem: 'DELIUS',
               sourceSystemId: '1234',
+              masterDefendantId: '6639fd43-9d01-450a-87be-557bd3bcf48e',
               eventType: 'CPR_RECORD_CREATED',
               recordMergedTo: 'abc-123',
               eventTimestamp: '2025-05-12T10:37:56.087296',
