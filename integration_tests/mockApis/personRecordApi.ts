@@ -1,6 +1,23 @@
 import type { SuperAgentRequest } from 'superagent'
 import { stubFor } from './wiremock'
 
+const exampleRecords = [
+  {
+    firstName: 'Jane',
+    middleName: 'c',
+    lastName: 'Doe',
+    sourceSystemId: '1234',
+    sourceSystem: 'DELIUS',
+  },
+  {
+    firstName: 'John',
+    middleName: 'd',
+    lastName: 'Smith',
+    sourceSystemId: '4321',
+    sourceSystem: 'NOMIS',
+  },
+]
+
 export default {
   stubPersonRecordPing: (httpStatus = 200): SuperAgentRequest =>
     stubFor({
@@ -81,7 +98,9 @@ export default {
         },
       },
     }),
-  stubPersonRecordGetAdminCluster: ({ httpStatus, uuid } = { httpStatus: 200, uuid: '1234' }): SuperAgentRequest =>
+  stubPersonRecordGetAdminClusterByUUID: (
+    { httpStatus, uuid } = { httpStatus: 200, uuid: '1234' },
+  ): SuperAgentRequest =>
     stubFor({
       request: {
         method: 'GET',
@@ -92,22 +111,41 @@ export default {
         headers: { 'Content-Type': 'application/json;charset=UTF-8' },
         jsonBody: {
           uuid: `${uuid}`,
-          records: [
-            {
-              firstName: 'Jane',
-              middleName: 'c',
-              lastName: 'Doe',
-              sourceSystemId: '1234',
-              sourceSystem: 'DELIUS',
-            },
-            {
-              firstName: 'John',
-              middleName: 'd',
-              lastName: 'Smith',
-              sourceSystemId: '4321',
-              sourceSystem: 'NOMIS',
-            },
-          ],
+          records: exampleRecords,
+          clusterSpec: {},
+        },
+      },
+    }),
+  stubPersonRecordGetAdminClusterByCRN: ({ httpStatus, crn } = { httpStatus: 200, crn: 'X12345' }): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/person-record-api/admin/cluster/probation/${crn}`,
+      },
+      response: {
+        status: httpStatus,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          uuid: '123456',
+          records: exampleRecords,
+          clusterSpec: {},
+        },
+      },
+    }),
+  stubPersonRecordGetAdminClusterByPrisonNumber: (
+    { httpStatus, prisonNumber } = { httpStatus: 200, prisonNumber: 'A12345' },
+  ): SuperAgentRequest =>
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/person-record-api/admin/cluster/prison/${prisonNumber}`,
+      },
+      response: {
+        status: httpStatus,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+        jsonBody: {
+          uuid: '123456',
+          records: exampleRecords,
           clusterSpec: {},
         },
       },

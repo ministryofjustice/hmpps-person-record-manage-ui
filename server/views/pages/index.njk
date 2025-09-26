@@ -8,32 +8,110 @@
   {%- from "../partials/search/macro.njk" import mojSearch -%}
   {%- from "govuk/components/table/macro.njk" import govukTable -%}
   {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+  {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 
   <h1>Search</h1>
 
- {%- if search.errorText %}
+  {%- if search.errorText %}
     {% set errorMessage = {  text: search.errorText } %}
   {% endif -%}
 
+  {% set uuidSearch %}
   {{ mojSearch({
-    csrfToken: csrfToken,
-    action: "/search",
-    method: "post",
-    input: {
-      id: "search",
-      name: "search"
-    },
-    label: {
-      text: "Enter a reference number",
-      classes: "govuk-!-font-weight-bold"
-    },
-    errorMessage: errorMessage,
-    hint: {
-      text: "You can search by a CPR UUID"
-    },
-    button: {
-      text: "Search"
-    }
+      id: "search-uuid",
+      csrfToken: csrfToken,
+      action: "/search",
+      method: "post",
+      input: {
+        id: "uuid",
+        name: "uuid"
+      },
+      label: {
+        text: "Enter a reference number",
+        classes: "govuk-!-font-weight-bold"
+      },
+      errorMessage: errorMessage,
+      hint: {
+        text: "You can search by a CPR UUID"
+      },
+      button: {
+        text: "Search"
+      }
+    }) }}
+  {% endset -%}
+
+  {% set crnSearch %}
+  {{ mojSearch({
+      id: "search-crn",
+      csrfToken: csrfToken,
+      action: "/search/probation",
+      method: "post",
+      input: {
+        id: "crn",
+        name: "crn"
+      },
+      label: {
+        text: "Enter a reference number",
+        classes: "govuk-!-font-weight-bold"
+      },
+      errorMessage: errorMessage,
+      hint: {
+        text: "You can search by a CRN"
+      },
+      button: {
+        text: "Search"
+      }
+    }) }}
+  {% endset -%}
+
+  {% set prisonNumberSearch %}
+  {{ mojSearch({
+      id: "search-prison-number",
+      csrfToken: csrfToken,
+      action: "/search/prison",
+      method: "post",
+      input: {
+        id: "prisonNumber",
+        name: "prisonNumber"
+      },
+      label: {
+        text: "Enter a reference number",
+        classes: "govuk-!-font-weight-bold"
+      },
+      errorMessage: errorMessage,
+      hint: {
+        text: "You can search by a Prison Number"
+      },
+      button: {
+        text: "Search"
+      }
+    }) }}
+  {% endset -%}
+
+  {{ govukTabs({
+    items: [
+      {
+        label: "CPR UUID",
+        id: SEARCH_TABS.uuid,
+        panel: {
+          html: uuidSearch
+        }
+      },
+      {
+        label: "CRN",
+        id: SEARCH_TABS.crn,
+        panel: {
+          html: crnSearch
+        }
+      },
+      {
+        label: "Prison Number",
+        id: SEARCH_TABS.prisonNumber,
+        panel: {
+          html: prisonNumberSearch
+        }
+      }
+    ]
   }) }}
 
   <h2 class="govuk-heading-m">Needs Attention Clusters:</h1>

@@ -42,7 +42,7 @@ describe('PersonRecordApiClient', () => {
       const response = { data: 'data' }
       fakePersonRecordApiClient.get('/admin/cluster/uuid1').reply(200, response)
 
-      const output = await personRecordApiClient.getCluster(token.username, 'uuid1')
+      const output = await personRecordApiClient.getClusterFromUUID(token.username, 'uuid1')
       expect(output).toEqual(response)
     })
   })

@@ -3,11 +3,11 @@
 }
 
 .moj-search {
-  padding-bottom: 50px;
+  @include govuk-responsive-margin(3, 'bottom');
 }
 
 #vis {
-  padding-bottom: 40px;
+  @include govuk-responsive-margin(3, 'bottom');
 }
 
 .govuk-table {
@@ -15,7 +15,7 @@
 }
 
 .govuk-width-container {
-  margin-left: 2%;
-  margin-right: 2%;
-  max-width: 98%;
+  @include govuk-responsive-margin(5, 'left');
+  @include govuk-responsive-margin(5, 'right');
+  max-width: 100%;
 }

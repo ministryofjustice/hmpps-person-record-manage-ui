@@ -11,17 +11,11 @@ export default class PersonRecordApiClient extends RestClient {
     super('Person Record API', config.apis.personRecordApi, logger, authenticationClient)
   }
 
-  /**
-   * Making a get request to person record to get needs attention clusters
-   */
   async getClusters(username: string, page: number): Promise<ClustersSummaryResponse> {
     return this.get({ path: '/admin/clusters', query: { page } }, asSystem(username))
   }
 
-  /**
-   * Making a get request to person record to get specified cluster information
-   */
-  async getCluster(username: string, uuid: string): Promise<ClusterDetailResponse> {
+  async getClusterFromUUID(username: string, uuid: string): Promise<ClusterDetailResponse> {
     return this.get(
       {
         path: `/admin/cluster/${uuid}`,
@@ -36,9 +30,36 @@ export default class PersonRecordApiClient extends RestClient {
     )
   }
 
-  /**
-   * Making a get request to person record to get specified cluster event logs
-   */
+  async getClusterFromCRN(username: string, crn: string): Promise<ClusterDetailResponse> {
+    return this.get(
+      {
+        path: `/admin/cluster/probation/${crn}`,
+        errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
+          if (error.responseStatus === 404) {
+            return { uuid: '', records: [] as Record[], clusterSpec: {} }
+          }
+          throw error
+        },
+      },
+      asSystem(username),
+    )
+  }
+
+  async getClusterFromPrisonNumber(username: string, prisonNumber: string): Promise<ClusterDetailResponse> {
+    return this.get(
+      {
+        path: `/admin/cluster/prison/${prisonNumber}`,
+        errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
+          if (error.responseStatus === 404) {
+            return { uuid: '', records: [] as Record[], clusterSpec: {} }
+          }
+          throw error
+        },
+      },
+      asSystem(username),
+    )
+  }
+
   async getEventLog(username: string, uuid: string): Promise<EventLogResponse> {
     return this.get({ path: `/admin/event-log/${uuid}` }, asSystem(username))
   }
