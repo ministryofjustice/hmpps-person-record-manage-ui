@@ -37,16 +37,14 @@ Once the application is running you should then be able to login with:
 username: CPR_MANAGE_ADMIN
 password: password123456
 
-## Running against a local version of hmpps-person-record
+## Running against a local version of hmpps-person-record and hmpps-person-match
 
 This can be useful to test changes which need to be made to both apps.
-In hmpps-person-record run `make run-local`
-In hmpps-person-record-manage-ui run `make run-local`
 
-
-To request specific users and roles then raise a PR
-to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
-for the in-memory DB used by Auth
+1. In hmpps-person-match run `make start-containers-local`
+2. To set up some data in hmpps-person-record and hmpps-person-match, run the end to end tests
+3. In hmpps-person-record run `make run-with-match`
+4. In hmpps-person-record-manage-ui run `make run-local`
 
 ### Run linter
 
@@ -74,6 +72,12 @@ And then either, run tests in headless mode with:
 Or run tests with the cypress UI:
 
 `npm run int-test-ui`
+
+### adding users
+
+To request specific users and roles then raise a PR
+to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
+for the in-memory DB used by Auth
 
 ## Change log
 
