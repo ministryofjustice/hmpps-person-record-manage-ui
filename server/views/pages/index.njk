@@ -43,7 +43,7 @@
   {% set crnSearch %}
   {{ mojSearch({
       csrfToken: csrfToken,
-      action: "/search",
+      action: "/search/probation",
       method: "post",
       input: {
         id: "crn",
@@ -66,7 +66,7 @@
   {% set prisonNumberSearch %}
   {{ mojSearch({
       csrfToken: csrfToken,
-      action: "/search",
+      action: "/search/prison",
       method: "post",
       input: {
         id: "prisonNumber",
@@ -90,21 +90,21 @@
     items: [
       {
         label: "CPR UUID",
-        id: "uuid-search-tab",
+        id: SEARCH_TABS.uuid,
         panel: {
           html: uuidSearch
         }
       },
       {
         label: "CRN",
-        id: "crn-search-tab",
+        id: SEARCH_TABS.crn,
         panel: {
           html: crnSearch
         }
       },
       {
         label: "Prison Number",
-        id: "prison-number-search-tab",
+        id: SEARCH_TABS.prisonNumber,
         panel: {
           html: prisonNumberSearch
         }

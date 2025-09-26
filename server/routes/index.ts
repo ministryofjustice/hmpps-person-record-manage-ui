@@ -5,6 +5,7 @@ import { Page } from '../services/auditService'
 
 import buildNeedsAttentionTable from '../builders/needsAttentionTable.builder'
 import buildPagination from '../builders/pagination.builder'
+import { SEARCH_TABS } from '../domain/ids/clusterPageIds'
 
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
@@ -23,6 +24,7 @@ export default function routes({ auditService, personRecordService }: Services):
       needsAttentionTableData,
       needsAttentionPagination,
       search,
+      SEARCH_TABS,
     })
   })
 
