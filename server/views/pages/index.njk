@@ -19,6 +19,7 @@
 
   {% set uuidSearch %}
   {{ mojSearch({
+      id: "search-uuid",
       csrfToken: csrfToken,
       action: "/search",
       method: "post",
@@ -42,6 +43,7 @@
 
   {% set crnSearch %}
   {{ mojSearch({
+      id: "search-crn",
       csrfToken: csrfToken,
       action: "/search/probation",
       method: "post",
@@ -65,6 +67,7 @@
 
   {% set prisonNumberSearch %}
   {{ mojSearch({
+      id: "search-prison-number",
       csrfToken: csrfToken,
       action: "/search/prison",
       method: "post",

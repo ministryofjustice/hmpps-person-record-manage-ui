@@ -13,7 +13,7 @@
     {% set method = params.method %}
   {% endif -%}
 
-  <form action="{{ params.action }}" method="{{ params.method | default("get") }}">
+  <form id="{{ params.id }}" action="{{ params.action }}" method="{{ params.method | default("get") }}">
     <input type="hidden" name="_csrf" value="{{ params.csrfToken }}">
     {{ govukInput({
       errorMessage: params.errorMessage,

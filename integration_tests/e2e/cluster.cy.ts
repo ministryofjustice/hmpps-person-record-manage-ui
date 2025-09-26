@@ -16,7 +16,7 @@ context('Cluster View', () => {
   it('cluster view shows records', () => {
     const uuid = '1234'
 
-    cy.task('stubPersonRecordGetAdminCluster', { uuid })
+    cy.task('stubPersonRecordGetAdminClusterByUUID', { uuid })
     cy.task('stubPersonRecordGetAdminEventLog', { uuid })
     cy.visit(`/cluster/${uuid}`)
 
@@ -37,7 +37,7 @@ context('Cluster View', () => {
   it('cluster view shows event logs', () => {
     const uuid = '1234'
 
-    cy.task('stubPersonRecordGetAdminCluster', { uuid })
+    cy.task('stubPersonRecordGetAdminClusterByUUID', { uuid })
     cy.task('stubPersonRecordGetAdminEventLog', { uuid })
     cy.visit(`/cluster/${uuid}`)
 
@@ -89,7 +89,7 @@ context('Cluster View', () => {
   it('back button navigates to index page', () => {
     const uuid = '1234'
 
-    cy.task('stubPersonRecordGetAdminCluster', { uuid })
+    cy.task('stubPersonRecordGetAdminClusterByUUID', { uuid })
     cy.task('stubPersonRecordGetAdminEventLog', { uuid })
     cy.visit(`/cluster/${uuid}`)
 

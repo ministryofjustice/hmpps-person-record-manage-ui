@@ -1,4 +1,5 @@
 import Page, { PageElement } from './page'
+import { SearchTab } from '../../server/domain/ids/clusterPageIds'
 
 export default class IndexPage extends Page {
   constructor() {
@@ -17,9 +18,23 @@ export default class IndexPage extends Page {
 
   getCurrentPaginationItem = (): PageElement => cy.get(`.govuk-pagination__item--current`)
 
-  searchFor = (search: string) => {
-    cy.get('#search').type(search)
-    cy.get('.moj-search form').submit()
+  searchForUUID = (uuid: string) => {
+    cy.get('#uuid').type(uuid)
+    cy.get('.moj-search form#search-uuid').submit()
+  }
+
+  searchForCRN = (crn: string) => {
+    cy.get('#crn').type(crn)
+    cy.get('.moj-search form#search-crn').submit()
+  }
+
+  searchForPrisonNumber = (crn: string) => {
+    cy.get('#prisonNumber').type(crn)
+    cy.get('.moj-search form#search-prison-number').submit()
+  }
+
+  switchToTab = (tab: SearchTab) => {
+    cy.get('.govuk-tabs__tab').get(`#tab_${tab}`).click()
   }
 
   getErrorMessage = (): PageElement => cy.get('.govuk-error-message')
