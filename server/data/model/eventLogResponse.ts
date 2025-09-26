@@ -12,6 +12,7 @@ export interface EventLogDetails {
   cros: string[]
   sourceSystem: string
   sourceSystemId: string
+  masterDefendantId: string
   eventType: string
   recordMergedTo: string
   eventTimestamp: string
