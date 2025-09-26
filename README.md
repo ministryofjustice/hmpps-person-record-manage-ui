@@ -42,9 +42,10 @@ password: password123456
 This can be useful to test changes which need to be made to both apps.
 
 1. In hmpps-person-match run `make start-containers-local`
-2. To set up some data in hmpps-person-record and hmpps-person-match, run the end to end tests
-3. In hmpps-person-record run `make run-with-match`
-4. In hmpps-person-record-manage-ui run `make run-local`
+2. In hmpps-person-record run `make start-localstack`
+3. <OPTIONAL> To populate some data in the databse, In hmpps-person-record run `./gradlew e2eTest`
+4. In hmpps-person-record run `make run-with-match`
+5. In hmpps-person-record-manage-ui run `make run-local`
 
 ### Run linter
 
