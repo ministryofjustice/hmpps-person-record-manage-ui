@@ -56,10 +56,6 @@ describe('GET /', () => {
       ],
       pagination: {
         isLastPage: false,
-        count: 20,
-        page: 4,
-        perPage: 20,
-        totalCount: 202,
         totalPages: 11,
       },
     }
