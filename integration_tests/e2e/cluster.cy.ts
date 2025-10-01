@@ -25,7 +25,7 @@ context('Cluster View', () => {
     clusterPage.getBackButton().contains('Back')
     clusterPage
       .getInsetInformationHint()
-      .contains('Click on the node links on the graph the display matching statisitics.')
+      .contains('Click on the node links on the graph to display matching statistics.')
     clusterPage.getRecordCompositionTableHeader(1).contains('Source System ID')
     clusterPage.getRecordCompositionTableHeader(2).contains('Name')
     clusterPage.getRecordCompositionTableHeader(3).contains('Source System')
