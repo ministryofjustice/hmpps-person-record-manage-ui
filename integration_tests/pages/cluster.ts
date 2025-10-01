@@ -15,6 +15,8 @@ export default class ClusterPage extends Page {
   getRecordCompositionRow = (index: number): PageElement =>
     cy.get(`#record-composition-table .govuk-table__row:nth-of-type(${index})`)
 
+  getInsetInformationHint = (): PageElement => cy.get(`.inset-information`)
+
   getEventLogTableHeader = (index: number): PageElement => cy.get(`#event-log-table tr th:nth-of-type(${index})`)
 
   getEventLogTableRow = (index: number): PageElement =>
