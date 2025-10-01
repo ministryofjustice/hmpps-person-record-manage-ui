@@ -23,6 +23,9 @@ context('Cluster View', () => {
     const clusterPage = Page.verifyOnPage(ClusterPage, uuid)
     clusterPage.getUuidHeader().contains(`UUID: ${uuid}`)
     clusterPage.getBackButton().contains('Back')
+    clusterPage
+      .getInsetInformationHint()
+      .contains('Click on the node links on the graph the display matching statisitics.')
     clusterPage.getRecordCompositionTableHeader(1).contains('Source System ID')
     clusterPage.getRecordCompositionTableHeader(2).contains('Name')
     clusterPage.getRecordCompositionTableHeader(3).contains('Source System')

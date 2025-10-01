@@ -19,3 +19,7 @@
   @include govuk-responsive-margin(5, 'right');
   max-width: 100%;
 }
+
+.inset-information {
+  @include govuk-responsive-margin(0);
+}
