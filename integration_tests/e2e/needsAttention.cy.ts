@@ -19,7 +19,7 @@ context('Needs Attention', () => {
     indexPage.getPaginationItem(2).contains('2')
     indexPage.getPaginationItem(2).should('not.have.class', 'govuk-pagination__item--current')
     indexPage.getPaginationItem(3).contains('3')
-    indexPage.getPaginationItem(4).should('have.class', 'govuk-pagination__item govuk-pagination__item--ellipses')
+    indexPage.getPaginationItem(4).should('have.class', 'govuk-pagination__item govuk-pagination__item--ellipsis')
     indexPage.getPaginationItem(5).contains('11')
   })
 
