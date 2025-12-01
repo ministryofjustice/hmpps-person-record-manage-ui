@@ -1,9 +1,3 @@
-# hmpps-person-record-manage-ui
-
-[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/hmpps-person-record-manage-ui/badge?style=flat)](https://github-community.service.justice.gov.uk/repository-standards/hmpps-person-record-manage-ui)
-
-[![Docker Repository on ghcr](https://img.shields.io/badge/ghcr.io-repository-2496ED.svg?logo=docker)](https://ghcr.io/ministryofjustice/hmpps-person-record-manage-ui)
-
 ## Running the app via docker-compose
 
 The easiest way to run the app is to use docker compose to create the service and all dependencies.
@@ -46,6 +40,10 @@ This can be useful to test changes which need to be made to both apps.
 2. In hmpps-person-record run `make run-local`
 3. In hmpps-person-record-manage-ui run `make run-local`
 
+4. To request specific users and roles then raise a PR
+to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
+for the in-memory DB used by Auth
+
 ### Run linter
 
 * `npm run lint` runs `eslint`.
@@ -72,12 +70,6 @@ And then either, run tests in headless mode with:
 Or run tests with the cypress UI:
 
 `npm run int-test-ui`
-
-### adding users
-
-To request specific users and roles then raise a PR
-to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
-for the in-memory DB used by Auth
 
 ## Change log
 
