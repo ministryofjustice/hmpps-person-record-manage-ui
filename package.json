@@ -78,6 +78,7 @@
     ]
   },
   "dependencies": {
+    "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@aws-sdk/client-sqs": "^3.934.0",
     "@ministryofjustice/frontend": "^7.1.0",
     "@ministryofjustice/hmpps-auth-clients": "^0.0.3",
@@ -107,7 +108,6 @@
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "^4.0.4",
     "@ministryofjustice/eslint-config-hmpps": "^0.0.5",
-    "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@ministryofjustice/hmpps-precommit-hooks": "^1.0.2",
     "@tsconfig/node22": "^22.0.5",
     "@types/bunyan": "^1.8.11",
