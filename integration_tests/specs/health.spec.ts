@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import hmppsAuth from '../mockApis/hmppsAuth'
 import tokenVerification from '../mockApis/tokenVerification'
+import personRecord from '../mockApis/personRecordApi'
 
 import { resetStubs } from '../testUtils'
 
@@ -11,7 +12,11 @@ test.describe('Health', () => {
 
   test.describe('All healthy', () => {
     test.beforeEach(async () => {
-      await Promise.all([hmppsAuth.stubPing(), tokenVerification.stubTokenVerificationPing()])
+      await Promise.all([
+        hmppsAuth.stubPing(),
+        tokenVerification.stubTokenVerificationPing(),
+        personRecord.stubPersonRecordPing(),
+      ])
     })
 
     test('Health check is accessible and status is UP', async ({ page }) => {
@@ -29,7 +34,7 @@ test.describe('Health', () => {
     test('Info is accessible', async ({ page }) => {
       const response = await page.request.get('/info')
       const payload = await response.json()
-      expect(payload.build.name).toBe('hmpps-template-typescript')
+      expect(payload.build.name).toBe('hmpps-person-record-manage-ui')
     })
   })
 
