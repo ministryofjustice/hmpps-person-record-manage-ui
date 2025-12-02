@@ -2,6 +2,7 @@ import { Page } from '@playwright/test'
 import tokenVerification from './mockApis/tokenVerification'
 import hmppsAuth, { type UserToken } from './mockApis/hmppsAuth'
 import { resetStubs } from './mockApis/wiremock'
+import personRecordApi from './mockApis/personRecordApi'
 
 export { resetStubs }
 
@@ -24,6 +25,7 @@ export const login = async (
     hmppsAuth.stubSignOutPage(),
     hmppsAuth.token({ name, roles, authSource }),
     tokenVerification.stubVerifyToken(active),
+    personRecordApi.stubPersonRecordGetAdminClusters(),
   ])
   await attemptHmppsAuthLogin(page)
 }
