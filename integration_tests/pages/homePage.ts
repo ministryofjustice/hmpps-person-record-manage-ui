@@ -15,7 +15,8 @@ export default class HomePage extends AbstractPage {
 
   readonly crnErrorMessage: Locator
   readonly prisonErrorMessage: Locator
-
+  readonly needsAttentionHeader: Locator
+readonly currentPaginationItem: Locator
 
   private constructor(page: Page) {
     super(page)
@@ -26,7 +27,8 @@ export default class HomePage extends AbstractPage {
     this.uuidErrorMessage = page.locator('#uuid-error')
     this.crnErrorMessage = page.locator('#crn-error')
     this.prisonErrorMessage = page.locator('#prisonNumber-error')
-
+    this.needsAttentionHeader = page.locator('h2.govuk-heading-m')
+    this.currentPaginationItem = page.locator(`.govuk-pagination__item--current`)
   }
 
   static async verifyOnPage(page: Page): Promise<HomePage> {
@@ -71,4 +73,27 @@ export default class HomePage extends AbstractPage {
   async verifyPrisonErrorMessage(){
     await expect(this.prisonErrorMessage).toHaveText('Error: No results found')
   }
+
+  async verifyNeedsAttentionHeader(){
+    await expect(this.needsAttentionHeader).toHaveText('Needs Attention Clusters:')
+  }
+
+  async verifyCurrentPaginationItem(expected: string){
+    await expect(this.currentPaginationItem).toHaveText(expected)
+  }
+
+  async verifyNonCurrentPaginationItem(index:number, expected: string){
+    const paginationItem = this.page.locator(`.govuk-pagination li:nth-of-type(${index})`)
+    await expect(paginationItem).toHaveText(expected)
+    await expect(paginationItem).not.toHaveClass('govuk-pagination__item--current')
+  }
+
+  async verifyEllipsisPaginationItem(index:number){
+    const paginationItem = this.page.locator(`.govuk-pagination li:nth-of-type(${index})`)
+    await expect(paginationItem).toHaveClass('govuk-pagination__item govuk-pagination__item--ellipsis')
+  }
+
+
+
+
 }

@@ -1,6 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 import AbstractPage from './abstractPage'
-import { PageElement } from './page'
 
 export default class ClusterPage extends AbstractPage {
   readonly header: Locator

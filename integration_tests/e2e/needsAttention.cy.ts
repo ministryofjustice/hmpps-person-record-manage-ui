@@ -2,15 +2,6 @@ import IndexPage from '../pages/index'
 import Page from '../pages/page'
 
 context('Needs Attention', () => {
-  beforeEach(() => {
-    cy.task('reset')
-    cy.task('stubPersonRecordGetAdminClusters', { page: 1 })
-
-    cy.task('stubVerifyToken', true)
-    cy.task('stubSignIn', { name: 'bobby brown', roles: ['ROLE_PERSON_RECORD_MANAGE__ADMIN'] })
-
-    cy.signIn()
-  })
 
   it('pagination has ellipsis with eleven pages', () => {
     const indexPage = Page.verifyOnPage(IndexPage)
