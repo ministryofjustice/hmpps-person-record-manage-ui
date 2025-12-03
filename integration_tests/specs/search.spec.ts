@@ -4,6 +4,8 @@ import personRecordApi from '../mockApis/personRecordApi'
 import { login, resetStubs } from '../testUtils'
 import HomePage from '../pages/homePage'
 import ClusterPage from '../pages/clusterPage'
+import Page from '../pages/page'
+import IndexPage from '../pages'
 
 test.describe('Search', () => {
   test.afterEach(async () => {
@@ -35,64 +37,19 @@ test.describe('Search', () => {
     await clusterPage.verifyRecordCompositionTableRow(2, 1, '4321')
     await clusterPage.verifyRecordCompositionTableRow(2, 3, 'NOMIS')
   })
-  //
-  // test('Unauthenticated user navigating to sign in page directed to auth', async ({ page }) => {
-  //   await hmppsAuth.stubSignInPage()
-  //   await page.goto('/sign-in')
-  //
-  //   await expect(page.getByRole('heading')).toHaveText('Sign in')
-  // })
-  //
-  // test('User name visible in header', async ({ page }) => {
-  //   await login(page, { name: 'A TestUser' })
-  //
-  //   const homePage = await HomePage.verifyOnPage(page)
-  //
-  //   await expect(homePage.usersName).toHaveText('A. Testuser')
-  // })
-  //
-  // test('Phase banner visible in header', async ({ page }) => {
-  //   await login(page)
-  //
-  //   const homePage = await HomePage.verifyOnPage(page)
-  //
-  //   await expect(homePage.phaseBanner).toHaveText('dev')
-  // })
-  //
-  // test('User can sign out', async ({ page }) => {
-  //   await login(page)
-  //
-  //   const homePage = await HomePage.verifyOnPage(page)
-  //   await homePage.signOut()
-  //
-  //   await expect(page.getByRole('heading')).toHaveText('Sign in')
-  // })
-  //
-  // test('User can manage their details', async ({ page }) => {
-  //   await login(page, { name: 'A TestUser' })
-  //
-  //   await hmppsAuth.stubManageDetailsPage()
-  //
-  //   const homePage = await HomePage.verifyOnPage(page)
-  //   await homePage.clickManageUserDetails()
-  //
-  //   await expect(page.getByRole('heading')).toHaveText('Your account details')
-  // })
-  //
-  // test('Token verification failure takes user to sign in page', async ({ page }) => {
-  //   await login(page, { active: false })
-  //
-  //   await expect(page.getByRole('heading')).toHaveText('Sign in')
-  // })
-  //
-  // test('Token verification failure clears user session', async ({ page }) => {
-  //   await login(page, { name: 'A TestUser', active: false })
-  //
-  //   await expect(page.getByRole('heading')).toHaveText('Sign in')
-  //
-  //   await login(page, { name: 'Some OtherTestUser', active: true })
-  //
-  //   const homePage = await HomePage.verifyOnPage(page)
-  //   await expect(homePage.usersName).toHaveText('S. Othertestuser')
-  // })
+
+  test('search by UUID with no results redirects to index page and shows no results found error message', async ({
+    page,
+  }) => {
+    const notFoundUUID = 'notfounduuid'
+    await personRecordApi.stubPersonRecordGetAdminClusterByUUID({ httpStatus: 404, uuid: notFoundUUID })
+    await page.goto('/')
+    const homePage = await HomePage.verifyOnPage(page)
+    await homePage.verifyNoErrorMessage()
+    await homePage.searchForUUID(notFoundUUID)
+
+    await HomePage.verifyOnPage(page)
+
+    await homePage.verifyUUIDErrorMessage()
+  })
 })
