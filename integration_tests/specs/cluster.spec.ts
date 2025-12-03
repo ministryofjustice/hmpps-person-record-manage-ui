@@ -3,6 +3,7 @@ import personRecordApi from '../mockApis/personRecordApi'
 
 import { login, resetStubs } from '../testUtils'
 import ClusterPage from '../pages/clusterPage'
+import HomePage from '../pages/homePage'
 
 test.describe('Cluster View', () => {
   test.afterEach(async () => {
@@ -86,4 +87,21 @@ test.describe('Cluster View', () => {
     await clusterPage.verifyEventLogTableRow(2, 2, 'Review')
     await clusterPage.verifyEventLogTableRow(2, 3, 'Record Updated')
   })
+
+  test('back button navigates to index page', async ({ page }) => {
+    const uuid = '1234'
+    await Promise.all([
+      personRecordApi.stubPersonRecordGetAdminClusterByUUID(),
+      personRecordApi.stubPersonRecordGetAdminEventLog(),
+    ])
+
+    await page.goto(`/cluster/${uuid}`)
+
+    const clusterPage = await ClusterPage.verifyOnPage(page, uuid)
+
+    await clusterPage.verifyBackButtonText('Back')
+    await clusterPage.clickBackButton()
+    await HomePage.verifyOnPage(page)
+  })
+
 })

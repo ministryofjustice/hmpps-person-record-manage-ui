@@ -49,4 +49,8 @@ export default class ClusterPage extends AbstractPage {
     const row = this.page.locator(`#event-log-table tbody .govuk-table__row:nth-of-type(${rowIndex}) td:nth-of-type(${columnIndex})`)
     await expect(row).toHaveText(expected)
   }
+
+  async clickBackButton() {
+    this.backButton.click()
+  }
 }
