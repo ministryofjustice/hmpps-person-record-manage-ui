@@ -15,7 +15,6 @@ To start the main services excluding the example typescript template app:
 Create an environment file by copying `.env.example` -> `.env`
 Environment variables set in here will be available when running `start:dev`
 
-Install dependencies using `make install`, ensuring you are using `node v20`
 
 Note: Using `nvm` (or [fnm](https://github.com/Schniz/fnm)), run `nvm install --latest-npm` within the repository folder
 to use the correct version of node, and the latest version of npm. This matches the `engines` config in `package.json`
@@ -29,25 +28,13 @@ And then, to build the assets and start the app with esbuild:
 
 Once the application is running you should then be able to login with:
 
-username: CPR_MANAGE_ADMIN
 password: password123456
 
-## Running against a local version of hmpps-person-record and hmpps-person-match
-
-This can be useful to test changes which need to be made to both apps.
-
-1. In hmpps-person-record run `make e2e-test`
-2. In hmpps-person-record run `make run-local`
-3. In hmpps-person-record-manage-ui run `make run-local`
-
-4. To request specific users and roles then raise a PR
 to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
 for the in-memory DB used by Auth
 
 ### Run linter
 
-* `npm run lint` runs `eslint`.
-* `npm run typecheck` runs the TypeScript compiler `tsc`.
 
 ### Run unit tests
 
@@ -71,7 +58,7 @@ And then either, run tests in headless mode with:
 
 `npm run int-test`
 
-Or run tests with the cypress UI:
+Or run tests with the UI:
 
 `npm run int-test-ui`
 
