@@ -14,6 +14,8 @@ export default class HomePage extends AbstractPage {
   readonly uuidErrorMessage: Locator
 
   readonly crnErrorMessage: Locator
+  readonly prisonErrorMessage: Locator
+
 
   private constructor(page: Page) {
     super(page)
@@ -23,6 +25,7 @@ export default class HomePage extends AbstractPage {
     this.errorMessage = page.locator('.govuk-error-message')
     this.uuidErrorMessage = page.locator('#uuid-error')
     this.crnErrorMessage = page.locator('#crn-error')
+    this.prisonErrorMessage = page.locator('#prisonNumber-error')
 
   }
 
@@ -47,6 +50,12 @@ export default class HomePage extends AbstractPage {
     await page.locator('#search-crn button').click()
   }
 
+  async searchForPrisonNumber(prisonNumber: string, page: Page){
+    await this.switchToTab(SEARCH_TABS.prisonNumber, page)
+    await page.locator('#prisonNumber').fill(prisonNumber)
+    await page.locator('#search-prison-number button').click()
+  }
+
   async verifyNoErrorMessage(){
     await expect(this.errorMessage).not.toBeVisible()
   }
@@ -57,5 +66,9 @@ export default class HomePage extends AbstractPage {
 
   async verifyCRNErrorMessage(){
     await expect(this.crnErrorMessage).toHaveText('Error: No results found')
+  }
+
+  async verifyPrisonErrorMessage(){
+    await expect(this.prisonErrorMessage).toHaveText('Error: No results found')
   }
 }
