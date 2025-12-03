@@ -34,4 +34,9 @@ export default class ClusterPage extends AbstractPage {
     )
     await expect(row).toHaveText(expected)
   }
+
+  async verifyInsetHintInformation(expected: string) {
+    const hint = this.page.locator('.inset-information')
+    await expect(hint).toHaveText(expected)
+  }
 }
