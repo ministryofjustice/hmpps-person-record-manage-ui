@@ -52,4 +52,17 @@ test.describe('Search', () => {
 
     await homePage.verifyUUIDErrorMessage()
   })
+
+  test('search for a cluster by CRN which exists shows the cluster', async ({ page,
+                                                                            }) => {
+    const uuid = '123456'
+    const crn = 'X987654'
+    await personRecordApi.stubPersonRecordGetAdminClusterByCRN({ httpStatus: 200, crn })
+    await personRecordApi.stubPersonRecordGetAdminEventLog({httpStatus: 200, uuid})
+
+    await page.goto('/')
+    const homePage = await HomePage.verifyOnPage(page)
+    await homePage.searchForCRN(crn, page)
+    ClusterPage.verifyOnPage(page, uuid)
+  })
 })
