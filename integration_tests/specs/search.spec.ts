@@ -63,6 +63,20 @@ test.describe('Search', () => {
     await page.goto('/')
     const homePage = await HomePage.verifyOnPage(page)
     await homePage.searchForCRN(crn, page)
-    ClusterPage.verifyOnPage(page, uuid)
+    await ClusterPage.verifyOnPage(page, uuid)
+  })
+
+  test('search by CRN with no results redirects to index page and shows no results found error message', async ({ page,
+                                                                                                                }) => {
+    const crn = 'notfounderror'
+    await personRecordApi.stubPersonRecordGetAdminClusterByCRN({ httpStatus: 404, crn })
+    await page.goto('/')
+    const homePage = await HomePage.verifyOnPage(page)
+    await homePage.verifyNoErrorMessage()
+    await homePage.searchForCRN(crn, page)
+
+    await HomePage.verifyOnPage(page)
+
+    await homePage.verifyCRNErrorMessage()
   })
 })

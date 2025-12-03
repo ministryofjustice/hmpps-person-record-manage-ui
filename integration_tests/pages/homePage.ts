@@ -13,6 +13,8 @@ export default class HomePage extends AbstractPage {
 
   readonly uuidErrorMessage: Locator
 
+  readonly crnErrorMessage: Locator
+
   private constructor(page: Page) {
     super(page)
     this.header = page.locator('h1', { hasText: 'Search' })
@@ -20,6 +22,7 @@ export default class HomePage extends AbstractPage {
     this.uuidSearchSubmit = page.locator('#search-uuid button')
     this.errorMessage = page.locator('.govuk-error-message')
     this.uuidErrorMessage = page.locator('#uuid-error')
+    this.crnErrorMessage = page.locator('#crn-error')
 
   }
 
@@ -29,26 +32,30 @@ export default class HomePage extends AbstractPage {
     return homePage
   }
 
-  async searchForUUID(uuid: string): Promise<void> {
+  async searchForUUID(uuid: string) {
     await this.uuidSearchForm.fill(uuid)
     await this.uuidSearchSubmit.click()
   }
 
-  private switchToTab = (tab: SearchTab, page: Page): Promise<void>  => {
-    return page.locator(`#tab_${tab}`).click()
+  private async switchToTab (tab: SearchTab, page: Page) {
+    await page.locator(`#tab_${tab}`).click()
   }
 
-  async searchForCRN(crn: string, page: Page): Promise<void> {
+  async searchForCRN(crn: string, page: Page){
     await this.switchToTab(SEARCH_TABS.crn, page)
     await page.locator('#crn').fill(crn)
     await page.locator('#search-crn button').click()
   }
 
-  async verifyNoErrorMessage(): Promise<void> {
+  async verifyNoErrorMessage(){
     await expect(this.errorMessage).not.toBeVisible()
   }
 
-  async verifyUUIDErrorMessage(): Promise<void> {
+  async verifyUUIDErrorMessage(){
     await expect(this.uuidErrorMessage).toHaveText('Error: No results found')
+  }
+
+  async verifyCRNErrorMessage(){
+    await expect(this.crnErrorMessage).toHaveText('Error: No results found')
   }
 }
