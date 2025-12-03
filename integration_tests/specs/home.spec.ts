@@ -5,7 +5,7 @@ import { login, resetStubs } from '../testUtils'
 import HomePage from '../pages/homePage'
 
 
-test.describe('Needs Attention', () => {
+test.describe('Home', () => {
   test.afterEach(async () => {
     await resetStubs()
   })
@@ -23,8 +23,22 @@ test.describe('Needs Attention', () => {
     await homePage.verifyNonCurrentPaginationItem(2,'2')
     await homePage.verifyNonCurrentPaginationItem(3,'3')
     await homePage.verifyEllipsisPaginationItem(4)
-    // indexPage.getPaginationItem(4).should('have.class', 'govuk-pagination__item govuk-pagination__item--ellipsis')
     await homePage.verifyNonCurrentPaginationItem(5,'11')
+  })
+
+  test('previous button not shown on first page',async  ({page}) => {
+    await page.goto('/')
+    const homePage = await HomePage.verifyOnPage(page)
+    homePage.verifyNoPreviousLink()
+  })
+
+  test('next button not shown on last page',async  ({page}) => {
+    await page.goto('/')
+    const homePage = await HomePage.verifyOnPage(page)
+    await personRecordApi.stubPersonRecordGetAdminClusters({ httpStatus: 200, page: 11, isLastPage: true })
+    // is the 5th element in pagination structure: 1,2,3,...,11
+    homePage.clickPaginationItem(5)
+    homePage.verifyNoNextLink()
   })
 
 

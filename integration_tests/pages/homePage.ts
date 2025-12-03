@@ -14,9 +14,16 @@ export default class HomePage extends AbstractPage {
   readonly uuidErrorMessage: Locator
 
   readonly crnErrorMessage: Locator
+
   readonly prisonErrorMessage: Locator
+
   readonly needsAttentionHeader: Locator
-readonly currentPaginationItem: Locator
+
+  readonly currentPaginationItem: Locator
+
+  readonly previousLink: Locator
+
+  readonly nextLink: Locator
 
   private constructor(page: Page) {
     super(page)
@@ -29,6 +36,8 @@ readonly currentPaginationItem: Locator
     this.prisonErrorMessage = page.locator('#prisonNumber-error')
     this.needsAttentionHeader = page.locator('h2.govuk-heading-m')
     this.currentPaginationItem = page.locator(`.govuk-pagination__item--current`)
+    this.previousLink = page.locator(`.govuk-pagination__prev a`)
+    this.nextLink = page.locator(`.govuk-pagination__next a`)
   }
 
   static async verifyOnPage(page: Page): Promise<HomePage> {
@@ -88,12 +97,22 @@ readonly currentPaginationItem: Locator
     await expect(paginationItem).not.toHaveClass('govuk-pagination__item--current')
   }
 
+  async clickPaginationItem(index: number) {
+    await this.page.locator(`.govuk-pagination li:nth-of-type(${index})`).click()
+  }
+
   async verifyEllipsisPaginationItem(index:number){
     const paginationItem = this.page.locator(`.govuk-pagination li:nth-of-type(${index})`)
     await expect(paginationItem).toHaveClass('govuk-pagination__item govuk-pagination__item--ellipsis')
   }
 
+  async verifyNoPreviousLink(){
+    await expect(this.previousLink).not.toBeVisible()
+  }
 
+  async verifyNoNextLink(){
+    await expect(this.nextLink).not.toBeVisible()
+  }
 
 
 }
