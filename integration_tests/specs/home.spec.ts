@@ -37,9 +37,23 @@ test.describe('Home', () => {
     const homePage = await HomePage.verifyOnPage(page)
     await personRecordApi.stubPersonRecordGetAdminClusters({ httpStatus: 200, page: 11, isLastPage: true })
     // is the 5th element in pagination structure: 1,2,3,...,11
-    homePage.clickPaginationItem(5)
-    homePage.verifyNoNextLink()
+    await homePage.clickPaginationItem(5)
+    await homePage.verifyCurrentPaginationItem('11')
+    await homePage.verifyNoNextLink()
   })
 
+  test('Check next and previous links on page are correct', async ({ page }) => {
+    await page.goto('/')
+    const homePage = await HomePage.verifyOnPage(page)
+    await personRecordApi.stubPersonRecordGetAdminClusters({ httpStatus: 200, page: 3, isLastPage: false })
+    await homePage.clickPaginationItem(3)
+    await personRecordApi.stubPersonRecordGetAdminClusters({ httpStatus: 200, page: 4, isLastPage: false })
+
+    await homePage.clickNext()
+    await homePage.verifyCurrentPaginationItem('4')
+
+    await homePage.clickPrevious()
+    await homePage.verifyCurrentPaginationItem('3')
+  })
 
 })

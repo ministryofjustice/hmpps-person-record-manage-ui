@@ -114,5 +114,11 @@ export default class HomePage extends AbstractPage {
     await expect(this.nextLink).not.toBeVisible()
   }
 
+  async clickNext() {
+    await this.nextLink.click()
+  }
 
+  async clickPrevious() {
+    await this.previousLink.click()
+  }
 }
