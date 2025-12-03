@@ -4,7 +4,6 @@ import personRecordApi from '../mockApis/personRecordApi'
 import { login, resetStubs } from '../testUtils'
 import HomePage from '../pages/homePage'
 
-
 test.describe('Home', () => {
   test.afterEach(async () => {
     await resetStubs()
@@ -20,19 +19,19 @@ test.describe('Home', () => {
     await homePage.verifyNeedsAttentionHeader()
 
     await homePage.verifyCurrentPaginationItem('1')
-    await homePage.verifyNonCurrentPaginationItem(2,'2')
-    await homePage.verifyNonCurrentPaginationItem(3,'3')
+    await homePage.verifyNonCurrentPaginationItem(2, '2')
+    await homePage.verifyNonCurrentPaginationItem(3, '3')
     await homePage.verifyEllipsisPaginationItem(4)
-    await homePage.verifyNonCurrentPaginationItem(5,'11')
+    await homePage.verifyNonCurrentPaginationItem(5, '11')
   })
 
-  test('previous button not shown on first page',async  ({page}) => {
+  test('previous button not shown on first page', async ({ page }) => {
     await page.goto('/')
     const homePage = await HomePage.verifyOnPage(page)
     homePage.verifyNoPreviousLink()
   })
 
-  test('next button not shown on last page',async  ({page}) => {
+  test('next button not shown on last page', async ({ page }) => {
     await page.goto('/')
     const homePage = await HomePage.verifyOnPage(page)
     await personRecordApi.stubPersonRecordGetAdminClusters({ httpStatus: 200, page: 11, isLastPage: true })
@@ -55,5 +54,4 @@ test.describe('Home', () => {
     await homePage.clickPrevious()
     await homePage.verifyCurrentPaginationItem('3')
   })
-
 })

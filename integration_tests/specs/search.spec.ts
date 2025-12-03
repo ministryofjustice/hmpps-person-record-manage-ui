@@ -4,8 +4,6 @@ import personRecordApi from '../mockApis/personRecordApi'
 import { login, resetStubs } from '../testUtils'
 import HomePage from '../pages/homePage'
 import ClusterPage from '../pages/clusterPage'
-import Page from '../pages/page'
-import IndexPage from '../pages'
 
 test.describe('Search', () => {
   test.afterEach(async () => {
@@ -57,7 +55,7 @@ test.describe('Search', () => {
     const uuid = '123456'
     const crn = 'X987654'
     await personRecordApi.stubPersonRecordGetAdminClusterByCRN({ httpStatus: 200, crn })
-    await personRecordApi.stubPersonRecordGetAdminEventLog({httpStatus: 200, uuid})
+    await personRecordApi.stubPersonRecordGetAdminEventLog({ httpStatus: 200, uuid })
 
     await page.goto('/')
     const homePage = await HomePage.verifyOnPage(page)
@@ -65,8 +63,9 @@ test.describe('Search', () => {
     await ClusterPage.verifyOnPage(page, uuid)
   })
 
-  test('search by CRN with no results redirects to index page and shows no results found error message', async ({ page,
-                                                                                                                }) => {
+  test('search by CRN with no results redirects to index page and shows no results found error message', async ({
+    page,
+  }) => {
     const crn = 'notfounderror'
     await personRecordApi.stubPersonRecordGetAdminClusterByCRN({ httpStatus: 404, crn })
     await page.goto('/')
@@ -79,23 +78,24 @@ test.describe('Search', () => {
     await homePage.verifyCRNErrorMessage()
   })
 
-  test('search for a cluster by Prison Number which exists shows the cluster', async({page,}) => {
+  test('search for a cluster by Prison Number which exists shows the cluster', async ({ page }) => {
     const uuid = '123456'
     const prisonNumber = 'A12345'
-    await personRecordApi.stubPersonRecordGetAdminClusterByPrisonNumber({httpStatus: 200, prisonNumber })
+    await personRecordApi.stubPersonRecordGetAdminClusterByPrisonNumber({ httpStatus: 200, prisonNumber })
     await personRecordApi.stubPersonRecordGetAdminEventLog({ httpStatus: 200, uuid })
 
     await page.goto('/')
     const homePage = await HomePage.verifyOnPage(page)
-    await homePage.searchForPrisonNumber(prisonNumber,page)
+    await homePage.searchForPrisonNumber(prisonNumber, page)
 
     await ClusterPage.verifyOnPage(page, uuid)
-
   })
 
-  test('search by Prison Number with no results redirects to index page and shows no results found error message', async({page}) => {
+  test('search by Prison Number with no results redirects to index page and shows no results found error message', async ({
+    page,
+  }) => {
     const prisonNumber = 'unknownPrisonNumber'
-    await personRecordApi.stubPersonRecordGetAdminClusterByPrisonNumber({ httpStatus: 404, prisonNumber})
+    await personRecordApi.stubPersonRecordGetAdminClusterByPrisonNumber({ httpStatus: 404, prisonNumber })
     await page.goto('/')
     const homePage = await HomePage.verifyOnPage(page)
 
@@ -104,6 +104,5 @@ test.describe('Search', () => {
 
     await HomePage.verifyOnPage(page)
     await homePage.verifyPrisonErrorMessage()
-
   })
 })

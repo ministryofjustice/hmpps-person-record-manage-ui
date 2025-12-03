@@ -51,47 +51,47 @@ export default class HomePage extends AbstractPage {
     await this.uuidSearchSubmit.click()
   }
 
-  private async switchToTab (tab: SearchTab, page: Page) {
+  private async switchToTab(tab: SearchTab, page: Page) {
     await page.locator(`#tab_${tab}`).click()
   }
 
-  async searchForCRN(crn: string, page: Page){
+  async searchForCRN(crn: string, page: Page) {
     await this.switchToTab(SEARCH_TABS.crn, page)
     await page.locator('#crn').fill(crn)
     await page.locator('#search-crn button').click()
   }
 
-  async searchForPrisonNumber(prisonNumber: string, page: Page){
+  async searchForPrisonNumber(prisonNumber: string, page: Page) {
     await this.switchToTab(SEARCH_TABS.prisonNumber, page)
     await page.locator('#prisonNumber').fill(prisonNumber)
     await page.locator('#search-prison-number button').click()
   }
 
-  async verifyNoErrorMessage(){
+  async verifyNoErrorMessage() {
     await expect(this.errorMessage).not.toBeVisible()
   }
 
-  async verifyUUIDErrorMessage(){
+  async verifyUUIDErrorMessage() {
     await expect(this.uuidErrorMessage).toHaveText('Error: No results found')
   }
 
-  async verifyCRNErrorMessage(){
+  async verifyCRNErrorMessage() {
     await expect(this.crnErrorMessage).toHaveText('Error: No results found')
   }
 
-  async verifyPrisonErrorMessage(){
+  async verifyPrisonErrorMessage() {
     await expect(this.prisonErrorMessage).toHaveText('Error: No results found')
   }
 
-  async verifyNeedsAttentionHeader(){
+  async verifyNeedsAttentionHeader() {
     await expect(this.needsAttentionHeader).toHaveText('Needs Attention Clusters:')
   }
 
-  async verifyCurrentPaginationItem(expected: string){
+  async verifyCurrentPaginationItem(expected: string) {
     await expect(this.currentPaginationItem).toHaveText(expected)
   }
 
-  async verifyNonCurrentPaginationItem(index:number, expected: string){
+  async verifyNonCurrentPaginationItem(index: number, expected: string) {
     const paginationItem = this.page.locator(`.govuk-pagination li:nth-of-type(${index})`)
     await expect(paginationItem).toHaveText(expected)
     await expect(paginationItem).not.toHaveClass('govuk-pagination__item--current')
@@ -101,16 +101,16 @@ export default class HomePage extends AbstractPage {
     await this.page.locator(`.govuk-pagination li:nth-of-type(${index})`).click()
   }
 
-  async verifyEllipsisPaginationItem(index:number){
+  async verifyEllipsisPaginationItem(index: number) {
     const paginationItem = this.page.locator(`.govuk-pagination li:nth-of-type(${index})`)
     await expect(paginationItem).toHaveClass('govuk-pagination__item govuk-pagination__item--ellipsis')
   }
 
-  async verifyNoPreviousLink(){
+  async verifyNoPreviousLink() {
     await expect(this.previousLink).not.toBeVisible()
   }
 
-  async verifyNoNextLink(){
+  async verifyNoNextLink() {
     await expect(this.nextLink).not.toBeVisible()
   }
 

@@ -62,7 +62,6 @@ test.describe('Cluster View', () => {
     await clusterPage.verifyEventLogTableHeader(19, 'Override Scopes')
     await clusterPage.verifyEventLogTableHeader(20, 'Source System')
 
-
     await clusterPage.verifyEventLogTableRow(1, 1, '2025-05-12 10:37:56.087296')
     await clusterPage.verifyEventLogTableRow(1, 2, 'Active')
     await clusterPage.verifyEventLogTableRow(1, 3, 'Record Created')
@@ -103,5 +102,4 @@ test.describe('Cluster View', () => {
     await clusterPage.clickBackButton()
     await HomePage.verifyOnPage(page)
   })
-
 })

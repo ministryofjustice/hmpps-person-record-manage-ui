@@ -45,7 +45,9 @@ export default class ClusterPage extends AbstractPage {
   }
 
   async verifyEventLogTableRow(rowIndex: number, columnIndex: number, expected: string) {
-    const row = this.page.locator(`#event-log-table tbody .govuk-table__row:nth-of-type(${rowIndex}) td:nth-of-type(${columnIndex})`)
+    const row = this.page.locator(
+      `#event-log-table tbody .govuk-table__row:nth-of-type(${rowIndex}) td:nth-of-type(${columnIndex})`,
+    )
     await expect(row).toHaveText(expected)
   }
 
