@@ -5,7 +5,7 @@ import createError from 'http-errors'
 import nunjucksSetup from './utils/nunjucksSetup'
 import errorHandler from './errorHandler'
 import { appInsightsMiddleware } from './utils/azureAppInsights'
-import authorisationMiddleware, { AuthRole } from './middleware/authorisationMiddleware'
+import authorisationMiddleware from './middleware/authorisationMiddleware'
 
 import setUpAuthentication from './middleware/setUpAuthentication'
 import setUpCsrf from './middleware/setUpCsrf'
@@ -20,6 +20,10 @@ import indexRoutes from './routes'
 import type { Services } from './services'
 import clusterRoutes from './routes/cluster/cluster'
 import searchRoutes from './routes/search/search'
+
+enum AuthRole {
+  ROLE_PERSON_RECORD_MANAGE__ADMIN = 'ROLE_PERSON_RECORD_MANAGE__ADMIN',
+}
 
 export default function createApp(services: Services): express.Application {
   const app = express()
