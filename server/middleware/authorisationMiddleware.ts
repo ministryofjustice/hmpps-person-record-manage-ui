@@ -3,10 +3,6 @@ import type { RequestHandler } from 'express'
 
 import logger from '../../logger'
 
-export enum AuthRole {
-  ROLE_PERSON_RECORD_MANAGE__ADMIN = 'ROLE_PERSON_RECORD_MANAGE__ADMIN',
-}
-
 export default function authorisationMiddleware(authorisedRoles: string[] = []): RequestHandler {
   return (req, res, next) => {
     // authorities in the user token will always be prefixed by ROLE_.
