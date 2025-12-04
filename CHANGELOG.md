@@ -1,12 +1,25 @@
 # Change log
 
+**December 2nd 2025** - Remove mocha-junit-reporter and reporter-config.json.
+
+The reporter was used for cypress (as cypress is built on top of Mocha) so is no longer needed as we have switched to playwright.
+
+See PR [#636](https://github.com/ministryofjustice/hmpps-template-typescript/pull/636)
+
+**December 2nd 2025** - Remove body-parser.
+
+Body-parser is no longer referenced in the template.
+`setupRequestParsing.ts` - seems to do what body-parser would have done, but uses express provided functions.
+
+See PR [#635](https://github.com/ministryofjustice/hmpps-template-typescript/pull/635)
+
 **November 28th 2025** - Adding @ministryofjustice/hmpps-npm-allow-scripts.
 
 Adding script allowlist library to provide some level of protection against supply chain attacks.
 
 Developers and build agents will need to run `npm run setup` rather than `npm install` or `npm ci` as otherwise, necessary `postinstall` scripts may not be run.
-
-See [here](https://github.com/ministryofjustice/hmpps-typescript-lib/blob/main/packages/npm-script-allowlist/README.md) for more information.
+ 
+See [here](https://github.com/ministryofjustice/hmpps-typescript-lib/blob/main/packages/npm-script-allowlist/README.md) for more information. 
 
 See PR [#632](https://github.com/ministryofjustice/hmpps-template-typescript/pull/632)
 
