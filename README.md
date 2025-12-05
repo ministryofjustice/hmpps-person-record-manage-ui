@@ -64,6 +64,23 @@ Or run tests with the UI:
 
 `npm run int-test-ui`
 
+## Keeping up to date with the template project
+
+This project was cloned from [template typescript project](https://github.com/ministryofjustice/hmpps-template-typescript/) and it is important to keep up to date with improvements in the template, not least for security reasons.
+The more this project looks like a standard HMPPS project, the easier it will be for new people to understand.
+
+At the time of writing, no dependencies have been added to this project which are not in the template project, so we can even use the package-lock.json from the template.
+
+To merge changes in the template project
+
+```bash
+git remote add -f template git@github.com:ministryofjustice/hmpps-template-typescript.git
+git fetch template
+git merge template/main --allow-unrelated-histories
+```
+
+This will bring in any changes since the last time the template project was merged. Fix the conflicts, merge and deploy.
+
 ## Change log
 
 A changelog for the service is available [here](./CHANGELOG.md)
