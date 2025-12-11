@@ -24,14 +24,26 @@ And then, to build the assets and start the app with esbuild:
 
 `npm run start:dev`
 
+
 ### Logging in with a test user
 
 Once the application is running you should then be able to login with:
 
+username: CPR_MANAGE_ADMIN
 password: password123456
 
 to [update the seed data](https://github.com/ministryofjustice/hmpps-auth/blob/main/src/main/resources/db/dev/data/auth/V900_3__users.sql)
 for the in-memory DB used by Auth
+
+## Running against a local version of hmpps-person-record and hmpps-person-match
+
+This can be useful to test changes which need to be made to both apps.
+
+1. In hmpps-person-record run `make e2e-test`
+2. In hmpps-person-record run `make run-local`
+3. In hmpps-person-record-manage-ui run `make run-local`
+
+4. To request specific users and roles then raise a PR
 
 ### Run linter
 
