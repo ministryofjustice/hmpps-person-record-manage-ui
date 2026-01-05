@@ -73,6 +73,13 @@ describe('GET /', () => {
         expect(res.text).toContain('DELIUS (3)')
         expect(res.text).toContain('LIBRA (4)')
         expect(res.text).toContain('NOMIS (5)')
+
+        expect(res.text).toContain('Needs Attention Clusters:')
+
+        expect(res.text).toContain('For Review')
+        expect(res.text).toContain('Assigned')
+        expect(res.text).toContain('Resolved')
+
         expect(auditService.logPageView).toHaveBeenCalledWith(Page.INDEX_PAGE, {
           who: user.username,
           correlationId: expect.any(String),
