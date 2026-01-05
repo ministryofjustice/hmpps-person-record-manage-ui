@@ -114,11 +114,35 @@
     ]
   }) }}
 
-  <h2 class="govuk-heading-m">Needs Attention Clusters:</h1>
-  <div class="moj-scrollable-pane">
-    {{ govukTable(needsAttentionTableData) }}
-  </div>
+  <h2 class="govuk-heading-m">Needs Attention Clusters:</h2>
 
-  {{ govukPagination(needsAttentionPagination) }}
-
+  {{ govukTabs({
+    items: [
+      {
+        label: "For Review",
+        id: "needs-attention-for-review",
+        panel: {
+          html: '
+            <div class="moj-scrollable-pane">
+              ' ~ govukTable(needsAttentionTableData) ~ '
+            </div>
+            ' ~ govukPagination(needsAttentionPagination)
+        }
+      },
+      {
+        label: "Assigned",
+        id: "needs-attention-assigned",
+        panel: {
+          html: '<p class="govuk-body">No assigned clusters yet.</p>'
+        }
+      },
+      {
+        label: "Resolved",
+        id: "needs-attention-resolved",
+        panel: {
+          html: '<p class="govuk-body">No resolved clusters yet.</p>'
+        }
+      }
+    ]
+  }) }}
 {% endblock %}
