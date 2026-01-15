@@ -8,7 +8,7 @@ The easiest way to run the app is to use docker compose to create the service an
 
 ### Running the app for development
 
-To start the main services excluding the example typescript template app:
+To start the main services excluding the app:
 
 `docker compose up --scale=app=0`
 
