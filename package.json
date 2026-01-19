@@ -100,6 +100,9 @@
   "overrides": {
     "sinon": {
       "diff": "8.0.3"
+    },
+    "node-gyp": {
+      "tar": "7.5.3"
     }
   }
 }
