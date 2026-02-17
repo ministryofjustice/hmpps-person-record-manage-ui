@@ -22,18 +22,20 @@
   <h1 class="govuk-heading-l">UUID: {{ uuid }}</h1>
 
   <h2 class="govuk-heading-m">Record composition</h1>
-  <div class="moj-scrollable-pane">
+  <div class="moj-pane">
     {{ govukTable(recordCompositionTable) }}
   </div>
 
-  {{ govukInsetText({
+  {% if displayClusterVisuals %}
+  
+    {{ govukInsetText({
     classes: "inset-information",
     text: "Click on the node links on the graph to display matching statistics."
   }) }}
 
   <div id="vis"></div>
   <script nonce="{{ cspNonce }}">
-    const runtime = vega.parse({{ clusterSpecJson | safe }}, null, { ast: true });
+    const runtime = vega.parse({{ clusterSpec | dump | safe }}, null, { ast: true });
 
     view = new vega.View(runtime, {
       expr:      vega.expressionInterpreter,
@@ -44,6 +46,8 @@
 
     view.runAsync();
   </script>
+
+  {% endif %}
 
   <h2 class="govuk-heading-m">Event Log</h1>
   <div class="moj-scrollable-pane">
