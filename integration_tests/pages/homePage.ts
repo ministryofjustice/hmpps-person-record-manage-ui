@@ -25,6 +25,18 @@ export default class HomePage extends AbstractPage {
 
   readonly nextLink: Locator
 
+  readonly forReviewTab: Locator
+
+  readonly assignedTab: Locator
+
+  readonly resolvedTab: Locator
+
+  readonly needsAttentionTable: Locator
+
+  readonly notAssignedMessage: Locator
+
+  readonly notResolvedMessage: Locator
+
   private constructor(page: Page) {
     super(page)
     this.header = page.locator('h1', { hasText: 'Search' })
@@ -34,10 +46,17 @@ export default class HomePage extends AbstractPage {
     this.uuidErrorMessage = page.locator('#uuid-error')
     this.crnErrorMessage = page.locator('#crn-error')
     this.prisonErrorMessage = page.locator('#prisonNumber-error')
+    this.prisonErrorMessage = page.locator('#prisonNumber-error')
     this.needsAttentionHeader = page.locator('h2.govuk-heading-m')
     this.currentPaginationItem = page.locator(`.govuk-pagination__item--current`)
     this.previousLink = page.locator(`.govuk-pagination__prev a`)
     this.nextLink = page.locator(`.govuk-pagination__next a`)
+    this.forReviewTab = page.locator('#tab_needs-attention-for-review')
+    this.assignedTab = page.locator('#tab_needs-attention-assigned')
+    this.resolvedTab = page.locator('#tab_needs-attention-resolved')
+    this.needsAttentionTable = page.locator('#needs-attention-for-review')
+    this.notAssignedMessage = page.locator('#needs-attention-assigned > p:nth-child(1)')
+    this.notResolvedMessage = page.locator('#needs-attention-resolved > p:nth-child(1)')
   }
 
   static async verifyOnPage(page: Page): Promise<HomePage> {
@@ -85,6 +104,36 @@ export default class HomePage extends AbstractPage {
 
   async verifyNeedsAttentionHeader() {
     await expect(this.needsAttentionHeader).toHaveText('Needs Attention Clusters:')
+  }
+
+  async verifyNeedsAttentionTabsVisible() {
+    await expect(this.forReviewTab).toBeVisible()
+    await expect(this.assignedTab).toBeVisible()
+    await expect(this.resolvedTab).toBeVisible()
+  }
+
+  async verifyNeedsAttentionTableVisible() {
+    await expect(this.needsAttentionTable).toBeVisible()
+  }
+
+  async selectForReviewTab() {
+    await this.forReviewTab.click()
+  }
+
+  async selectAssignedTab() {
+    await this.assignedTab.click()
+  }
+
+  async verifyNotAssignedText() {
+    await expect(this.notAssignedMessage).toHaveText('No assigned clusters yet.')
+  }
+
+  async selectResolvedTab() {
+    await this.resolvedTab.click()
+  }
+
+  async verifyNotResolvedText() {
+    await expect(this.notResolvedMessage).toHaveText('No resolved clusters yet.')
   }
 
   async verifyCurrentPaginationItem(expected: string) {

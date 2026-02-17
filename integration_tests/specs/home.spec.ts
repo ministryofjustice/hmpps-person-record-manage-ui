@@ -16,8 +16,10 @@ test.describe('Home', () => {
   test('pagination has ellipsis with eleven pages', async ({ page }) => {
     await page.goto('/')
     const homePage = await HomePage.verifyOnPage(page)
+    await homePage.selectForReviewTab()
     await homePage.verifyNeedsAttentionHeader()
-
+    await homePage.verifyNeedsAttentionTabsVisible()
+    await homePage.verifyNeedsAttentionTableVisible()
     await homePage.verifyCurrentPaginationItem('1')
     await homePage.verifyNonCurrentPaginationItem(2, '2')
     await homePage.verifyNonCurrentPaginationItem(3, '3')
@@ -29,6 +31,20 @@ test.describe('Home', () => {
     await page.goto('/')
     const homePage = await HomePage.verifyOnPage(page)
     homePage.verifyNoPreviousLink()
+  })
+
+  test('check assigned tab contains not assigned message', async ({ page }) => {
+    await page.goto('/')
+    const homePage = await HomePage.verifyOnPage(page)
+    await homePage.selectAssignedTab()
+    await homePage.verifyNotAssignedText()
+  })
+
+  test('check resolved tab contains not resolved message', async ({ page }) => {
+    await page.goto('/')
+    const homePage = await HomePage.verifyOnPage(page)
+    await homePage.selectResolvedTab()
+    await homePage.verifyNotResolvedText()
   })
 
   test('next button not shown on last page', async ({ page }) => {
