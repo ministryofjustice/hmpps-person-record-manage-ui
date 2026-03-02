@@ -10,7 +10,7 @@ export default function routes({ auditService, personRecordService }: Services):
 
   router.get('/cluster/:uuid', async (req: Request, res, _) => {
     const { username } = res.locals.user
-    const { uuid } = req.params
+    const uuid = req.params.uuid as string
 
     const { records, clusterSpec } = await personRecordService.getClusterFromUUID(username, uuid)
     const displayClusterVisuals = clusterSpec !== null && records.length > 1
