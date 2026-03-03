@@ -20,6 +20,7 @@ import indexRoutes from './routes'
 import type { Services } from './services'
 import clusterRoutes from './routes/cluster/cluster'
 import searchRoutes from './routes/search/search'
+import canonicalRoutes from './routes/canonical/canonical'
 
 enum AuthRole {
   ROLE_PERSON_RECORD_MANAGE__ADMIN = 'ROLE_PERSON_RECORD_MANAGE__ADMIN',
@@ -47,6 +48,7 @@ export default function createApp(services: Services): express.Application {
   app.use(indexRoutes(services))
   app.use(clusterRoutes(services))
   app.use(searchRoutes(services))
+  app.use(canonicalRoutes(services))
 
   app.use((req, res, next) => next(createError(404, 'Not found')))
   app.use(errorHandler(process.env.NODE_ENV === 'production'))
