@@ -4,6 +4,7 @@ import config from '../config'
 import logger from '../../logger'
 import { ClustersSummaryResponse } from './model/clustersSummaryResponse'
 import { ClusterDetailResponse, Record } from './model/clusterDetailResponse'
+import { CanonicalRecordResponse } from './model/canonicalRecordResponse'
 import { EventLogResponse } from './model/eventLogResponse'
 
 export default class PersonRecordApiClient extends RestClient {
@@ -62,5 +63,20 @@ export default class PersonRecordApiClient extends RestClient {
 
   async getEventLog(username: string, uuid: string): Promise<EventLogResponse> {
     return this.get({ path: `/admin/event-log/${uuid}` }, asSystem(username))
+  }
+
+  async getCanonicalRecord(username: string, uuid: string): Promise<CanonicalRecordResponse> {
+    return this.get(
+      {
+        path: `/canonical-record/${uuid}`,
+        errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
+          // if (error.responseStatus === 404) {
+          //   return { canonicalRecord: {}, sentences: [] as Date[] }
+          // }
+          throw error
+        },
+      },
+      asSystem(username),
+    )
   }
 }

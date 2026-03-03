@@ -1,0 +1,29 @@
+{% extends "../partials/layout.njk" %}
+
+{% block additionalHeaders %}
+  <script src="https://cdn.jsdelivr.net/npm/vega@6" nonce="{{ cspNonce }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-interpreter@1" nonce="{{ cspNonce }}"></script>
+{% endblock %}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  {%- from "govuk/components/table/macro.njk" import govukTable -%}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+  {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/"
+  }) }}
+
+  <h1 class="govuk-heading-l">UUID: {{ uuid }}</h1>
+
+  <h2 class="govuk-heading-m">Canonical Record</h1>
+  <div class="moj-pane">
+    {{ responseJson }}
+  </div>
+
+{% endblock %}
