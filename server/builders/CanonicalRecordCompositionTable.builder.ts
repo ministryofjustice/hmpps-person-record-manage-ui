@@ -1,4 +1,3 @@
-import type { Record } from '../data/model/clusterDetailResponse'
 import type { CanonicalRecordResponse } from '../data/model/canonicalRecordResponse'
 import { Row, Table, TextItem } from './types/table'
 import { RECORD_COMPOSITION_TABLE_ID } from '../domain/ids/clusterPageIds'
