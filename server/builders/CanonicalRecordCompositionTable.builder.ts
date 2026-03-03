@@ -1,11 +1,7 @@
 import type { Record } from '../data/model/clusterDetailResponse'
-import type { CanonicalRecordResponse, CanonicalRecord } from '../data/model/canonicalRecordResponse'
-import { Heading, Row, Table, TextItem } from './types/table'
+import type { CanonicalRecordResponse } from '../data/model/canonicalRecordResponse'
+import { Row, Table, TextItem } from './types/table'
 import { RECORD_COMPOSITION_TABLE_ID } from '../domain/ids/clusterPageIds'
-
-const buildReadableName = (record: Record) => {
-  return [record.firstName, record.middleName, record.lastName].filter(name => name != null || name === '').join(' ')
-}
 
 const buildCanonicalRecordCompositionTable = (canonicalRecordResponse: CanonicalRecordResponse): Table => {
   const rows = []
