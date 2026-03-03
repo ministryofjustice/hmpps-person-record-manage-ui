@@ -1,6 +1,7 @@
 import { Router, Request } from 'express'
 
 import type { Services } from '../../services'
+import buildCanonicalRecordCompositionTable from '../../builders/CanonicalRecordCompositionTable.builder'
 
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
@@ -9,13 +10,16 @@ export default function routes({ auditService, personRecordService }: Services):
     const { username } = res.locals.user
     const { uuid } = req.params
 
+
+
     const response = await personRecordService.getCanonicalRecord(username, uuid)
-    const responseJson = JSON.stringify(response, null, '\t')
+
+    const recordCompositionTable = buildCanonicalRecordCompositionTable(response)
 
     return res.render('pages/canonical', {
       uuid,
       response,
-      responseJson,
+      recordCompositionTable
     })
   })
   return router
