@@ -3,7 +3,7 @@ import { Router, Request } from 'express'
 import type { Services } from '../../services'
 import buildCanonicalRecordCompositionTable from '../../builders/CanonicalRecordCompositionTable.builder'
 
-export default function routes({ auditService, personRecordService }: Services): Router {
+export default function routes({ personRecordService }: Services): Router {
   const router = Router()
 
   router.get('/canonical/:uuid', async (req: Request, res, _) => {

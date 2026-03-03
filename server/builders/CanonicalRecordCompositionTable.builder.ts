@@ -8,7 +8,7 @@ const buildReadableName = (record: Record) => {
 }
 
 const buildCanonicalRecordCompositionTable = (canonicalRecordResponse: CanonicalRecordResponse): Table => {
-  const rows: any[] = []
+  const rows = []
   for (const [k, v] of Object.entries(canonicalRecordResponse.canonicalRecord)) {
     rows.push(Row(TextItem(k), TextItem(v)))
   }
