@@ -10,8 +10,6 @@ export default function routes({ auditService, personRecordService }: Services):
     const { username } = res.locals.user
     const { uuid } = req.params
 
-
-
     const response = await personRecordService.getCanonicalRecord(username, uuid)
 
     const recordCompositionTable = buildCanonicalRecordCompositionTable(response)
@@ -19,7 +17,7 @@ export default function routes({ auditService, personRecordService }: Services):
     return res.render('pages/canonical', {
       uuid,
       response,
-      recordCompositionTable
+      recordCompositionTable,
     })
   })
   return router
