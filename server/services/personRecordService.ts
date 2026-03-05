@@ -1,4 +1,5 @@
 import { ClustersSummaryResponse } from '../data/model/clustersSummaryResponse'
+import { CanonicalRecordResponse } from '../data/model/canonicalRecordResponse'
 import { ClusterDetailResponse } from '../data/model/clusterDetailResponse'
 import PersonRecordApiClient from '../data/personRecordApiClient'
 import { EventLogResponse } from '../data/model/eventLogResponse'
@@ -24,5 +25,9 @@ export default class PersonRecordService {
 
   async getEventLog(username: string, uuid: string): Promise<EventLogResponse> {
     return this.personRecordApiClient.getEventLog(username, uuid)
+  }
+
+  async getCanonicalRecord(username: string, uuid: string): Promise<CanonicalRecordResponse> {
+    return this.personRecordApiClient.getCanonicalRecord(username, uuid)
   }
 }
