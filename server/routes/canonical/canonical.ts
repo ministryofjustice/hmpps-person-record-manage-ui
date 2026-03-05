@@ -8,7 +8,7 @@ export default function routes({ personRecordService }: Services): Router {
 
   router.get('/canonical/:uuid', async (req: Request, res, _) => {
     const { username } = res.locals.user
-    const { uuid } = req.params
+    const uuid = req.params.uuid as string
 
     const response = await personRecordService.getCanonicalRecord(username, uuid)
 
