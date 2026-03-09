@@ -6,12 +6,12 @@ services:
       - hmpps
     container_name: hmpps-auth
     ports:
-      - "9090:8080"
+      - "9090:9090"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/auth/health"]
+      test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/9090"]
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-      - APPLICATION_AUTHENTICATION_UI_ALLOWLIST=0.0.0.0/0
+      - SERVER_PORT=9090
 
   app:
     build:
@@ -41,6 +41,7 @@ services:
       - TOKEN_VERIFICATION_API_URL=http://hmpps-auth:8080/auth
       - TOKEN_VERIFICATION_ENABLED=false
       - INGRESS_URL=http://localhost:3000
+      - PERSON_RECORD_API_URL=http://localhost:8080
       - NO_HTTPS=true
 
 networks:
