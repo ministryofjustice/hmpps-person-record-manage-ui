@@ -1,0 +1,6 @@
+{
+  "images": [
+    "ghcr.io/ministryofjustice/hmpps-person-record-manage-ui:latest",
+    "ghcr.io/ministryofjustice/hmpps-node:24-alpine"
+  ]
+}
