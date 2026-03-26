@@ -1,0 +1,47 @@
+name: SCA
+run-name: Security Scanning ⚡️
+
+on:
+  schedule:
+    - cron: "34 7 * * 1-5" # Every weekday
+  workflow_dispatch:
+
+permissions: {} # Top-level permissions set to none (explicit security)
+
+env:
+  NODE_VERSION: "24"
+
+jobs:
+  sca:
+    name: Software Composition Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      security-events: write
+      actions: read
+
+    steps:
+      - name: Repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Node
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: ${{ github.workspace }}/package-lock.json
+
+      - name: Install
+        shell: bash
+        run: npm ci --ignore-scripts --omit=dev
+
+      - name: SCA
+        uses: ministryofjustice/devsecops-actions/sca@f965eb1771ec66cfc41d7d57dc607fa6dfbc10ed # v1.4.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          codeql-upload-findings: "always"
+          docker-images-file: ${{ github.workspace }}/docker-images.json
