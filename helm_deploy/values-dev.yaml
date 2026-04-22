@@ -4,6 +4,7 @@
 generic-service:
   scheduledDowntime:
     enabled: true
+    timeZone: Europe/London
 
   ingress:
     host: manage-person-record-dev.hmpps.service.justice.gov.uk
