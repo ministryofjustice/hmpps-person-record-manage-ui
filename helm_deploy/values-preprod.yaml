@@ -5,6 +5,8 @@ generic-service:
   scheduledDowntime:
     enabled: true
     timeZone: Europe/London
+    # start up after hmpps-person-record
+    startupOverride: '47 6 * * 1-5'
 
   ingress:
     host: manage-person-record-preprod.hmpps.service.justice.gov.uk
