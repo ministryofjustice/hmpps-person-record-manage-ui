@@ -12,7 +12,7 @@ test.describe('Health', () => {
 
   test.describe('All healthy', () => {
     test.beforeEach(async () => {
-      await Promise.all([hmppsAuth.stubPing(), tokenVerification.stubPing(), tokenVerification.stubPing()])
+      await Promise.all([hmppsAuth.stubPing(), tokenVerification.stubPing(), personRecord.stubPersonRecordPing()])
     })
 
     test('Health check is accessible and status is UP', async ({ page }) => {
