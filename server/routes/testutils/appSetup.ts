@@ -11,6 +11,7 @@ import type { Services } from '../../services'
 import AuditService from '../../services/auditService'
 import { HmppsUser } from '../../interfaces/hmppsUser'
 import setUpWebSession from '../../middleware/setUpWebSession'
+import HmppsAuditClient from '../../data/hmppsAuditClient'
 
 jest.mock('../../services/auditService')
 
@@ -39,6 +40,12 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
     req.flash = flashProvider
     res.locals = {
       user: { ...req.user } as HmppsUser,
+      cspNonce: '',
+      csrfToken: '',
+      asset_path: '',
+      applicationName: '',
+      environmentName: '',
+      environmentNameColour: '',
     }
     next()
   })
@@ -60,7 +67,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
 export function appWithAllRoutes({
   production = false,
   services = {
-    auditService: new AuditService(null) as jest.Mocked<AuditService>,
+    auditService: new AuditService({} as HmppsAuditClient) as jest.Mocked<AuditService>,
   },
   userSupplier = () => user,
 }: {
