@@ -6,7 +6,6 @@ import PersonRecordService from '../services/personRecordService'
 import { ClustersSummaryResponse } from '../data/model/clustersSummaryResponse'
 import HmppsAuditClient from '../data/hmppsAuditClient'
 
-
 jest.mock('../services/auditService')
 jest.mock('../data/personRecordApiClient')
 jest.mock('../services/personRecordService')
