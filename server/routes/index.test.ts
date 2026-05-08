@@ -4,12 +4,13 @@ import { appWithAllRoutes, user } from './testutils/appSetup'
 import AuditService, { Page } from '../services/auditService'
 import PersonRecordService from '../services/personRecordService'
 import { ClustersSummaryResponse } from '../data/model/clustersSummaryResponse'
+import HmppsAuditClient from '../data/hmppsAuditClient'
 
 jest.mock('../services/auditService')
 jest.mock('../data/personRecordApiClient')
 jest.mock('../services/personRecordService')
 
-const auditService = new AuditService(null) as jest.Mocked<AuditService>
+const auditService = new AuditService({} as HmppsAuditClient) as jest.Mocked<AuditService>
 const personRecordService = new PersonRecordService(null) as jest.Mocked<PersonRecordService>
 
 let app: Express
