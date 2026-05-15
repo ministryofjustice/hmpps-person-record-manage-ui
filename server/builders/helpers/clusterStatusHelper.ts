@@ -4,7 +4,7 @@ import { SUPPORTED_STATUS, SUPPORTED_STATUS_REASON } from '../../domain/constant
 const buildStatus = (statusCode: string): string => SUPPORTED_STATUS.get(statusCode) ?? statusCode
 
 const buildStatusReason = (statusReasonCode: string): string =>
-  statusReasonCode ? (SUPPORTED_STATUS_REASON.get(statusReasonCode) ?? '') : ''
+  SUPPORTED_STATUS_REASON.get(statusReasonCode) ?? statusReasonCode
 
 export const buildClusterStatus = (statusCode: string): HTMLItem | TextItem => {
   const status = buildStatus(statusCode)
@@ -21,7 +21,7 @@ export const buildClusterStatus = (statusCode: string): HTMLItem | TextItem => {
   }
 }
 
-export const buildClusterStatusReason = (statusReasonCode?: string): HTMLItem | TextItem | undefined => {
+export const buildClusterStatusReason = (statusReasonCode?: string): HTMLItem | undefined => {
   if (!statusReasonCode) return undefined
   return TagItem(buildStatusReason(statusReasonCode), TagColour.RED)
 }
