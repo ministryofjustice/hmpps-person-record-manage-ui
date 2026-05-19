@@ -33,6 +33,7 @@ describe('GET /cluster/uuid1', () => {
   it('should render cluster view page for a specified uuid', () => {
     const cluster: ClusterDetailResponse = {
       uuid: 'uuid1',
+      status: 'ACTIVE',
       records: [
         { firstName: 'Jane', middleName: 'Mary', lastName: 'Doe', sourceSystemId: '1234', sourceSystem: 'DELIUS' },
         { firstName: 'John', middleName: 'Tom', lastName: 'Smith', sourceSystemId: '4321', sourceSystem: 'NOMIS' },

@@ -22,7 +22,7 @@ export default class PersonRecordApiClient extends RestClient {
         path: `/admin/cluster/${uuid}`,
         errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
           if (error.responseStatus === 404) {
-            return { uuid, records: [] as Record[], clusterSpec: {} }
+            return { uuid, status: '', records: [] as Record[], clusterSpec: {} }
           }
           throw error
         },
@@ -37,7 +37,7 @@ export default class PersonRecordApiClient extends RestClient {
         path: `/admin/cluster/probation/${crn}`,
         errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
           if (error.responseStatus === 404) {
-            return { uuid: '', records: [] as Record[], clusterSpec: {} }
+            return { uuid: '', status: '', records: [] as Record[], clusterSpec: {} }
           }
           throw error
         },
@@ -52,7 +52,7 @@ export default class PersonRecordApiClient extends RestClient {
         path: `/admin/cluster/prison/${prisonNumber}`,
         errorHandler: <ERROR>(path: string, verb: string, error: SanitisedError<ERROR>) => {
           if (error.responseStatus === 404) {
-            return { uuid: '', records: [] as Record[], clusterSpec: {} }
+            return { uuid: '', status: '', records: [] as Record[], clusterSpec: {} }
           }
           throw error
         },

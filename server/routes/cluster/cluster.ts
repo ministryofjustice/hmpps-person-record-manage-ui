@@ -4,6 +4,7 @@ import type { Services } from '../../services'
 import { Page } from '../../services/auditService'
 import buildRecordCompositionTable from '../../builders/recordCompositionTable.builder'
 import buildEventLogTable from '../../builders/eventLogTable.builder'
+import { buildClusterStatus, buildClusterStatusReason } from '../../builders/helpers/clusterStatusHelper'
 
 export default function routes({ auditService, personRecordService }: Services): Router {
   const router = Router()
@@ -12,7 +13,14 @@ export default function routes({ auditService, personRecordService }: Services):
     const { username } = res.locals.user
     const uuid = req.params.uuid as string
 
-    const { records, clusterSpec } = await personRecordService.getClusterFromUUID(username, uuid)
+    const { status, statusReasonCode, records, clusterSpec } = await personRecordService.getClusterFromUUID(
+      username,
+      uuid,
+    )
+
+    const clusterStatus = buildClusterStatus(status)
+    const clusterStatusReason = buildClusterStatusReason(statusReasonCode)
+
     const displayClusterVisuals = clusterSpec !== null && records.length > 1
 
     const recordCompositionTable = buildRecordCompositionTable(records)
@@ -23,6 +31,8 @@ export default function routes({ auditService, personRecordService }: Services):
     await auditService.logPageView(Page.CLUSTER_PAGE, { who: res.locals.user.username, correlationId: req.id })
     return res.render('pages/cluster', {
       uuid,
+      clusterStatus,
+      clusterStatusReason,
       clusterSpec,
       recordCompositionTable,
       eventLogTable,

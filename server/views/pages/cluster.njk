@@ -19,7 +19,7 @@
     href: "/"
   }) }}
 
-  <h1 class="govuk-heading-l">UUID: {{ uuid }}</h1>
+  <h1 class="govuk-heading-l heading-with-tags">UUID: {{ uuid }} {{ clusterStatus.html | safe }} {% if clusterStatusReason %} {{ clusterStatusReason.html | safe }} {% endif %} </h1>
 
   <h2 class="govuk-heading-m">Record composition</h1>
   <div class="moj-pane">
@@ -27,7 +27,7 @@
   </div>
 
   {% if displayClusterVisuals %}
-  
+
     {{ govukInsetText({
     classes: "inset-information",
     text: "Click on the node links on the graph to display matching statistics."
