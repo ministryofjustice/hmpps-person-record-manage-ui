@@ -25,3 +25,10 @@
 .inset-information {
   @include govuk-responsive-margin(0);
 }
+
+.heading-with-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}

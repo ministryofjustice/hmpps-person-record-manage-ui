@@ -8,6 +8,8 @@ export interface Record {
 
 export interface ClusterDetailResponse {
   uuid: string
+  status: string
+  statusReasonCode?: string
   records: Record[]
   clusterSpec: unknown
 }

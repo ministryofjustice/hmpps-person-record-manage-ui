@@ -49,3 +49,8 @@ export const SUPPORTED_STATUS = new Map<string, string>([
   ['MERGED', 'Merged'],
   ['RECLUSTER_MERGE', 'Recluster Merge'],
 ])
+
+export const SUPPORTED_STATUS_REASON = new Map<string, string>([
+  ['BROKEN_CLUSTER', 'Broken Cluster'],
+  ['OVERRIDE_CONFLICT', 'Override Conflict'],
+])
