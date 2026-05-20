@@ -22,27 +22,10 @@ import {
   EVENT_LOG_SOURCE_SYSTEM_TABLE_HEADING,
   EVENT_LOG_UUID_STATUS_TYPE_TABLE_HEADING,
   SUPPORTED_EVENT_TYPE,
-  SUPPORTED_STATUS,
 } from '../domain/constants/clusterPage'
 import { EVENT_LOG_TABLE_ID } from '../domain/ids/clusterPageIds'
-import { Row, TextItem, Table, Heading, HTMLItem, TagItem, TagColour } from './types/table'
-
-const buildUUIDStatusTypeItem = (uuidStatusType: string): HTMLItem | TextItem => {
-  const statusType = buildStatusTypeItem(uuidStatusType)
-  switch (uuidStatusType) {
-    case 'NEEDS_ATTENTION':
-      return TagItem(statusType, TagColour.RED)
-    case 'MERGED':
-    case 'RECLUSTER_MERGE':
-      return TagItem(statusType, TagColour.YELLOW)
-    case 'ACTIVE':
-      return TagItem(statusType, TagColour.GREEN)
-    default:
-      return TextItem(statusType)
-  }
-}
-
-const buildStatusTypeItem = (statusType: string): string => SUPPORTED_STATUS.get(statusType) ?? statusType
+import { Row, TextItem, Table, Heading } from './types/table'
+import { buildClusterStatus } from './helpers/clusterStatusHelper'
 
 const buildEventTypeItem = (eventType: string): TextItem => {
   return TextItem(SUPPORTED_EVENT_TYPE.get(eventType) ?? eventType)
@@ -56,7 +39,7 @@ const buildEventLogTable = (eventLogs: EventLogDetails[]) => {
   const eventLogRows = eventLogs.map(eventLog => {
     return Row(
       TextItem(timestampHelper(eventLog.eventTimestamp)),
-      buildUUIDStatusTypeItem(eventLog.uuidStatusType),
+      buildClusterStatus(eventLog.uuidStatusType),
       buildEventTypeItem(eventLog.eventType),
       TextItem(eventLog.sourceSystemId),
       TextItem(eventLog.masterDefendantId),
