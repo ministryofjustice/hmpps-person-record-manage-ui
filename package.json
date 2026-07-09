@@ -1,7 +1,7 @@
 {
   "name": "hmpps-person-record-manage-ui",
   "version": "0.0.1",
-  "description": "HMPPS Person Record Manage Ui",
+  "description": "HMPPS Person Record internal administration UI",
   "repository": "git@github.com:ministryofjustice/hmpps-person-record-manage-ui.git",
   "license": "MIT",
   "scripts": {
