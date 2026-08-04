@@ -21,7 +21,7 @@ test.describe('Search', () => {
     ])
     await page.goto('/')
     const homePage = await HomePage.verifyOnPage(page)
-    await homePage.searchForUUID(uuid)
+    await homePage.searchForUUID(uuid, page)
 
     const clusterPage = await ClusterPage.verifyOnPage(page, uuid)
     await clusterPage.verifyBackButtonText('Back')
@@ -44,7 +44,7 @@ test.describe('Search', () => {
     await page.goto('/')
     const homePage = await HomePage.verifyOnPage(page)
     await homePage.verifyNoErrorMessage()
-    await homePage.searchForUUID(notFoundUUID)
+    await homePage.searchForUUID(notFoundUUID, page)
 
     await HomePage.verifyOnPage(page)
 

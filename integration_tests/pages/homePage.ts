@@ -65,9 +65,10 @@ export default class HomePage extends AbstractPage {
     return homePage
   }
 
-  async searchForUUID(uuid: string) {
+  async searchForUUID(uuid: string, page: Page) {
     await this.uuidSearchForm.fill(uuid)
     await this.uuidSearchSubmit.click()
+    await page.waitForURL(/\/cluster\/|error=notfound/)
   }
 
   private async switchToTab(tab: SearchTab, page: Page) {
@@ -78,12 +79,14 @@ export default class HomePage extends AbstractPage {
     await this.switchToTab(SEARCH_TABS.crn, page)
     await page.locator('#crn').fill(crn)
     await page.locator('#search-crn button').click()
+    await page.waitForURL(/\/cluster\/|error=notfound/)
   }
 
   async searchForPrisonNumber(prisonNumber: string, page: Page) {
     await this.switchToTab(SEARCH_TABS.prisonNumber, page)
     await page.locator('#prisonNumber').fill(prisonNumber)
     await page.locator('#search-prison-number button').click()
+    await page.waitForURL(/\/cluster\/|error=notfound/)
   }
 
   async verifyNoErrorMessage() {
