@@ -47,6 +47,12 @@ test.describe('Health', () => {
       expect(payload.components.tokenVerification.status).toBe('DOWN')
       expect(payload.components.tokenVerification.details.status).toBe(500)
       expect(payload.components.tokenVerification.details.attempts).toBe(3)
+      expect(
+        Object.values<{ status: 'UP' | 'DOWN' }>(payload.components).reduce(
+          (downCount, api) => (api.status === 'DOWN' ? downCount + 1 : downCount),
+          0,
+        ),
+      ).toEqual(1)
     })
   })
 })
