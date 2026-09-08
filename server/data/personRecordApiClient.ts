@@ -28,6 +28,14 @@ export default class PersonRecordApiClient extends RestClient {
     return this.getCluster(`/admin/cluster/prison/${prisonNumber}`, username)
   }
 
+  async getClusterFromDefendantId(username: string, defendantId: string): Promise<ClusterDetailResponse> {
+    return this.getCluster(`/admin/cluster/commonplatform/${defendantId}`, username)
+  }
+
+  async getClusterFromCId(username: string, cId: string): Promise<ClusterDetailResponse> {
+    return this.getCluster(`/admin/cluster/libra/${cId}`, username)
+  }
+
   async getEventLog(username: string, uuid: string): Promise<EventLogResponse> {
     return this.get({ path: `/admin/event-log/${uuid}` }, asSystem(username))
   }
