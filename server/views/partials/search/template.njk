@@ -1,7 +1,7 @@
 {%- from "govuk/components/input/macro.njk" import govukInput %}
 {%- from "govuk/components/button/macro.njk" import govukButton %}
 
-<div class="moj-search {{- " " + params.classes if params.classes}}">
+<search class="moj-search {{- " " + params.classes if params.classes}} moj-search--stacked">
 
   {%- if params.hint %}
     {% set hintClasses = "moj-search__hint " + (params.hint.classes if params.hint.classes) %}
@@ -33,4 +33,4 @@
       text: params.button.text
     }) }}
   </form>
-</div>
+</search>
