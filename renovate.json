@@ -8,13 +8,6 @@
       "rangeStrategy": "bump"
     },
     {
-      "matchManagers": ["npm"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all non major NPM dependencies",
-      "groupSlug": "all-npm-minor-patch",
-      "minimumReleaseAge": "7 days"
-    },
-    {
       "matchDepTypes": ["engines"],
       "enabled": false
     },
@@ -33,12 +26,6 @@
       "matchDatasources": ["docker"],
       "matchPackageNames": ["node", "hmpps-node"],
       "matchUpdateTypes": ["major"],
-      "enabled": false
-    },
-    {
-      "matchManagers": ["github-actions"],
-      "matchFileNames": ["**/.github/workflows/**/*.ya?ml"],
-      "matchUpdateTypes": ["minor", "patch"],
       "enabled": false
     },
     {
