@@ -27,7 +27,7 @@ services:
     ports:
       - "3000:3000"
     healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:3000/health"]
+      test: ["CMD", "bash", "-c", "echo > /dev/tcp/localhost/3000"]
     environment:
       - PRODUCT_ID=UNASSIGNED
       - REDIS_ENABLED=false

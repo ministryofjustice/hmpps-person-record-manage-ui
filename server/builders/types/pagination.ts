@@ -1,6 +1,6 @@
 export type Pagination = {
-  previous?: PageLink
-  next?: PageLink
+  previous?: PageLink | null
+  next?: PageLink | null
   items: (PageItem | PageEllipsis)[]
 }
 
