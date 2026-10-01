@@ -1,13 +1,11 @@
-@use "govuk" as * with (
-    $govuk-global-styles: true,
-    $govuk-assets-path: '/assets/',
-    $govuk-page-width: 1170px
-);
+$govuk-global-styles: true;
+$path: "/assets/images/";
 
-@forward "moj/all" with (
-    $moj-assets-path: $govuk-assets-path,
-    $moj-page-width: $govuk-page-width
-);
+$moj-page-width: 1170px;
+$govuk-page-width: $moj-page-width;
 
-@use './components/header-bar';
-@use './overrides/local';
+@import "govuk-frontend/dist/govuk/index";
+@import "@ministryofjustice/frontend/moj/all";
+
+@import './components/header-bar';
+@import './overrides/local';

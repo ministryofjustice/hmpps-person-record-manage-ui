@@ -7,7 +7,7 @@ jest.mock('../data/personRecordApiClient')
 const token = { access_token: 'userToken', expires_in: 300 }
 
 describe('PersonRecordService', () => {
-  const personRecordApiClient = new PersonRecordApiClient(null) as jest.Mocked<PersonRecordApiClient>
+  const personRecordApiClient = new PersonRecordApiClient({} as never) as jest.Mocked<PersonRecordApiClient>
   let personRecordService: PersonRecordService
 
   beforeEach(() => {
