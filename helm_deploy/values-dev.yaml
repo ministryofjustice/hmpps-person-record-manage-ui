@@ -19,6 +19,7 @@ generic-service:
     TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
     PERSON_RECORD_API_URL: "https://hmpps-person-record-dev.hmpps.service.justice.gov.uk"
     ENVIRONMENT_NAME: DEV
+    AUDIT_ENABLED: "false"
 
   allowlist:
     groups:
