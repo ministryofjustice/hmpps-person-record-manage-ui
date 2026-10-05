@@ -1,7 +1,6 @@
 import { AuthenticationClient, InMemoryTokenStore, RedisTokenStore } from '@ministryofjustice/hmpps-auth-clients'
 import { createRedisClient } from './redisClient'
 import config from '../config'
-import HmppsAuditClient from './hmppsAuditClient'
 import logger from '../../logger'
 import applicationInfoSupplier from '../applicationInfo'
 import PersonRecordApiClient from './personRecordApiClient'
@@ -19,10 +18,9 @@ export const dataAccess = () => {
     applicationInfo,
     hmppsAuthClient,
     personRecordApiClient: new PersonRecordApiClient(hmppsAuthClient),
-    hmppsAuditClient: new HmppsAuditClient(config.sqs.audit),
   }
 }
 
 export type DataAccess = ReturnType<typeof dataAccess>
 
-export { AuthenticationClient, HmppsAuditClient, PersonRecordApiClient }
+export { AuthenticationClient, PersonRecordApiClient }

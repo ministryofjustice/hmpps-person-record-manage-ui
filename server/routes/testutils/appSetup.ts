@@ -1,23 +1,23 @@
 import express, { Express } from 'express'
 import { NotFound } from 'http-errors'
+import { AuditService } from '@ministryofjustice/hmpps-audit-client'
 
-import { randomUUID } from 'crypto'
 import indexRoutes from '../index'
 import clusterRoutes from '../cluster/cluster'
 import searchRoutes from '../search/search'
 import nunjucksSetup from '../../utils/nunjucksSetup'
 import errorHandler from '../../errorHandler'
 import type { Services } from '../../services'
-import AuditService from '../../services/auditService'
 import { HmppsUser } from '../../interfaces/hmppsUser'
 import setUpWebSession from '../../middleware/setUpWebSession'
-import HmppsAuditClient from '../../data/hmppsAuditClient'
+import type { ApplicationInfo } from '../../applicationInfo'
 
-jest.mock('../../services/auditService')
+jest.mock('@ministryofjustice/hmpps-audit-client')
 
 export const user: HmppsUser = {
   name: 'FIRST LAST',
   userId: 'id',
+  userUuid: '11111111-1111-1111-1111-111111111111',
   token: 'token',
   username: 'user1',
   displayName: 'First Last',
@@ -26,9 +26,18 @@ export const user: HmppsUser = {
   userRoles: [],
 }
 
+const applicationInfo: ApplicationInfo = {
+  applicationName: 'hmpps-person-record-manage-ui',
+  buildNumber: '123',
+  gitRef: 'abc123',
+  gitShortHash: 'abc',
+  productId: 'DPSXYZ',
+  branchName: 'main',
+}
+
 export const flashProvider = jest.fn()
 
-function appSetup(services: Services, production: boolean, userSupplier: () => HmppsUser): Express {
+function appSetup(services: Partial<Services>, production: boolean, userSupplier: () => HmppsUser): Express {
   const app = express()
 
   app.set('view engine', 'njk')
@@ -50,14 +59,14 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
     next()
   })
   app.use((req, _res, next) => {
-    req.id = randomUUID()
+    req.id = '4d0fd4da-ecc1-454d-8308-cdee6b8b91f7'
     next()
   })
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
-  app.use(indexRoutes(services))
-  app.use(clusterRoutes(services))
-  app.use(searchRoutes(services))
+  app.use(indexRoutes({ applicationInfo, ...services } as Services))
+  app.use(clusterRoutes({ applicationInfo, ...services } as Services))
+  app.use(searchRoutes({ applicationInfo, ...services } as Services))
   app.use((_req, _res, next) => next(new NotFound()))
   app.use(errorHandler(production))
 
@@ -67,7 +76,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
 export function appWithAllRoutes({
   production = false,
   services = {
-    auditService: new AuditService({} as HmppsAuditClient) as jest.Mocked<AuditService>,
+    auditService: new AuditService({} as never) as jest.Mocked<AuditService>,
   },
   userSupplier = () => user,
 }: {

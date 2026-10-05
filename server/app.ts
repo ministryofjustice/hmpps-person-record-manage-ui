@@ -1,4 +1,5 @@
 import express from 'express'
+import { telemetryMiddleware } from '@ministryofjustice/hmpps-azure-telemetry'
 
 import createError from 'http-errors'
 
@@ -42,6 +43,11 @@ export default function createApp(services: Services): express.Application {
   app.use(authorisationMiddleware([AuthRole.ROLE_PERSON_RECORD_MANAGE__ADMIN]))
   app.use(setUpCsrf())
   app.use(setUpCurrentUser())
+  app.use(
+    telemetryMiddleware.addUserMetadataToTelemetry({
+      getAttributes: req => ({ username: req.user?.username }),
+    }),
+  )
 
   app.use(indexRoutes(services))
   app.use(clusterRoutes(services))
