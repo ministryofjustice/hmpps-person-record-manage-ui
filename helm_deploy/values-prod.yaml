@@ -17,6 +17,3 @@ generic-service:
     groups:
       - digital_staff_and_mojo
       - moj_cloud_platform
-
-generic-prometheus-alerts:
-  alertSeverity: hmpps-person-record-alerts-prod
