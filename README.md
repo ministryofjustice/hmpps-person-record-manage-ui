@@ -2,8 +2,6 @@
 
 [![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/hmpps-person-record-manage-ui/badge?style=flat)](https://github-community.service.justice.gov.uk/repository-standards/hmpps-person-record-manage-ui)
 
-[![Docker Repository on ghcr](https://img.shields.io/badge/ghcr.io-repository-2496ED.svg?logo=docker)](https://ghcr.io/ministryofjustice/hmpps-person-record-manage-ui)
-
 An internal User Interface for the Core Person Record team
 
 ## Instructions
