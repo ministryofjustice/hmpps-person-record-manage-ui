@@ -40,12 +40,7 @@ const getAssetsConfig = buildConfig => ({
     }),
     sassPlugin({
       quietDeps: true,
-      loadPaths: [
-        process.cwd(),
-        path.join(process.cwd(), 'node_modules'),
-        'node_modules/govuk-frontend/dist',
-        'node_modules/@ministryofjustice/frontend',
-      ],
+      loadPaths: [process.cwd(), path.join(process.cwd(), 'node_modules')],
     }),
     buildNotificationPlugin('Assets', buildConfig.isWatchMode),
   ],
