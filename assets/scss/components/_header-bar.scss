@@ -8,6 +8,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @include govuk-responsive-margin(5, 'left');
+    @include govuk-responsive-margin(5, 'right');
+    max-width: 100%;
   }
 
   &__logo {
