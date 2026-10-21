@@ -101,8 +101,12 @@ jobs:
     with:
       environment: 'dev'
       app_version: '${{ needs.build.outputs.app_version }}'
+      helm_additional_args: '--set generic-service.image.repository=${{ vars.CLOUD_PLATFORM_ECR_REGISTRY_URL }}/${{ vars.ECR_REPOSITORY }}'
   deploy_preprod:
     name: Deploy to pre-production environment
+    permissions:
+      contents: read
+      id-token: write
     needs:
       - build
       - deploy_dev
@@ -111,8 +115,12 @@ jobs:
     with:
       environment: 'preprod'
       app_version: '${{ needs.build.outputs.app_version }}'
+      helm_additional_args: '--set generic-service.image.repository=${{ vars.CLOUD_PLATFORM_ECR_REGISTRY_URL }}/${{ vars.ECR_REPOSITORY }}'
   deploy_prod:
     name: Deploy to production environment
+    permissions:
+      contents: read
+      id-token: write
     needs:
       - build
       - deploy_preprod
@@ -121,4 +129,5 @@ jobs:
     with:
       environment: 'prod'
       app_version: '${{ needs.build.outputs.app_version }}'
+      helm_additional_args: '--set generic-service.image.repository=${{ vars.CLOUD_PLATFORM_ECR_REGISTRY_URL }}/${{ vars.ECR_REPOSITORY }}'
       slack_notification: true
