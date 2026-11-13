@@ -21,7 +21,7 @@
 
   <h1 class="govuk-heading-l heading-with-tags">UUID: {{ uuid }} {{ clusterStatus.html | safe }} {% if clusterStatusReason %} {{ clusterStatusReason.html | safe }} {% endif %} </h1>
 
-  <h2 class="govuk-heading-m">Record composition</h2q>
+  <h2 class="govuk-heading-m">Record composition</h2>
   <div class="moj-pane">
     {{ govukTable(recordCompositionTable) }}
   </div>
