@@ -5,7 +5,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-interpreter@1" nonce="{{ cspNonce }}"></script>
 {% endblock %}
 
-{% set pageTitle = applicationName + " - Home" %}
+{% set pageTitle = applicationName + " - Cluster Details" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
@@ -21,7 +21,7 @@
 
   <h1 class="govuk-heading-l heading-with-tags">UUID: {{ uuid }} {{ clusterStatus.html | safe }} {% if clusterStatusReason %} {{ clusterStatusReason.html | safe }} {% endif %} </h1>
 
-  <h2 class="govuk-heading-m">Record composition</h1>
+  <h2 class="govuk-heading-m">Record composition</h2q>
   <div class="moj-pane">
     {{ govukTable(recordCompositionTable) }}
   </div>

@@ -6,6 +6,7 @@ import { ClustersSummaryResponse } from './model/clustersSummaryResponse'
 import { ClusterDetailResponse, Record } from './model/clusterDetailResponse'
 import { CanonicalRecordResponse } from './model/canonicalRecordResponse'
 import { EventLogResponse } from './model/eventLogResponse'
+import { MatchDetailsResponse } from './model/matchDetailsResponse'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
@@ -34,6 +35,10 @@ export default class PersonRecordApiClient extends RestClient {
 
   async getCanonicalRecord(username: string, uuid: string): Promise<CanonicalRecordResponse> {
     return this.get({ path: `/canonical-record/${uuid}` }, asSystem(username))
+  }
+
+  async getMatchDetails(username: string, defendantId: string): Promise<MatchDetailsResponse> {
+    return this.get({ path: `/person/commonplatform/${defendantId}/match-details` }, asSystem(username))
   }
 
   private async getCluster(path: string, username: string): Promise<ClusterDetailResponse> {
