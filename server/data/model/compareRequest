@@ -1,0 +1,4 @@
+export interface CompareRequest {
+  matchId1: string,
+  matchId2: string
+}

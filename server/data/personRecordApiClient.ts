@@ -7,6 +7,7 @@ import { ClusterDetailResponse, Record } from './model/clusterDetailResponse'
 import { CanonicalRecordResponse } from './model/canonicalRecordResponse'
 import { EventLogResponse } from './model/eventLogResponse'
 import { MatchDetailsResponse } from './model/matchDetailsResponse'
+import { request } from 'http'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
@@ -19,6 +20,13 @@ export default class PersonRecordApiClient extends RestClient {
 
   async getClusterFromUUID(username: string, uuid: string): Promise<ClusterDetailResponse> {
     return this.getCluster(`/admin/cluster/${uuid}`, username)
+  }
+
+  async getScoreComparison(username: string, compare: CompareRequest): Promise<CompareRequest> {
+    return this.post<CompareRequest>({
+      path: '/admin/compare',
+      data: compare,
+    })
   }
 
   async getClusterFromCRN(username: string, crn: string): Promise<ClusterDetailResponse> {

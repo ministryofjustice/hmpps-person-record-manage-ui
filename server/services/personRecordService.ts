@@ -16,6 +16,10 @@ export default class PersonRecordService {
     return this.personRecordApiClient.getClusterFromUUID(username, uuid)
   }
 
+  async getScoreComparison(username: string, compare: CompareRequest): Promise<CompareRequest> {
+    return this.personRecordApiClient.getScoreComparison(username, compare)
+  }
+
   async getClusterFromCRN(username: string, crn: string): Promise<ClusterDetailResponse> {
     return this.personRecordApiClient.getClusterFromCRN(username, crn)
   }
