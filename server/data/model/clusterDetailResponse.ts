@@ -13,3 +13,8 @@ export interface ClusterDetailResponse {
   records: Record[]
   clusterSpec: unknown
 }
+
+export interface CompareResponse {
+  records: Record[]
+  clusterSpec: unknown
+}

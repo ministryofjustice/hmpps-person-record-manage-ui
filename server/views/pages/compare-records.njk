@@ -1,0 +1,51 @@
+{% extends "../partials/layout.njk" %}
+
+{% block additionalHeaders %}
+  <script src="https://cdn.jsdelivr.net/npm/vega@6" nonce="{{ cspNonce }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-interpreter@1" nonce="{{ cspNonce }}"></script>
+{% endblock %}
+
+{% set pageTitle = applicationName + " - Compare Records" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  {%- from "govuk/components/table/macro.njk" import govukTable -%}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+  {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/"
+  }) }}
+
+  <h1 class="govuk-heading-l heading-with-tags">Compare Records</h1>
+
+  <div class="moj-pane">
+    {{ govukTable(recordCompositionTable) }}
+  </div>
+
+  {% if displayClusterVisuals %}
+
+    {{ govukInsetText({
+    classes: "inset-information",
+    text: "Click on the node links on the graph to display matching statistics."
+  }) }}
+
+  <div id="vis"></div>
+  <script nonce="{{ cspNonce }}">
+    const runtime = vega.parse({{ clusterSpec | dump | safe }}, null, { ast: true });
+
+    view = new vega.View(runtime, {
+      expr:      vega.expressionInterpreter,
+      renderer:  'canvas',
+      container: '#vis',
+      hover:     true
+    });
+
+    view.runAsync();
+  </script>
+
+  {% endif %}
+
+{% endblock %}
