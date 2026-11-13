@@ -3,11 +3,10 @@ import type { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients
 import config from '../config'
 import logger from '../../logger'
 import { ClustersSummaryResponse } from './model/clustersSummaryResponse'
-import { ClusterDetailResponse, Record } from './model/clusterDetailResponse'
+import { ClusterDetailResponse, Record, CompareResponse } from './model/clusterDetailResponse'
 import { CanonicalRecordResponse } from './model/canonicalRecordResponse'
 import { EventLogResponse } from './model/eventLogResponse'
 import { MatchDetailsResponse } from './model/matchDetailsResponse'
-import { request } from 'http'
 
 export default class PersonRecordApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
@@ -22,11 +21,14 @@ export default class PersonRecordApiClient extends RestClient {
     return this.getCluster(`/admin/cluster/${uuid}`, username)
   }
 
-  async getScoreComparison(username: string, compare: CompareRequest): Promise<CompareRequest> {
-    return this.post<CompareRequest>({
-      path: '/admin/compare',
-      data: compare,
-    })
+  async getScoreComparison(username: string, compare: string[]): Promise<CompareResponse> {
+    return this.post(
+      {
+        path: '/admin/compare-records',
+        data: compare,
+      },
+      asSystem(username),
+    )
   }
 
   async getClusterFromCRN(username: string, crn: string): Promise<ClusterDetailResponse> {
