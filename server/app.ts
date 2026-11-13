@@ -21,6 +21,7 @@ import type { Services } from './services'
 import clusterRoutes from './routes/cluster/cluster'
 import searchRoutes from './routes/search/search'
 import canonicalRoutes from './routes/canonical/canonical'
+import matchDetailsRoutes from './routes/cluster/match-details'
 
 enum AuthRole {
   ROLE_PERSON_RECORD_MANAGE__ADMIN = 'ROLE_PERSON_RECORD_MANAGE__ADMIN',
@@ -51,6 +52,7 @@ export default function createApp(services: Services): express.Application {
 
   app.use(indexRoutes(services))
   app.use(clusterRoutes(services))
+  app.use(matchDetailsRoutes(services))
   app.use(searchRoutes(services))
   app.use(canonicalRoutes(services))
 

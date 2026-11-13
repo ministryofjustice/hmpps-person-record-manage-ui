@@ -7,6 +7,7 @@ import config from '../config'
 export enum Page {
   INDEX_PAGE = 'INDEX_PAGE',
   CLUSTER_PAGE = 'CLUSTER_PAGE',
+  MATCH_DETAILS = 'MATCH_DETAILS',
 }
 
 export const services = () => {

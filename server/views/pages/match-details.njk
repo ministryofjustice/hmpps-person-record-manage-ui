@@ -1,0 +1,22 @@
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Match Details" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "/"
+  }) }}
+
+  <h1 class="govuk-heading-l heading-with-tags">Match Details</h1>
+
+  <div class="moj-pane">
+    <p>DefendantId: {{ defendantId}}</p>
+    <p>Match status: {{ matchStatus}}</p>
+  </div>
+
+{% endblock %}
