@@ -88,9 +88,6 @@ jobs:
       ECR_ROLE_TO_ASSUME: ${{ secrets.ECR_ROLE_TO_ASSUME }}
   deploy_dev:
     name: Deploy to the development environment
-    permissions:
-      contents: read
-      id-token: write
     if: needs.check_publish.outputs.enabled == 'true'
     needs:
       - build
@@ -104,9 +101,6 @@ jobs:
       helm_additional_args: '--set generic-service.image.repository=${{ vars.CLOUD_PLATFORM_ECR_REGISTRY_URL }}/${{ vars.ECR_REPOSITORY }}'
   deploy_preprod:
     name: Deploy to pre-production environment
-    permissions:
-      contents: read
-      id-token: write
     needs:
       - build
       - deploy_dev
@@ -118,9 +112,6 @@ jobs:
       helm_additional_args: '--set generic-service.image.repository=${{ vars.CLOUD_PLATFORM_ECR_REGISTRY_URL }}/${{ vars.ECR_REPOSITORY }}'
   deploy_prod:
     name: Deploy to production environment
-    permissions:
-      contents: read
-      id-token: write
     needs:
       - build
       - deploy_preprod
