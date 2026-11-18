@@ -2,8 +2,8 @@ import { AuthenticationClient, InMemoryTokenStore, RedisTokenStore } from '@mini
 import { createRedisClient } from './redisClient'
 import config from '../config'
 import logger from '../../logger'
-import applicationInfoSupplier from '../applicationInfo'
 import PersonRecordApiClient from './personRecordApiClient'
+import applicationInfoSupplier from '../applicationInfo'
 
 const applicationInfo = applicationInfoSupplier()
 
