@@ -5,6 +5,7 @@ import { AuditService } from '@ministryofjustice/hmpps-audit-client'
 import indexRoutes from '../index'
 import clusterRoutes from '../cluster/cluster'
 import searchRoutes from '../search/search'
+import compareRecordsRoutes from '../cluster/compare-records'
 import nunjucksSetup from '../../utils/nunjucksSetup'
 import errorHandler from '../../errorHandler'
 import type { Services } from '../../services'
@@ -67,6 +68,7 @@ function appSetup(services: Partial<Services>, production: boolean, userSupplier
   app.use(indexRoutes({ applicationInfo, ...services } as Services))
   app.use(clusterRoutes({ applicationInfo, ...services } as Services))
   app.use(searchRoutes({ applicationInfo, ...services } as Services))
+  app.use(compareRecordsRoutes({ applicationInfo, ...services } as Services))
   app.use((_req, _res, next) => next(new NotFound()))
   app.use(errorHandler(production))
 

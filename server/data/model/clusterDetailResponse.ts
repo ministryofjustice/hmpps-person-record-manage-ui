@@ -6,12 +6,10 @@ export interface Record {
   sourceSystem: string
 }
 
-export interface ClusterDetailResponse {
+export interface ClusterDetailResponse extends CompareResponse {
   uuid: string
   status: string
   statusReasonCode?: string
-  records: Record[]
-  clusterSpec: unknown
 }
 
 export interface CompareResponse {
