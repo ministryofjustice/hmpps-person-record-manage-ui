@@ -23,10 +23,10 @@ afterEach(() => {
   jest.resetAllMocks()
 })
 
-const clusterWithRecords = (uuid: string): ClusterDetailResponse => ({
+const clusterWithRecords = (uuid: string, sourceSystem: string): ClusterDetailResponse => ({
   uuid,
   status: 'ACTIVE',
-  records: [{ firstName: 'Jane', middleName: 'Mary', lastName: 'Doe', sourceSystemId: '1234', sourceSystem: 'DELIUS' }],
+  records: [{ firstName: 'Jane', middleName: 'Mary', lastName: 'Doe', sourceSystemId: '1234', sourceSystem }],
   clusterSpec: {},
 })
 
@@ -50,16 +50,25 @@ interface SearchScenario {
   value: string
   method: SearchMethod
   tab: string
+  sourceSystem: string
 }
 
 const searchScenarios: SearchScenario[] = [
-  { path: '/search/probation', field: 'crn', value: 'A123456', method: 'getClusterFromCRN', tab: 'crn-search' },
+  {
+    path: '/search/probation',
+    field: 'crn',
+    value: 'A123456',
+    method: 'getClusterFromCRN',
+    tab: 'crn-search',
+    sourceSystem: 'DELIUS',
+  },
   {
     path: '/search/prison',
     field: 'prisonNumber',
     value: 'A1234BC',
     method: 'getClusterFromPrisonNumber',
     tab: 'prisonNumber-search',
+    sourceSystem: 'NOMIS',
   },
   {
     path: '/search/commonplatform',
@@ -67,13 +76,21 @@ const searchScenarios: SearchScenario[] = [
     value: 'f1b9a4a1-2a2b-4c3d-9e8f-123456789abc',
     method: 'getClusterFromDefendantId',
     tab: 'defendantId-search',
+    sourceSystem: 'COMMON_PLATFORM',
   },
-  { path: '/search/libra', field: 'cId', value: '1234567', method: 'getClusterFromCId', tab: 'cId-search' },
+  {
+    path: '/search/libra',
+    field: 'cId',
+    value: '1234567',
+    method: 'getClusterFromCId',
+    tab: 'cId-search',
+    sourceSystem: 'LIBRA',
+  },
 ]
 
 describe('POST /search', () => {
   it('should redirect to the cluster page when the uuid has records', () => {
-    personRecordService.getClusterFromUUID.mockResolvedValue(clusterWithRecords('uuid1'))
+    personRecordService.getClusterFromUUID.mockResolvedValue(clusterWithRecords('uuid1', 'DELIUS'))
 
     return request(app)
       .post('/search')
@@ -104,9 +121,9 @@ describe('POST /search', () => {
   })
 })
 
-describe.each(searchScenarios)('POST $path', ({ path, field, value, method, tab }) => {
+describe.each(searchScenarios)('POST $path', ({ path, field, value, method, tab, sourceSystem }) => {
   it(`should redirect to the cluster page when the ${field} has records`, () => {
-    personRecordService[method].mockResolvedValue(clusterWithRecords('cluster-uuid'))
+    personRecordService[method].mockResolvedValue(clusterWithRecords('cluster-uuid', sourceSystem))
 
     return request(app)
       .post(path)
