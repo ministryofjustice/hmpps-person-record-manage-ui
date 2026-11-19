@@ -40,6 +40,8 @@ export const SUPPORTED_EVENT_TYPE = new Map<string, string>([
   ['CPR_UUID_CREATED', 'UUID Created'],
   ['CPR_UUID_DELETED', 'UUID Deleted'],
   ['CPR_UUID_MERGED', 'UUID Merged'],
+  ['CPR_UUID_SPLIT', 'UUID Split'],
+  ['CPR_UUID_LEAVE', 'UUID Leave'],
 ])
 
 // status

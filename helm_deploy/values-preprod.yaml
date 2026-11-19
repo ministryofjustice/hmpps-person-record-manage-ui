@@ -2,12 +2,6 @@
 # Per environment values which override defaults in hmpps-person-record-manage-ui/values.yaml
 
 generic-service:
-  scheduledDowntime:
-    enabled: true
-    timeZone: Europe/London
-    # start up after hmpps-person-record
-    startupOverride: '47 6 * * 1-5'
-
   ingress:
     host: manage-person-record-preprod.hmpps.service.justice.gov.uk
     tlsSecretName: hmpps-person-record-preprod-cert-secret
@@ -20,6 +14,12 @@ generic-service:
     ENVIRONMENT_NAME: PRE-PRODUCTION
     AUDIT_ENABLED: "false"
 
+  scheduledDowntime:
+    enabled: true
+    timeZone: Europe/London
+    # start up after hmpps-person-record
+    startupOverride: '47 6 * * 1-5'
+
   allowlist:
     groups:
       - digital_staff_and_mojo
@@ -27,4 +27,3 @@ generic-service:
 
 generic-prometheus-alerts:
   businessHoursOnly: true
-  alertSeverity: hmpps-person-record-alerts-prod

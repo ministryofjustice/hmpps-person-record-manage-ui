@@ -1,17 +1,19 @@
 import type { Express } from 'express'
 import request from 'supertest'
+import { AuditService } from '@ministryofjustice/hmpps-audit-client'
 import { appWithAllRoutes, user } from '../testutils/appSetup'
-import AuditService, { Page } from '../../services/auditService'
 import { ClusterDetailResponse } from '../../data/model/clusterDetailResponse'
 import PersonRecordService from '../../services/personRecordService'
 import { EventLogResponse } from '../../data/model/eventLogResponse'
+import { PersonRecordApiClient } from '../../data'
+import { Page } from '../../services'
 
-jest.mock('../../services/auditService')
+jest.mock('@ministryofjustice/hmpps-audit-client')
 jest.mock('../../data/personRecordApiClient')
 jest.mock('../../services/personRecordService')
 
-const auditService = new AuditService(null) as jest.Mocked<AuditService>
-const personRecordService = new PersonRecordService(null) as jest.Mocked<PersonRecordService>
+const auditService = new AuditService({} as never) as jest.Mocked<AuditService>
+const personRecordService = new PersonRecordService({} as PersonRecordApiClient) as jest.Mocked<PersonRecordService>
 
 let app: Express
 
@@ -68,7 +70,7 @@ describe('GET /cluster/uuid1', () => {
       ],
     }
 
-    auditService.logPageView.mockResolvedValue(null)
+    auditService.logPageView.mockResolvedValue()
     personRecordService.getClusterFromUUID.mockResolvedValue(cluster)
     personRecordService.getEventLog.mockResolvedValue(eventLogRes)
 

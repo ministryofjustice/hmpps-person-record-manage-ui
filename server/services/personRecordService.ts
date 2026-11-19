@@ -1,6 +1,7 @@
 import { ClustersSummaryResponse } from '../data/model/clustersSummaryResponse'
 import { CanonicalRecordResponse } from '../data/model/canonicalRecordResponse'
-import { ClusterDetailResponse } from '../data/model/clusterDetailResponse'
+import { ClusterDetailResponse, CompareResponse } from '../data/model/clusterDetailResponse'
+import { MatchDetailsResponse } from '../data/model/matchDetailsResponse'
 import PersonRecordApiClient from '../data/personRecordApiClient'
 import { EventLogResponse } from '../data/model/eventLogResponse'
 
@@ -13,6 +14,10 @@ export default class PersonRecordService {
 
   async getClusterFromUUID(username: string, uuid: string): Promise<ClusterDetailResponse> {
     return this.personRecordApiClient.getClusterFromUUID(username, uuid)
+  }
+
+  async getScoreComparison(username: string, compare: string[]): Promise<CompareResponse> {
+    return this.personRecordApiClient.getScoreComparison(username, compare)
   }
 
   async getClusterFromCRN(username: string, crn: string): Promise<ClusterDetailResponse> {
@@ -37,5 +42,9 @@ export default class PersonRecordService {
 
   async getCanonicalRecord(username: string, uuid: string): Promise<CanonicalRecordResponse> {
     return this.personRecordApiClient.getCanonicalRecord(username, uuid)
+  }
+
+  async getMatchDetails(username: string, defendantId: string): Promise<MatchDetailsResponse> {
+    return this.personRecordApiClient.getMatchDetails(username, defendantId)
   }
 }

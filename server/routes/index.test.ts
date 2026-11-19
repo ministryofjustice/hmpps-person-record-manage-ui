@@ -1,17 +1,18 @@
 import type { Express } from 'express'
+import { AuditService } from '@ministryofjustice/hmpps-audit-client'
 import request from 'supertest'
 import { appWithAllRoutes, user } from './testutils/appSetup'
-import AuditService, { Page } from '../services/auditService'
 import PersonRecordService from '../services/personRecordService'
 import { ClustersSummaryResponse } from '../data/model/clustersSummaryResponse'
-import HmppsAuditClient from '../data/hmppsAuditClient'
+import { Page } from '../services'
+import { PersonRecordApiClient } from '../data'
 
-jest.mock('../services/auditService')
+jest.mock('@ministryofjustice/hmpps-audit-client')
 jest.mock('../data/personRecordApiClient')
 jest.mock('../services/personRecordService')
 
-const auditService = new AuditService({} as HmppsAuditClient) as jest.Mocked<AuditService>
-const personRecordService = new PersonRecordService(null) as jest.Mocked<PersonRecordService>
+const auditService = new AuditService({} as never) as jest.Mocked<AuditService>
+const personRecordService = new PersonRecordService({} as PersonRecordApiClient) as jest.Mocked<PersonRecordService>
 
 let app: Express
 
@@ -31,6 +32,7 @@ afterEach(() => {
 
 describe('GET /', () => {
   it('should render index page', () => {
+    auditService.logPageView.mockResolvedValue(undefined)
     const clusters: ClustersSummaryResponse = {
       content: [
         {
@@ -60,7 +62,7 @@ describe('GET /', () => {
         totalPages: 11,
       },
     }
-    auditService.logPageView.mockResolvedValue(null)
+    auditService.logPageView.mockResolvedValue()
     personRecordService.getClusters.mockResolvedValue(clusters)
 
     return request(app)
@@ -89,6 +91,7 @@ describe('GET /', () => {
   })
 
   it('should render composition summary omitting source systems with no records', () => {
+    auditService.logPageView.mockResolvedValue(undefined)
     const clusters = {
       content: [
         {
@@ -122,7 +125,7 @@ describe('GET /', () => {
         totalPages: 11,
       },
     }
-    auditService.logPageView.mockResolvedValue(null)
+    auditService.logPageView.mockResolvedValue()
     personRecordService.getClusters.mockResolvedValue(clusters)
 
     return request(app)

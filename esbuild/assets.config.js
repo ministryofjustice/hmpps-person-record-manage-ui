@@ -35,17 +35,13 @@ const getAssetsConfig = buildConfig => ({
   plugins: [
     cleanPlugin(globSync(buildConfig.assets.clear)),
     manifestPlugin({
+      filename: 'asset-manifest.json',
       generate: entries =>
         Object.fromEntries(Object.entries(entries).map(paths => paths.map(p => p.replace(/^dist\//, '/')))),
     }),
     sassPlugin({
       quietDeps: true,
-      loadPaths: [
-        process.cwd(),
-        path.join(process.cwd(), 'node_modules'),
-        'node_modules/govuk-frontend/dist',
-        'node_modules/@ministryofjustice/frontend',
-      ],
+      loadPaths: [process.cwd(), path.join(process.cwd(), 'node_modules')],
     }),
     buildNotificationPlugin('Assets', buildConfig.isWatchMode),
   ],

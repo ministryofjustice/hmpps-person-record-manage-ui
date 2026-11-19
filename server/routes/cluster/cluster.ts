@@ -1,7 +1,6 @@
 import { Router, Request } from 'express'
 
-import type { Services } from '../../services'
-import { Page } from '../../services/auditService'
+import { Page, Services } from '../../services'
 import buildRecordCompositionTable from '../../builders/recordCompositionTable.builder'
 import buildEventLogTable from '../../builders/eventLogTable.builder'
 import { buildClusterStatus, buildClusterStatusReason } from '../../builders/helpers/clusterStatusHelper'

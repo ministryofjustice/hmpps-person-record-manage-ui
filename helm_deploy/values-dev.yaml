@@ -2,23 +2,24 @@
 # Per environment values which override defaults in hmpps-person-record-manage-ui/values.yaml
 
 generic-service:
-  scheduledDowntime:
-    enabled: true
-    timeZone: Europe/London
-    # start up after hmpps-person-record
-    startupOverride: '47 6 * * 1-5'
-
   ingress:
     host: manage-person-record-dev.hmpps.service.justice.gov.uk
     tlsSecretName: hmpps-person-record-dev-cert-secret
 
   env:
+    LOG_LEVEL: 'debug'
     INGRESS_URL: "https://manage-person-record-dev.hmpps.service.justice.gov.uk"
     HMPPS_AUTH_URL: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth"
     TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
     PERSON_RECORD_API_URL: "https://hmpps-person-record-dev.hmpps.service.justice.gov.uk"
     ENVIRONMENT_NAME: DEV
     AUDIT_ENABLED: "false"
+
+  scheduledDowntime:
+    enabled: true
+    timeZone: Europe/London
+    # start up after hmpps-person-record
+    startupOverride: '47 6 * * 1-5'
 
   allowlist:
     groups:
@@ -27,4 +28,3 @@ generic-service:
 
 generic-prometheus-alerts:
   businessHoursOnly: true
-  alertSeverity: hmpps-person-record-alerts-prod

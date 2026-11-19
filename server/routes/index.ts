@@ -1,13 +1,13 @@
 import { Router } from 'express'
 
-import type { Services } from '../services'
-import { Page } from '../services/auditService'
+import { Page, Services } from '../services'
 
 import buildNeedsAttentionTable from '../builders/needsAttentionTable.builder'
 import buildPagination from '../builders/pagination.builder'
 import { SEARCH_TABS } from '../domain/ids/clusterPageIds'
 
-export default function routes({ auditService, personRecordService }: Services): Router {
+export default function routes(services: Services): Router {
+  const { auditService, personRecordService } = services
   const router = Router()
 
   router.get('/', async (req, res, _next) => {
