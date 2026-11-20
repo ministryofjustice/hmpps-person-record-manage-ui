@@ -88,6 +88,54 @@
     }) }}
   {% endset -%}
 
+  {% set defendantIdSearch %}
+  {{ mojSearch({
+      id: "search-defendant-id",
+      csrfToken: csrfToken,
+      action: "/search/commonplatform",
+      method: "post",
+      input: {
+        id: "defendantId",
+        name: "defendantId"
+      },
+      label: {
+        text: "Enter a reference number",
+        classes: "govuk-!-font-weight-bold"
+      },
+      errorMessage: errorMessage,
+      hint: {
+        text: "You can search by a Defendant ID"
+      },
+      button: {
+        text: "Search"
+      }
+    }) }}
+  {% endset -%}
+
+  {% set cIdSearch %}
+  {{ mojSearch({
+      id: "search-cid",
+      csrfToken: csrfToken,
+      action: "/search/libra",
+      method: "post",
+      input: {
+        id: "cId",
+        name: "cId"
+      },
+      label: {
+        text: "Enter a reference number",
+        classes: "govuk-!-font-weight-bold"
+      },
+      errorMessage: errorMessage,
+      hint: {
+        text: "You can search by a CID"
+      },
+      button: {
+        text: "Search"
+      }
+    }) }}
+  {% endset -%}
+
   {{ govukTabs({
     items: [
       {
@@ -109,6 +157,20 @@
         id: SEARCH_TABS.prisonNumber,
         panel: {
           html: prisonNumberSearch
+        }
+      },
+      {
+        label: "Defendant ID",
+        id: SEARCH_TABS.defendantId,
+        panel: {
+          html: defendantIdSearch
+        }
+      },
+      {
+        label: "CID",
+        id: SEARCH_TABS.cId,
+        panel: {
+          html: cIdSearch
         }
       }
     ]

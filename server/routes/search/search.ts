@@ -38,5 +38,25 @@ export default function routes({ personRecordService }: Services): Router {
     return res.redirect(`/cluster/${uuid}`)
   })
 
+  router.post('/search/commonplatform', async (req: Request, res: Response, _) => {
+    const { username } = res.locals.user
+    const { defendantId } = req.body
+    const { uuid, records } = await personRecordService.getClusterFromDefendantId(username, defendantId)
+    if (records.length === 0) {
+      return res.redirect(notFoundUrl(SEARCH_TABS.defendantId))
+    }
+    return res.redirect(`/cluster/${uuid}`)
+  })
+
+  router.post('/search/libra', async (req: Request, res: Response, _) => {
+    const { username } = res.locals.user
+    const { cId } = req.body
+    const { uuid, records } = await personRecordService.getClusterFromCId(username, cId)
+    if (records.length === 0) {
+      return res.redirect(notFoundUrl(SEARCH_TABS.cId))
+    }
+    return res.redirect(`/cluster/${uuid}`)
+  })
+
   return router
 }
